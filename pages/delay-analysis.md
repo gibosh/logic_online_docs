@@ -5,7 +5,7 @@ title: Delay Analysis
 audience: external
 status: draft
 version: 1.1.0
-last-reviewed: 2026-07-14
+last-reviewed: 2026-07-21
 ---
 
 ## About Delay Analysis
@@ -44,6 +44,8 @@ Click **Start Traceback** in the Traceback Setup toolbar to run the analysis. Lo
 
 When Delay Analysis mode is active, the Gantt chart highlights the traceback path – the chain of activities identified as driving the delay. Click any highlighted activity to load its candidate and scoring data in the tray below.
 
+For why a given activity was chosen as part of this path, see [How Traceback and Delay Attribution Work](pages/traceback-engine.md).
+
 ---
 
 ## Candidate Scores
@@ -64,9 +66,9 @@ The **Candidate Scoring** tab shows a simplified view of the ranked candidates f
 
 ## Delay Attribute
 
-A summary of how much delay each activity on the traceback path contributed – separating delay that was inherited from earlier in the chain from delay the activity itself introduced.
+A summary of how much delay each activity on the traceback path contributed – separating delay that was inherited from earlier in the chain from delay the activity itself introduced, with a flag explaining the reason behind each charge (a relationship change, a duration change, a gap, a missing formal link, or a calendar difference).
 
-*Full detail coming soon.*
+[Full detail – How delay gets charged to each activity](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity)
 
 ---
 
@@ -98,9 +100,9 @@ Search for any activity in the schedule by ID, name, or WBS outline number and r
 
 ## Traceback Engine
 
-The traceback engine applies a set of correction rules to ensure the traced path reflects what actually happened on the project, not what data-quality gaps or calendar mismatches imply. The engine corrects three known causes of incorrect attribution: calendar mismatches between compared schedules, broken or missing links in the activity network, and a relationship-type recording issue in the underlying data.
+At each step, the traceback engine scores every eligible candidate activity against a fixed set of criteria and picks the strongest one – a two-stage process that weighs a real logical link and date proximity most heavily, then uses supporting factors like WBS position, resourcing, and naming to settle close calls.
 
-*This feature is pending deployment. Detail will be added once the engine update is live.*
+[Full detail – How Traceback and Delay Attribution Work](pages/traceback-engine.md)
 
 ---
 

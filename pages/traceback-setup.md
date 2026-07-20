@@ -14,6 +14,8 @@ Traceback Setup is the second mode in the [Gantt Viewer](pages/gantt-viewer.md).
 
 You must have a **Baseline** schedule selected before the traceback will produce meaningful results. The traceback compares the baseline against the **Comparison** schedule to measure delay.
 
+For how the algorithm actually chooses each activity, see [How Traceback and Delay Attribution Work](pages/traceback-engine.md).
+
 ## Running a traceback
 
 ### Step 1 – Select a start activity

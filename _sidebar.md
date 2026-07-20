@@ -47,6 +47,15 @@
   * [Traceback Restart](pages/delay-analysis?id=traceback-restart)
   * [Traceback Engine](pages/delay-analysis?id=traceback-engine)
   * [Save and Load Traceback](pages/delay-analysis?id=save-and-load-traceback)
+  * [How Traceback and Delay Attribution Work](pages/traceback-engine)
+    * [About this page](pages/traceback-engine?id=about-this-page)
+    * [What traceback is actually doing](pages/traceback-engine?id=what-traceback-is-actually-doing)
+    * [How the candidate field gets narrowed down](pages/traceback-engine?id=how-the-candidate-field-gets-narrowed-down)
+    * [The two-stage scoring process](pages/traceback-engine?id=the-two-stage-scoring-process)
+    * [Stage one – the two priority signals](pages/traceback-engine?id=stage-one--the-two-priority-signals)
+    * [Stage two – full scoring](pages/traceback-engine?id=stage-two--full-scoring)
+    * [How calendars affect the result](pages/traceback-engine?id=how-calendars-affect-the-result)
+    * [From chain to delay](pages/traceback-engine?id=from-chain-to-delay--how-days-get-charged-to-each-activity)
 
 ---
 

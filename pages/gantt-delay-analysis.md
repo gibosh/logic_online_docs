@@ -12,6 +12,8 @@ last-reviewed: 2026-06-08
 
 Delay Analysis is the third mode in the [Gantt Viewer](pages/gantt-viewer.md). It becomes active automatically when a [traceback](pages/traceback-setup.md) completes. Use it to explore the traceback results, understand which activities are driving project delay, and review how delay has accumulated over time.
 
+For why the algorithm chose each activity on the path, and how delay is charged to it, see [How Traceback and Delay Attribution Work](pages/traceback-engine.md).
+
 ## The Gantt chart in Delay Analysis mode
 
 The Gantt chart highlights the traceback path – the chain of driving activities identified by the traceback algorithm. Click any highlighted activity to select it and load its data into the tray below.
