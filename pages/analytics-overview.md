@@ -40,7 +40,7 @@ Separates finish-date movement into two causes: activities taking longer than pl
 
 ---
 
-## Where We Are Now
+## Schedule Insights
 
 ### Critical Path Evolution
 
@@ -62,7 +62,7 @@ Identifies the group of activities that moved later together between two schedul
 
 ---
 
-## Predictive
+## Schedule Predictions
 
 ### Completion Forecast
 

@@ -9,7 +9,7 @@ last-reviewed: 2026-07-20
 blocked-reason: Module not yet built (confirmed against current codebase — no matching component exists on main). Business-problem layer documented here; technical detail and UI description to follow once the module is live.
 ---
 
-## Why this page exists
+## Critical Path Evolution — Overview
 
 At any point in a project, one activity (or chain of activities) is actually in the driver's seat — the thing that, if it slips further, directly moves the project finish date. But that driver's seat can change hands between reporting periods, sometimes without anyone explicitly noticing.
 
@@ -19,7 +19,7 @@ In plain terms: who was in the driver's seat, and when did the wheel change hand
 
 This uses the same traceback and delay attribution engine as the Gantt Viewer's Delay Analysis mode, surfaced here as a view across all reporting periods rather than a single point-in-time analysis.
 
-## What you will see
+## Report details
 
 *(Detail pending module build and live-app validation. Content will cover: how to read the evolution chart, how to interpret driver changes between periods, and how this relates to the Delay Analysis traceback.)*
 

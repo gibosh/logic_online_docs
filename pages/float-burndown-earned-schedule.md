@@ -1,7 +1,7 @@
 ---
 page-id: float-burndown-earned-schedule
 route: /module/9/project/:projectId
-title: Float Burn-down and Earned Schedule
+title: Float Burn-down
 audience: external
 status: draft
 version: 1.1.0
@@ -9,7 +9,7 @@ last-reviewed: 2026-07-20
 blocked-reason: Content below matches the component source directly (including its own in-app explanatory copy), but has not yet been checked against the running app. Confirm chart interaction/hover behaviour before promoting to complete.
 ---
 
-## Why this page exists
+## Float Burn-down — Overview
 
 There are two well-established ways to estimate when a project will really finish — and each one can be individually misleading.
 
@@ -18,7 +18,7 @@ There are two well-established ways to estimate when a project will really finis
 
 Showing either one alone risks a misleading picture. Showing both side by side — deliberately framed as an optimistic bound and a pessimistic bound — means that when the two methods disagree, that gap is itself the important finding: a signal that something in the schedule is hiding risk that at least one of the methods is not seeing.
 
-## What you will see
+## Report details
 
 Three summary cards, then two charts.
 

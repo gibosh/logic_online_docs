@@ -15,27 +15,50 @@
 ---
 
 * [Schedule Viewer](pages/gantt-viewer)
-  * [Schedule Analysis](pages/schedule-analysis)
-  * [Traceback Setup](pages/traceback-setup)
-  * [Delay Analysis mode](pages/gantt-delay-analysis)
+  * [About the Schedule Viewer](pages/gantt-viewer?id=about-the-schedule-viewer)
+  * [File selection](pages/gantt-viewer?id=file-selection)
+  * [Three modes](pages/gantt-viewer?id=three-modes)
+    * [Schedule Analysis](pages/schedule-analysis)
+    * [Traceback Setup](pages/traceback-setup)
+    * [Delay Analysis mode](pages/gantt-delay-analysis)
+  * [Column selector](pages/gantt-viewer?id=column-selector)
+  * [Group and Sort](pages/gantt-viewer?id=group-and-sort)
+  * [Go To](pages/gantt-viewer?id=go-to)
+  * [Schedule History](pages/gantt-viewer?id=schedule-history)
+  * [Activity Detail](pages/gantt-viewer?id=activity-detail)
 
 ---
 
 * [Delay Analysis](pages/delay-analysis)
+  * [About Delay Analysis](pages/delay-analysis?id=about-delay-analysis)
+  * [Traceback Setup](pages/delay-analysis?id=traceback-setup)
+  * [Run Traceback](pages/delay-analysis?id=run-traceback)
+  * [Delay Overlay](pages/delay-analysis?id=delay-overlay)
+  * [Candidate Scores](pages/delay-analysis?id=candidate-scores)
+  * [Candidate Details](pages/delay-analysis?id=candidate-details)
+  * [Delay Attribute](pages/delay-analysis?id=delay-attribute)
+  * [Traceback Log](pages/delay-analysis?id=traceback-log)
+  * [Traceback Restart](pages/delay-analysis?id=traceback-restart)
+  * [Traceback Engine](pages/delay-analysis?id=traceback-engine)
+  * [Save and Load Traceback](pages/delay-analysis?id=save-and-load-traceback)
 
 ---
 
 * [Analytics](pages/analytics-overview)
-  * [Schedule Quality](pages/schedule-quality)
-  * [Bow Wave Compression](pages/bow-wave-compression)
-  * [Completion Forecast](pages/completion-forecast)
-  * [Schedule Risk](pages/schedule-risk)
-  * [Forecast Confidence](pages/forecast-confidence)
-  * [Forecast Variance](pages/forecast-variance)
-  * [Critical Path Evolution](pages/critical-path-evolution)
-  * [Causes of Change](pages/causes-of-change)
-  * [Float Burn-down + Earned Schedule](pages/float-burndown-earned-schedule)
-  * [Average Float Matrix](pages/average-float-matrix)
+  * [About Analytics](pages/analytics-overview?id=about-analytics)
+  * [Schedule Quality](pages/analytics-overview?id=schedule-quality)
+  * [Schedule Insights](pages/analytics-overview?id=schedule-insights)
+  * [Schedule Predictions](pages/analytics-overview?id=schedule-predictions)
+  * **Reports**
+    * [Forecast Confidence](pages/forecast-confidence)
+    * [Forecast Variance](pages/forecast-variance)
+    * [DCMA 14-Point Check](pages/schedule-quality)
+    * [Critical Path Evolution](pages/critical-path-evolution)
+    * [Bow-Wave Compression](pages/bow-wave-compression)
+    * [Causes of Change](pages/causes-of-change)
+    * [Completion Forecast](pages/completion-forecast)
+    * [Schedule Risk Analysis (SRA)](pages/schedule-risk)
+    * [Float Burn-down](pages/float-burndown-earned-schedule)
 
 ---
 

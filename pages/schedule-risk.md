@@ -1,14 +1,14 @@
 ---
 page-id: schedule-risk
 route: /module/8/project/:projectId
-title: Schedule Risk
+title: Schedule Risk Analysis (SRA)
 audience: external
 status: draft
 version: 1.0.0
 last-reviewed: 2026-07-20
 ---
 
-## Why this page exists
+## Schedule Risk Analysis (SRA) — Overview
 
 A finish date on its own doesn't tell you how much uncertainty sits behind it, or which risks matter most to it. Schedule Risk runs a quantitative schedule risk analysis — the kind of Monte Carlo simulation planners traditionally run in a separate risk tool — directly against your uploaded schedule, and ranks the risk drivers by how much they actually move the finish date.
 
@@ -21,7 +21,7 @@ Keeping this analysis inside Logic+, against the same schedule data as the rest 
 - **A schedule** — selected from the schedules already uploaded to the project; no separate file upload is needed for this module.
 - **A risk register** (optional) — paste rows copied from a spreadsheet, with columns for risk ID, the activity or WBS area it targets, risk name, type, likelihood, and a minimum/most likely/maximum duration impact. Column headers are matched automatically.
 
-## What you will see
+## Report details
 
 A **Tornado chart** ranking the activities or WBS areas that most affect the finish date — by duration uncertainty, by risk register impact, or both together, depending on the analysis mode selected.
 

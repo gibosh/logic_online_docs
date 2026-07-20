@@ -8,7 +8,7 @@ version: 1.0.0
 last-reviewed: 2026-07-20
 ---
 
-## Why this page exists
+## Forecast Confidence — Overview
 
 When a project reports a finish date, there is often no way to tell at a glance whether that date is genuinely achievable or quietly optimistic. Some schedules lose roughly a month of completion date for every month that passes, while still looking healthy on paper — the delay is hiding in work that hasn't started yet. Others show what appears to be a recovery, but the recovery was manufactured by cutting planned durations and adding logic links, not by real progress on site.
 
@@ -16,7 +16,7 @@ Forecast Confidence gives you an honest trust read on the reported finish date �
 
 A planner or project manager can use this to answer the question "should I believe the finish date?" in seconds — and if the answer is amber or red, the detail behind the signal shows exactly why.
 
-## What you will see
+## Report details
 
 A confidence gauge showing a percentage and a green, amber, or red read, with a one-line explanation underneath.
 

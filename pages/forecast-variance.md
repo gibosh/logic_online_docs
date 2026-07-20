@@ -9,7 +9,7 @@ last-reviewed: 2026-07-20
 blocked-reason: Module not yet built (confirmed against current codebase — no matching component exists on main). Business-problem layer documented here; technical detail and UI description to follow once the module is live.
 ---
 
-## Why this page exists
+## Forecast Variance — Overview
 
 When a project's finish date moves, there are two very different reasons it could have done so — and they have very different implications for who is accountable and what needs to happen next.
 
@@ -20,7 +20,7 @@ Showing only that the finish date moved does not tell you which of these is resp
 
 This moves the conversation from "the schedule slipped" to "here is specifically why, and where."
 
-## What you will see
+## Report details
 
 *(Detail pending module build and live-app validation. Content will cover: how to read the variance breakdown, how to interpret duration growth vs logic change by work area, and how to use this alongside Forecast Confidence.)*
 

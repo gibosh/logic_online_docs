@@ -8,7 +8,7 @@ version: 1.0.0
 last-reviewed: 2026-07-20
 ---
 
-## Why this page exists
+## Completion Forecast — Overview
 
 The reported finish date on a project and a rigorous, data-driven projection based on the schedule's own track record often disagree — sometimes by many months. Showing only the reported date hides that gap.
 
@@ -16,7 +16,7 @@ Completion Forecast puts both figures side by side. You see what has been report
 
 The forecast is produced from the schedule's update history using a rules-adjusted projection, not a Monte Carlo simulation. The same inputs always produce the same output — there is no random element. This makes the result defensible in a meeting: it is a reasoned, documented projection, not a black-box estimate.
 
-## What you will see
+## Report details
 
 A **reliability index** and a plain-language verdict on how far to trust the projection.
 
