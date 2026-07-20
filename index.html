@@ -133,6 +133,22 @@
       transition: background 0.15s;
     }
     .h-signin:hover { background: #009990 !important; color: #fff !important; }
+    .h-teams {
+      background: #6264A7;
+      color: #fff !important;
+      border: none;
+      border-radius: 4px;
+      padding: 0 14px;
+      height: 32px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none !important;
+      display: flex; align-items: center;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .h-teams:hover { background: #464775 !important; color: #fff !important; }
 
     /* ── SEARCH (moved into #search-slot in the header) ── */
     #search-slot .search { padding: 0; margin: 0; background: transparent; display: flex; align-items: center; }
@@ -361,6 +377,7 @@
     <div class="h-right">
       <div id="search-slot"></div>
       <a href="https://logicplus.smartcoro.com/login" target="_blank" rel="noopener" class="h-signin">Sign in to Logic+</a>
+      <a href="https://teams.microsoft.com/l/channel/19%3Affd8343669c54eda995d94abdeae6086%40thread.tacv2/LogicPlus%20Beta%20Testing?groupId=6a35c0d7-ae22-4f8f-b79c-0440c152026e&amp;tenantId=89fda39f-c73b-41dc-bac7-a96915ff09fc" target="_blank" rel="noopener" class="h-teams">Beta Testing Channel</a>
     </div>
   </header>
 
@@ -461,7 +478,7 @@
               '    <button class="feedback-btn">&#128077; Yes</button>',
               '    <button class="feedback-btn">&#128078; No</button>',
               '  </div>',
-              '  <a href="mailto:help@logicplus.com?subject=Logic%2B%20Help%20Feedback" class="feedback-link">Provide feedback</a>',
+              '  <a href="mailto:support@lware.com?subject=Logic%2B%20Help%20Feedback" class="feedback-link">Provide feedback</a>',
               '</div>'
             ].join('\n');
           });
