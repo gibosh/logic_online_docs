@@ -11,6 +11,12 @@
 ---
 
 * [Project Manager](pages/project-manager)
+  * [About this page](pages/project-manager?id=about-this-page)
+  * [Key concepts](pages/project-manager?id=key-concepts)
+  * [Managing projects](pages/project-manager?id=managing-projects)
+  * [Uploading schedules](pages/project-manager?id=uploading-schedules)
+  * [Schedule processing statuses](pages/project-manager?id=schedule-processing-statuses)
+  * [Reprocessing a schedule](pages/project-manager?id=reprocessing-a-schedule)
 
 ---
 
