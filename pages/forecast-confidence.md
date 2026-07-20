@@ -34,6 +34,12 @@ Five factor tiles sit below the timeline, each with its own small gauge, a short
 
 A closing note identifies the single biggest activity currently driving the forecast slip, and its working-day impact.
 
+## Calculation and other logic
+
+**Data used:** every schedule update file uploaded for the project, plus the activity identified as the project completion milestone – auto-detected by name (activities named along the lines of "Practical Completion" are prioritised, then "Final/Contract/All of the Works/Project Completion," then a generic "Completion").
+
+**How it's calculated:** update files that don't share enough activity codes with the largest uploaded file (fewer than half in common) are treated as a different schedule's data and excluded from the read. The remaining files are lined up in date order to track how far the completion milestone's forecast date has moved and how fast. That trend is combined with three other signals – how consistent the movement has been update to update, how much float has gone negative across the project, and (once enough activities have actually finished to judge it) whether completed work has tracked what was planned – into the confidence percentage and its green, amber, or red band: **60% or above is green, 40–59% is amber, below 40% is red.**
+
 ## Note
 
 The confidence signal is capped at moderate until enough work has actually finished to be judged reliable. The signal measures how consistent and stable the finish date has been – it does not claim to know whether the date itself is correct.

@@ -86,3 +86,9 @@ The CIOB PP21 profiles apply a related but distinct set of 15 checks aligned to 
 The Additional Best Practice profile adds two supplementary checks: long lags (lags greater than 44 working days, threshold ≤ 5% of all relationships) and soft constraints (As-Soon-As-Possible or Start/Finish-No-Earlier-Than constraints on incomplete activities, threshold ≤ 5% of incomplete activities).
 
 A handful of checks are implemented as a defensible proxy for the literal industry-standard test rather than the full test itself – the critical path test above, and (CIOB only) the "works fully described" check (proxied by WBS assignment) and the "has the programme been rescheduled" check (proxied by comparing forecast dates against calculated early dates). Where a check uses a proxy, the check detail panel states this against that check.
+
+## Calculation and other logic
+
+**Data used:** for each uploaded schedule, activity-level data covering predecessor/successor links and lag, constraint types, float, duration, actual and forecast dates, calendars, and WBS codes, plus – for the checks that need one – a baseline for comparison. The baseline used is currently **whichever uploaded schedule has the earliest data date**, not a schedule you've separately marked as the baseline.
+
+**How it's calculated:** DCMA 14-Point, CIOB PP21, and Additional Best Practice are three separately implemented check sets, not one shared engine with relabelled outputs – they share only a few low-level helpers (for example, how a relationship link or a float value is read from the schedule). Even where two profiles test a conceptually similar thing, such as float or duration, the pass/fail thresholds genuinely differ between standards rather than being the same number reused. Checks are run fresh against whatever schedules are currently loaded for the project – there is no separate "generate report" step, so results always reflect the latest upload.

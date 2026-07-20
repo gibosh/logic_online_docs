@@ -28,6 +28,12 @@ A chart plotting the reported finish date over each update, against the rules-ad
 
 A **data quality** note showing which completion milestone the projection is anchored to, and which uploaded schedules (if any) were excluded from the analysis and why.
 
+## Calculation and other logic
+
+**Data used:** every schedule update file uploaded for the project, tracked over time – the same underlying trend-analysis approach as [Forecast Confidence](forecast-confidence.md), applied here to produce a projected finish date and range rather than a standalone confidence score.
+
+**How it's calculated:** update files that don't share enough activity codes with the largest uploaded file are excluded as a different schedule's data. The remaining files are lined up in date order to measure how the completion milestone's forecast date has moved, how consistently, how much float has gone negative, and how well completed work has tracked the plan. The projection and its confidence range are entirely rules-based arithmetic on this history – there is no simulation or random element, so identical inputs always produce the identical output.
+
 ## How the projection works
 
 The rate used for the rules-adjusted finish is the **worst sustained rate** seen across the schedule's update history – not an average, and not just the most recent trend. This is deliberate: an average can be flattered by a short-lived, unsustained recovery. The projection also checks how well past reported progress has matched actual completed work – a schedule with a track record of paper recoveries produces a wider, less confident range than one with a track record of honest reporting.

@@ -44,3 +44,9 @@ Four panels sit alongside the chart. Schedule Summary and Schedule Explorer appe
 **Critical Path Explorer panel** – compares the critical path between consecutive schedule updates: which activities are new to the critical path, which have dropped off it, and which changed duration while remaining on it.
 
 **Float Explorer panel** – shown when the **Average Float** view is active. A searchable, sortable table of every activity's float for a selected schedule update, with a total and average shown in the footer. Use this to look up float at the individual-activity level behind the Average Float chart.
+
+## Calculation and other logic
+
+**Data used:** every activity's planned start and finish dates across every uploaded schedule update, plus float and critical-path flags for the relevant views.
+
+**How it's calculated:** the four views are calculated independently rather than being different slices of one shared number, and they don't all count "active" the same way. Bow Wave counts how many activities are active on each calendar day, including weekends. Peak Concurrent Tasks uses actual activity timestamps rather than a simple daily count, so it captures the true busiest moment within a day, not just which activities touch that day. Project Progress is calculated over **business days only** (Monday to Friday) rather than calendar days. Average Float is a mean across activities with a resolvable float value for that day – activities with no calculable float are left out of the average rather than counted as zero. In the Schedule Explorer panel, the update pair auto-flagged as the "most impactful transition" is whichever consecutive pair of schedules shows the single largest overall shift in computed project finish date – it is a finish-date-movement measure, not a direct detector of logic or sequencing changes between the two schedules.

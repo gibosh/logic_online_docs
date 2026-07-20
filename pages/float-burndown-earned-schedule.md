@@ -37,3 +37,14 @@ Three summary cards, then two charts.
 **Reading the two together:** where the S-curve finish and the float-implied finish agree, that's a consistent signal. Where they diverge, the gap itself is the finding – it means delay is hiding in work that hasn't started yet (invisible to the float-based view) or float is being spent to protect dates on paper without real progress (invisible to the earned-schedule view).
 
 **Note:** projections need at least 3 processed schedule updates for this project – with fewer, only the observed data is shown, no trend line.
+
+## Calculation and other logic
+
+**Data used:** every uploaded schedule update. The float-implied side uses each activity's calculated float and calendar. The earned-schedule side treats the earliest uploaded schedule as the baseline plan, and compares it against each later update's completion status, matched activity by activity.
+
+**How it's calculated:** the two estimates are genuinely independent and are never blended into one number.
+
+- **Float-implied finish (pessimistic bound):** tracks the median float of the worst 10% of incomplete activities across each schedule update, fits a trend line through that history, and projects it forward to estimate how late the project will finish if the trend continues.
+- **S-curve finish (optimistic bound):** the Earned Schedule method – compares how much progress *should* have happened by now, based on the baseline's own planned-completion curve, against how much *has* happened, derives a schedule performance rate from that comparison, and projects the remaining work forward at that rate.
+
+Both are shown as separate cards and charts, deliberately labelled optimistic and pessimistic bounds rather than combined into a single figure – so a gap between them is visible as itself the finding, not averaged away.
