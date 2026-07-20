@@ -1,7 +1,7 @@
 ﻿---
 page-id: gantt-delay-analysis
 route: /schedule-viewer/gantt
-title: Gantt Viewer — Delay Analysis
+title: Gantt Viewer – Delay Analysis
 audience: external
 status: draft
 version: 1.0.3
@@ -14,7 +14,7 @@ Delay Analysis is the third mode in the [Gantt Viewer](pages/gantt-viewer.md). I
 
 ## The Gantt chart in Delay Analysis mode
 
-The Gantt chart highlights the traceback path — the chain of driving activities identified by the traceback algorithm. Click any highlighted activity to select it and load its data into the tray below.
+The Gantt chart highlights the traceback path – the chain of driving activities identified by the traceback algorithm. Click any highlighted activity to select it and load its data into the tray below.
 
 ## Delay Analysis tray
 
@@ -26,7 +26,7 @@ Shows the ranked list of candidate activities evaluated at the selected driving 
 
 | Column | Description |
 |--------|-------------|
-| Rank | Position in the scoring — Rank 1 is the selected driving activity for this step |
+| Rank | Position in the scoring – Rank 1 is the selected driving activity for this step |
 | Data Date | The data date of the schedule used for this step |
 | Activity ID | Candidate activity ID |
 | Activity Name | Candidate activity name |
@@ -53,8 +53,8 @@ Columns shown by default: Start, Finish, Total Float (days), Duration. Use the c
 
 A line chart showing how delay has accumulated along the traceback path.
 
-- **X-axis** — project timeline from the earliest driving activity to the latest
-- **Y-axis** — cumulative delay in days at each step along the traceback
+- **X-axis** – project timeline from the earliest driving activity to the latest
+- **Y-axis** – cumulative delay in days at each step along the traceback
 
 A rising line means delay is accumulating. A flat or falling line means the project is holding or recovering at that point.
 
@@ -68,7 +68,7 @@ A rising line means delay is accumulating. A flat or falling line means the proj
 
 When you exit Delay Analysis mode with an unsaved traceback, Logic+ prompts you to save it. Enter a name for the save when prompted. Multiple saves can exist for the same project.
 
-Saved tracebacks are stored inside the Logic+ project database — no external file is created.
+Saved tracebacks are stored inside the Logic+ project database – no external file is created.
 
 ### Load Traceback
 

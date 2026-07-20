@@ -8,29 +8,29 @@ version: 1.0.0
 last-reviewed: 2026-07-20
 ---
 
-## Completion Forecast — Overview
+## Completion Forecast – Overview
 
-The reported finish date on a project and a rigorous, data-driven projection based on the schedule's own track record often disagree — sometimes by many months. Showing only the reported date hides that gap.
+The reported finish date on a project and a rigorous, data-driven projection based on the schedule's own track record often disagree – sometimes by many months. Showing only the reported date hides that gap.
 
-Completion Forecast puts both figures side by side. You see what has been reported as the finish date over time, what the data-driven adjustment says instead, and how large the gap between them is. So when someone reports a project as "on track," you can check that claim against the schedule's own history — not just take it at face value.
+Completion Forecast puts both figures side by side. You see what has been reported as the finish date over time, what the data-driven adjustment says instead, and how large the gap between them is. So when someone reports a project as "on track," you can check that claim against the schedule's own history – not just take it at face value.
 
-The forecast is produced from the schedule's update history using a rules-adjusted projection, not a Monte Carlo simulation. The same inputs always produce the same output — there is no random element. This makes the result defensible in a meeting: it is a reasoned, documented projection, not a black-box estimate.
+The forecast is produced from the schedule's update history using a rules-adjusted projection, not a Monte Carlo simulation. The same inputs always produce the same output – there is no random element. This makes the result defensible in a meeting: it is a reasoned, documented projection, not a black-box estimate.
 
 ## Report details
 
 A **reliability index** and a plain-language verdict on how far to trust the projection.
 
-The **reported finish date**, a **rules-adjusted finish date**, and a **likely range** around it, alongside a **forecast confidence** percentage — the same style of confidence read as the [Forecast Confidence](forecast-confidence.md) module, calculated for this module's own longer-range projection.
+The **reported finish date**, a **rules-adjusted finish date**, and a **likely range** around it, alongside a **forecast confidence** percentage – the same style of confidence read as the [Forecast Confidence](forecast-confidence.md) module, calculated for this module's own longer-range projection.
 
 A chart plotting the reported finish date over each update, against the rules-adjusted estimate and its confidence band, so you can see how the two lines have tracked (or diverged) over time.
 
-**What's driving the programme** — the activities currently on the driving (critical) path, grouped into categories such as construction, systems and testing, design and approvals, procurement, and handover, with the categories carrying the most driving activities highlighted.
+**What's driving the programme** – the activities currently on the driving (critical) path, grouped into categories such as construction, systems and testing, design and approvals, procurement, and handover, with the categories carrying the most driving activities highlighted.
 
 A **data quality** note showing which completion milestone the projection is anchored to, and which uploaded schedules (if any) were excluded from the analysis and why.
 
 ## How the projection works
 
-The rate used for the rules-adjusted finish is the **worst sustained rate** seen across the schedule's update history — not an average, and not just the most recent trend. This is deliberate: an average can be flattered by a short-lived, unsustained recovery. The projection also checks how well past reported progress has matched actual completed work — a schedule with a track record of paper recoveries produces a wider, less confident range than one with a track record of honest reporting.
+The rate used for the rules-adjusted finish is the **worst sustained rate** seen across the schedule's update history – not an average, and not just the most recent trend. This is deliberate: an average can be flattered by a short-lived, unsustained recovery. The projection also checks how well past reported progress has matched actual completed work – a schedule with a track record of paper recoveries produces a wider, less confident range than one with a track record of honest reporting.
 
 ## Note
 

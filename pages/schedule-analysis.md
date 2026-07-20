@@ -1,7 +1,7 @@
 ﻿---
 page-id: schedule-analysis
 route: /schedule-viewer/gantt
-title: Gantt Viewer — Schedule Analysis
+title: Gantt Viewer – Schedule Analysis
 audience: external
 status: draft
 version: 1.0.3
@@ -16,8 +16,8 @@ Schedule Analysis is the default mode in the [Gantt Viewer](pages/gantt-viewer.m
 
 The chart is split into two panels:
 
-- **Left panel** — the activity list with configurable columns. Drag the divider to resize.
-- **Right panel** — the Gantt bars drawn against a timeline
+- **Left panel** – the activity list with configurable columns. Drag the divider to resize.
+- **Right panel** – the Gantt bars drawn against a timeline
 
 WBS summary rows can be expanded or collapsed using the arrow next to the WBS code. Activities are shown with their start and finish dates as horizontal bars. Milestones are shown as diamonds.
 
@@ -37,8 +37,8 @@ Shows all predecessors and successors of the selected activity.
 |--------|-------------|
 | ID | Activity ID of the related activity |
 | Activity Name | Name of the related activity |
-| Relationship Type | How the activities are linked — FS (Finish-to-Start), SS (Start-to-Start), FF (Finish-to-Finish), SF (Start-to-Finish) |
-| Go To | Arrow button — navigates the Gantt chart to the related activity |
+| Relationship Type | How the activities are linked – FS (Finish-to-Start), SS (Start-to-Start), FF (Finish-to-Finish), SF (Start-to-Finish) |
+| Go To | Arrow button – navigates the Gantt chart to the related activity |
 
 If no relationships are found for the selected activity, a message is shown.
 
@@ -68,7 +68,7 @@ The **Group Settings** panel (gear icon, top right of the toolbar) controls how 
 
 **Outline Level** sets how many levels of WBS hierarchy are shown. Level 1 shows only the top-level groupings; Level 4 shows a deeper breakdown.
 
-**Planned Start** groups activities by when they are planned to start — by year, month, or week. Use this to see work clustered by reporting period.
+**Planned Start** groups activities by when they are planned to start – by year, month, or week. Use this to see work clustered by reporting period.
 
 Click **Apply Settings** to apply your selection. Click **Use Default Settings** to reset all options to their defaults.
 
@@ -84,7 +84,7 @@ The column picker in the top right controls the columns in the activity list. Av
 | Activity Name | Full activity name |
 | Start | Planned start date |
 | Finish | Planned finish date |
-| Type | Activity type — task dependent, level of effort, or milestone |
+| Type | Activity type – task dependent, level of effort, or milestone |
 | Category | Activity category (if assigned) |
 | Total Float | Total float in days |
 | Total Slack | Total slack value |

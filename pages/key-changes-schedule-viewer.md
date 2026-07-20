@@ -1,6 +1,6 @@
 ---
 page-id: key-changes-schedule-viewer
-title: Schedule Viewer — Key Changes from Desktop
+title: Schedule Viewer – Key Changes from Desktop
 audience: external
 status: draft
 version: 1.0.0
@@ -18,8 +18,8 @@ Records significant differences between the Logic+ Desktop Schedule Viewer and t
 **Desktop:** Files selected from a persistent **List of Schedules** panel below the gantt chart.
 
 **Online:** Two dropdowns in the Gantt Viewer toolbar replace the List of Schedules:
-- **Comparison** — the schedule being analysed (current update)
-- **Baseline** — the reference schedule for delay comparison
+- **Comparison** – the schedule being analysed (current update)
+- **Baseline** – the reference schedule for delay comparison
 
 Options are labelled by the data date of each upload. All schedule packets uploaded for the project appear in both lists. There is no separate file management panel.
 

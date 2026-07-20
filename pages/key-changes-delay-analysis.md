@@ -1,6 +1,6 @@
 ---
 page-id: key-changes-delay-analysis
-title: Delay Analysis — Key Changes from Desktop
+title: Delay Analysis – Key Changes from Desktop
 audience: external
 status: draft
 version: 1.0.0
@@ -37,12 +37,12 @@ The Logic+ traceback selection engine and delay attribution layer have been upda
 
 | Rule | Change | Reason |
 |---|---|---|
-| **T1** | Fixes a bug where only one relationship type (Finish-to-Start) is properly exempted from an exclusion rule. Other valid link types (Start-to-Start, Finish-to-Finish, Start-to-Finish) get wrongly excluded. | This is the direct cause of the +68 wd CIV-610 error — the correct linked predecessor was excluded, forcing the engine onto an unrelated activity. |
+| **T1** | Fixes a bug where only one relationship type (Finish-to-Start) is properly exempted from an exclusion rule. Other valid link types (Start-to-Start, Finish-to-Finish, Start-to-Finish) get wrongly excluded. | This is the direct cause of the +68 wd CIV-610 error – the correct linked predecessor was excluded, forcing the engine onto an unrelated activity. |
 | **T2** | Scores the gap between activities in *working days* instead of *calendar days*. | Currently a Friday-finish → Monday-start gets penalised as if it were real slack, when in fact zero working days were lost. |
-| **T3** | Introduces a new "gap" classification separate from "artefact." If the engine's chosen link has almost no real supporting evidence, it's flagged as an unattributable gap rather than reported as if it were a genuine scheduling defect. | Early-project activities (procurement, mobilisation) often legitimately have sparse formal logic — that shouldn't be reported the same way as an actual data error. |
+| **T3** | Introduces a new "gap" classification separate from "artefact." If the engine's chosen link has almost no real supporting evidence, it's flagged as an unattributable gap rather than reported as if it were a genuine scheduling defect. | Early-project activities (procurement, mobilisation) often legitimately have sparse formal logic – that shouldn't be reported the same way as an actual data error. |
 | **T4** | Improves name-matching between activities so distinctive words (asset tags, location codes) count for more than generic words like "install" or "works." | Currently a common word like "install" carries the same weight as a unique identifier, which drowns out the useful signal. |
 | **T5** | Codifies which programme file "owns" a link when the same relationship appears in more than one loaded file. | Prevents the engine reading a stale link record against current-day dates, which produces misleading scores. |
-| **T6** | Fixes the float-scoring formula so very negative float values (e.g. −2,640 hours) can't produce runaway scores. | A genuine calculation bug — scores were meant to stay within a fixed band and don't. |
+| **T6** | Fixes the float-scoring formula so very negative float values (e.g. −2,640 hours) can't produce runaway scores. | A genuine calculation bug – scores were meant to stay within a fixed band and don't. |
 | **T7** | Every traceback step now writes a full audit record: all candidate scores, winner, runner-up, and a "low confidence" flag when the winner only just beat the runner-up. | Gives planners (and anyone challenging a result) the actual numbers behind every decision, not just the final answer. |
 | **T8** | Adds a new scoring factor based on a construction-sequence "dictionary" (e.g. "excavate before pour") built from real project data and reviewed contractor documents. | Gives the engine real construction-process knowledge instead of relying only on dates and names. |
 | **T9** | Recalibrates how much weight each scoring factor gets, based on statistical analysis of real data rather than judgement calls. | Demonstration testing shows some factors (like name/structure match) are currently under-weighted and others (like matching calendars) may actually be hurting accuracy. |
@@ -63,8 +63,8 @@ The Logic+ traceback selection engine and delay attribution layer have been upda
 
 **Online:** Two restart options available directly from the Gantt chart in Delay Analysis mode:
 
-- **Restart from shortlisted candidate** — at any step on the traceback path, click the activity in the Gantt chart and select an alternative candidate from the ranked list in the tray, then restart from that point.
-- **Restart from other activity** — search for any activity in the schedule (by ID, name, or WBS outline number) and restart the traceback from that activity.
+- **Restart from shortlisted candidate** – at any step on the traceback path, click the activity in the Gantt chart and select an alternative candidate from the ranked list in the tray, then restart from that point.
+- **Restart from other activity** – search for any activity in the schedule (by ID, name, or WBS outline number) and restart the traceback from that activity.
 
 Both options restart the traceback from the selected point, not from the beginning.
 

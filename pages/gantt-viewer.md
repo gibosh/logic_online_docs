@@ -20,9 +20,9 @@ Use the Schedule Viewer to look at individual schedules, compare changes between
 
 Choose which schedule files to work with using the two selectors at the top of the page.
 
-**Comparison** — the schedule you are analysing (typically the most recent update). Select from all schedule files uploaded for the current project. Files are labelled by data date.
+**Comparison** – the schedule you are analysing (typically the most recent update). Select from all schedule files uploaded for the current project. Files are labelled by data date.
 
-**Baseline** — an earlier schedule to compare against. When set, each activity in the Gantt chart shows a second bar representing the baseline dates. Select **None** to remove the baseline comparison.
+**Baseline** – an earlier schedule to compare against. When set, each activity in the Gantt chart shows a second bar representing the baseline dates. Select **None** to remove the baseline comparison.
 
 Changing either selector resets any active traceback.
 
@@ -43,9 +43,9 @@ The Schedule Viewer operates in one of three modes, selectable from the tabs in 
 The mode advances automatically to Delay Analysis when a traceback completes.
 
 For full detail on each mode see:
-- [Schedule Analysis mode](pages/schedule-analysis.md) — Gantt chart, activity tray, group settings
-- [Traceback Setup mode](pages/traceback-setup.md) — start activity, profile, weights, exclusion criteria
-- [Delay Analysis mode](pages/gantt-delay-analysis.md) — traceback results, save/load, restart options
+- [Schedule Analysis mode](pages/schedule-analysis.md) – Gantt chart, activity tray, group settings
+- [Traceback Setup mode](pages/traceback-setup.md) – start activity, profile, weights, exclusion criteria
+- [Delay Analysis mode](pages/gantt-delay-analysis.md) – traceback results, save/load, restart options
 
 ---
 
@@ -63,7 +63,7 @@ Default columns include: ID, Activity Name, Start, Finish, Total Float, Critical
 
 The **Group Settings** panel (gear icon, top right of the toolbar) controls how activities are grouped and filtered in the Gantt chart. Options include outline level (1–4), planned start period (year, month, or week), and filters to exclude summary tasks and level of effort activities.
 
-[Full detail — Group Settings](pages/schedule-analysis.md#group-settings)
+[Full detail – Group Settings](pages/schedule-analysis.md#group-settings)
 
 ---
 
@@ -75,15 +75,15 @@ Go To is available in:
 - The **Relationships** tab of the activity tray (in Schedule Analysis mode)
 - The **Candidate Scoring** tab of the traceback tray (in Delay Analysis mode)
 
-[Full detail — Activity tray](pages/schedule-analysis.md#activity-tray)
+[Full detail – Activity tray](pages/schedule-analysis.md#activity-tray)
 
 ---
 
 ## Schedule History
 
-The **Changes over time** tab in the activity tray shows the selected activity's key values across every schedule upload for the project — start, finish, total float, and duration — in a single table. Use it to see at a glance whether an activity has been delayed, accelerated, or had its float eroded between updates without opening multiple files.
+The **Changes over time** tab in the activity tray shows the selected activity's key values across every schedule upload for the project – start, finish, total float, and duration – in a single table. Use it to see at a glance whether an activity has been delayed, accelerated, or had its float eroded between updates without opening multiple files.
 
-[Full detail — Activity tray](pages/schedule-analysis.md#activity-tray)
+[Full detail – Activity tray](pages/schedule-analysis.md#activity-tray)
 
 ---
 

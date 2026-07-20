@@ -12,7 +12,7 @@ last-reviewed: 2026-07-14
 
 Delay Analysis identifies which activities in a project schedule are responsible for pushing the completion date later, and by how much. It traces the chain of driving activities backward from a selected endpoint, attributes delay to each link in that chain, and shows how the delay picture has built up over time.
 
-The Delay Analysis workflow lives inside the [Schedule Viewer](pages/gantt-viewer.md). There are two stages — setting up and running the traceback in **Traceback Setup** mode, then reviewing the results in **Delay Analysis** mode.
+The Delay Analysis workflow lives inside the [Schedule Viewer](pages/gantt-viewer.md). There are two stages – setting up and running the traceback in **Traceback Setup** mode, then reviewing the results in **Delay Analysis** mode.
 
 ---
 
@@ -20,17 +20,17 @@ The Delay Analysis workflow lives inside the [Schedule Viewer](pages/gantt-viewe
 
 Before running a delay analysis, select a start activity (the endpoint you are tracing from), choose an algorithm profile, and optionally adjust the candidate scoring weights and activity exclusion criteria.
 
-[Full detail — Traceback Setup mode](pages/traceback-setup.md)
+[Full detail – Traceback Setup mode](pages/traceback-setup.md)
 
 ### Traceback Settings
 
 The settings modal (gear icon in the Traceback Setup toolbar) has two sections:
 
-**Scoring** — adjust how much influence each measure has on which activity is selected as the next driver at each step. Primary scores (Closest Link, Implied Link) drive most of the decision. Thirteen secondary scores refine the ranking when primary scores are close.
+**Scoring** – adjust how much influence each measure has on which activity is selected as the next driver at each step. Primary scores (Closest Link, Implied Link) drive most of the decision. Thirteen secondary scores refine the ranking when primary scores are close.
 
-**Excluded activities** — five filters that narrow the candidate pool before scoring: by date proximity to the target activity, by duration, by finish date, by date containment, and by activity type.
+**Excluded activities** – five filters that narrow the candidate pool before scoring: by date proximity to the target activity, by duration, by finish date, by date containment, and by activity type.
 
-[Full detail — Traceback Settings](pages/traceback-setup.md#step-3--adjust-settings-optional)
+[Full detail – Traceback Settings](pages/traceback-setup.md#step-3--adjust-settings-optional)
 
 ---
 
@@ -42,7 +42,7 @@ Click **Start Traceback** in the Traceback Setup toolbar to run the analysis. Lo
 
 ## Delay Overlay
 
-When Delay Analysis mode is active, the Gantt chart highlights the traceback path — the chain of activities identified as driving the delay. Click any highlighted activity to load its candidate and scoring data in the tray below.
+When Delay Analysis mode is active, the Gantt chart highlights the traceback path – the chain of activities identified as driving the delay. Click any highlighted activity to load its candidate and scoring data in the tray below.
 
 ---
 
@@ -50,7 +50,7 @@ When Delay Analysis mode is active, the Gantt chart highlights the traceback pat
 
 The **Activity Candidates** tab in the Delay Analysis tray shows the full ranked list of candidate activities evaluated at the selected driving task's step. One row per candidate, with a column for each scoring measure and the combined weighted total. The first row shows the maximum weights applied.
 
-[Full detail — Activity Candidates tab](pages/gantt-delay-analysis.md#activity-candidates)
+[Full detail – Activity Candidates tab](pages/gantt-delay-analysis.md#activity-candidates)
 
 ---
 
@@ -58,13 +58,13 @@ The **Activity Candidates** tab in the Delay Analysis tray shows the full ranked
 
 The **Candidate Scoring** tab shows a simplified view of the ranked candidates for the selected step, with a Go To button to navigate the Gantt chart to any candidate.
 
-[Full detail — Candidate Scoring tab](pages/gantt-delay-analysis.md#candidate-scoring)
+[Full detail – Candidate Scoring tab](pages/gantt-delay-analysis.md#candidate-scoring)
 
 ---
 
 ## Delay Attribute
 
-A summary of how much delay each activity on the traceback path contributed — separating delay that was inherited from earlier in the chain from delay the activity itself introduced.
+A summary of how much delay each activity on the traceback path contributed – separating delay that was inherited from earlier in the chain from delay the activity itself introduced.
 
 *Full detail coming soon.*
 
@@ -74,7 +74,7 @@ A summary of how much delay each activity on the traceback path contributed — 
 
 The **View Traceback Log** button (log icon in the Delay Analysis toolbar) opens the complete log for the current traceback in a separate page. The log shows every driving activity and scoring decision made during the run.
 
-[Full detail — Traceback Log](pages/gantt-delay-analysis.md#mode-bar-controls)
+[Full detail – Traceback Log](pages/gantt-delay-analysis.md#mode-bar-controls)
 
 ---
 
@@ -106,6 +106,6 @@ The traceback engine applies a set of correction rules to ensure the traced path
 
 ## Save and Load Traceback
 
-Completed tracebacks can be saved by name and reloaded later without re-running the analysis. A default traceback can be set per project — it loads automatically when Delay Analysis mode is entered for that project.
+Completed tracebacks can be saved by name and reloaded later without re-running the analysis. A default traceback can be set per project – it loads automatically when Delay Analysis mode is entered for that project.
 
-[Full detail — Save and Load](pages/gantt-delay-analysis.md#mode-bar-controls)
+[Full detail – Save and Load](pages/gantt-delay-analysis.md#mode-bar-controls)

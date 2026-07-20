@@ -1,7 +1,7 @@
 ﻿---
 page-id: traceback-setup
 route: /schedule-viewer/gantt
-title: Gantt Viewer — Traceback Setup
+title: Gantt Viewer – Traceback Setup
 audience: external
 status: draft
 version: 1.0.3
@@ -10,21 +10,21 @@ last-reviewed: 2026-06-08
 
 ## About this mode
 
-Traceback Setup is the second mode in the [Gantt Viewer](pages/gantt-viewer.md). Use it to configure and run a *traceback analysis* — an algorithm that traces the chain of activities most responsible for project delay, working backward from a selected end activity.
+Traceback Setup is the second mode in the [Gantt Viewer](pages/gantt-viewer.md). Use it to configure and run a *traceback analysis* – an algorithm that traces the chain of activities most responsible for project delay, working backward from a selected end activity.
 
 You must have a **Baseline** schedule selected before the traceback will produce meaningful results. The traceback compares the baseline against the **Comparison** schedule to measure delay.
 
 ## Running a traceback
 
-### Step 1 — Select a start activity
+### Step 1 – Select a start activity
 
-The start activity is the delayed end point you want to trace from — typically the project completion milestone or another critical endpoint.
+The start activity is the delayed end point you want to trace from – typically the project completion milestone or another critical endpoint.
 
 Use the activity search box in the mode bar to find the activity by ID or name. The selected activity is highlighted in the Gantt chart. You can also click an activity in the chart and it will populate the search box.
 
 The **Start Traceback** button is disabled until an activity is selected.
 
-### Step 2 — Select an algorithm profile (optional)
+### Step 2 – Select an algorithm profile (optional)
 
 The **Algorithm Profile** dropdown lets you choose how the traceback scores and selects candidate activities at each step.
 
@@ -36,13 +36,13 @@ The **Algorithm Profile** dropdown lets you choose how the traceback scores and 
 
 Start with **Desktop (Legacy)** unless you have a specific reason to use another profile.
 
-### Step 3 — Adjust settings (optional)
+### Step 3 – Adjust settings (optional)
 
 Click the **settings gear icon** to open **Traceback Settings**. The modal has two tabs.
 
 **Candidate Score Weights**
 
-Controls how much influence each scoring measure has on which activity is selected as the next driver at each step. Weights are set as percentages — higher weight means more influence on the result.
+Controls how much influence each scoring measure has on which activity is selected as the next driver at each step. Weights are set as percentages – higher weight means more influence on the result.
 
 *Primary scores* drive most of the selection decision:
 
@@ -85,7 +85,7 @@ Narrows the pool of candidate activities before scoring. Five filters are availa
 
 Click **Save** to apply settings and close the modal. Changes take effect on the next traceback run. Click **Cancel** to discard changes.
 
-### Step 4 — Start Traceback
+### Step 4 – Start Traceback
 
 Click **Start Traceback**. Logic+ runs the traceback algorithm against the comparison and baseline schedules. When complete, the mode automatically switches to **Delay Analysis**.
 
