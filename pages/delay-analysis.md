@@ -38,6 +38,10 @@ The settings modal (gear icon in the Traceback Setup toolbar) has two sections:
 
 Click **Start Traceback** in the Traceback Setup toolbar to run the analysis. Logic+ traces the delay path backward from the selected activity, comparing the current schedule against the baseline. When complete, the view switches automatically to Delay Analysis mode.
 
+At each step, the traceback engine scores every eligible candidate activity against a fixed set of criteria and picks the strongest one – a two-stage process that weighs a real logical link and date proximity most heavily, then uses supporting factors like WBS position, resourcing, and naming to settle close calls.
+
+[Full detail – How Traceback and Delay Attribution Work](pages/traceback-engine.md)
+
 ---
 
 ## Delay Overlay
@@ -95,14 +99,6 @@ Select an alternative from the ranked candidates list in the tray for the curren
 Search for any activity in the schedule by ID, name, or WBS outline number and restart the traceback from that point. Use this to explore alternative delay paths not in the shortlisted candidates.
 
 [Full detail](pages/gantt-delay-analysis.md#restart-from-other-activity)
-
----
-
-## Traceback Engine
-
-At each step, the traceback engine scores every eligible candidate activity against a fixed set of criteria and picks the strongest one – a two-stage process that weighs a real logical link and date proximity most heavily, then uses supporting factors like WBS position, resourcing, and naming to settle close calls.
-
-[Full detail – How Traceback and Delay Attribution Work](pages/traceback-engine.md)
 
 ---
 
