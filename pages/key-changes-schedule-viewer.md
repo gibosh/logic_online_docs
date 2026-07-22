@@ -3,8 +3,8 @@ page-id: key-changes-schedule-viewer
 title: Schedule Viewer – Key Changes from Desktop
 audience: external
 status: draft
-version: 1.0.0
-last-reviewed: 2026-06-27
+version: 1.0.1
+last-reviewed: 2026-07-23
 ---
 
 ## Schedule Viewer Key Changes
@@ -27,7 +27,7 @@ Options are labelled by the data date of each upload. All schedule packets uploa
 
 **Desktop:** Mode switching is handled by top menu and tools. Excluded activities that related to traceback mode where shown in grey.
 
-**Online:** Three explicit mode buttons are used to move between the modes -  **Schedule Analysis**, **Traceback Setup**, **Delay Analysis**. Excluded activities are only visible in **Traceback Setup** mode. Switching mode changes both the toolbar controls and the bottom tray. Switching away from Delay Analysis while a traceback is unsaved opens a prompt to save or discard before switching.
+**Online:** Three explicit mode buttons are used to move between the modes -  **Schedule Viewer**, **Traceback Setup**, **Delay Analysis**. Excluded activities are only visible in **Traceback Setup** mode. Switching mode changes both the toolbar controls and the bottom tray. Switching away from Delay Analysis while a traceback is unsaved opens a prompt to save or discard before switching.
 
 
 ### Group and Sort

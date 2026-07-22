@@ -1,16 +1,16 @@
 ﻿---
 page-id: schedule-analysis
 route: /schedule-viewer/gantt
-title: Gantt Viewer – Schedule Analysis
+title: Gantt Viewer – Schedule Viewer mode
 audience: external
 status: draft
-version: 1.0.3
-last-reviewed: 2026-06-08
+version: 1.0.4
+last-reviewed: 2026-07-23
 ---
 
 ## About this mode
 
-Schedule Analysis is the default mode in the [Gantt Viewer](pages/gantt-viewer.md). Use it to explore activities, inspect relationships, and compare how activities have changed across schedule versions.
+**Schedule Viewer** is the default mode in the [Gantt Viewer](pages/gantt-viewer.md) — note it shares its name with the Gantt Viewer page itself; this refers specifically to the first of the three mode tabs. Use it to explore activities, inspect relationships, and compare how activities have changed across schedule versions.
 
 ## The Gantt chart
 
@@ -87,7 +87,6 @@ The column picker in the top right controls the columns in the activity list. Av
 | Type | Activity type – task dependent, level of effort, or milestone |
 | Category | Activity category (if assigned) |
 | Total Float | Total float in days |
-| Total Slack | Total slack value |
 | Critical | Whether the activity is on the critical path (Yes / No) |
 
 Drag columns in the picker to reorder them in the list.

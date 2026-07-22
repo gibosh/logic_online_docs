@@ -4,8 +4,8 @@ route: /schedule-viewer/gantt
 title: Schedule Viewer
 audience: external
 status: draft
-version: 1.1.0
-last-reviewed: 2026-07-14
+version: 1.1.1
+last-reviewed: 2026-07-23
 ---
 
 ## About the Schedule Viewer
@@ -36,14 +36,16 @@ The Schedule Viewer operates in one of three modes, selectable from the tabs in 
 
 | Mode | Use it to |
 |------|-----------|
-| **Schedule Analysis** | View the Gantt chart, explore activity relationships, and compare activity dates across schedule versions |
+| **Schedule Viewer** | View the Gantt chart, explore activity relationships, and compare activity dates across schedule versions |
 | **Traceback Setup** | Select a start activity, configure the algorithm, and run a traceback analysis |
 | **Delay Analysis** | Review traceback results, understand delay attribution, save and load tracebacks |
+
+> **Note:** the first mode tab is labelled "Schedule Viewer," the same name as this page. Where this page says "Schedule Viewer" without qualification it means the whole three-mode workspace; "Schedule Viewer mode" refers specifically to the first tab.
 
 The mode advances automatically to Delay Analysis when a traceback completes.
 
 For full detail on each mode see:
-- [Schedule Analysis mode](pages/schedule-analysis.md) – Gantt chart, activity tray, group settings
+- [Schedule Viewer mode](pages/schedule-analysis.md) – Gantt chart, activity tray, group settings
 - [Traceback Setup mode](pages/traceback-setup.md) – start activity, profile, weights, exclusion criteria
 - [Delay Analysis mode](pages/gantt-delay-analysis.md) – traceback results, save/load, restart options
 
@@ -72,7 +74,7 @@ The **Group Settings** panel (gear icon, top right of the toolbar) controls how 
 The **Go To** button appears next to related activities in the activity tray. Clicking it scrolls and highlights the Gantt chart to that activity without losing your current selection.
 
 Go To is available in:
-- The **Relationships** tab of the activity tray (in Schedule Analysis mode)
+- The **Relationships** tab of the activity tray (in Schedule Viewer mode)
 - The **Candidate Scoring** tab of the traceback tray (in Delay Analysis mode)
 
 [Full detail – Activity tray](pages/schedule-analysis.md#activity-tray)

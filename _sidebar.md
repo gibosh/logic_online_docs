@@ -24,7 +24,7 @@
   * [About the Schedule Viewer](pages/gantt-viewer?id=about-the-schedule-viewer)
   * [File selection](pages/gantt-viewer?id=file-selection)
   * [Three modes](pages/gantt-viewer?id=three-modes)
-    * [Schedule Analysis](pages/schedule-analysis)
+    * [Schedule Viewer mode](pages/schedule-analysis)
     * [Traceback Setup](pages/traceback-setup)
     * [Delay Analysis mode](pages/gantt-delay-analysis)
   * [Column selector](pages/gantt-viewer?id=column-selector)
