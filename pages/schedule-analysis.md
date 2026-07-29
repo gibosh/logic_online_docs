@@ -4,8 +4,8 @@ route: /schedule-viewer/gantt
 title: Gantt Viewer – Schedule Viewer mode
 audience: external
 status: draft
-version: 1.0.4
-last-reviewed: 2026-07-23
+version: 1.1.0
+last-reviewed: 2026-07-29
 ---
 
 ## About this mode
@@ -61,14 +61,14 @@ The **Group Settings** panel (gear icon, top right of the toolbar) controls how 
 | Setting | Options | Default |
 |---------|---------|---------|
 | Outline Level | 1 / 2 / 3 / 4 | 3 |
-| Planned Start | Year / Month / Week | Month |
+| Start | Year / Month / Week | Month |
 | Exclude Summary Tasks | On / Off | On |
 | Exclude Level of Effort Tasks | On / Off | On |
 | Show Task Count | On / Off | On |
 
 **Outline Level** sets how many levels of WBS hierarchy are shown. Level 1 shows only the top-level groupings; Level 4 shows a deeper breakdown.
 
-**Planned Start** groups activities by when they are planned to start – by year, month, or week. Use this to see work clustered by reporting period.
+**Start** groups activities by their current start date – by year, month, or week. Use this to see work clustered by reporting period. (Renamed from "Planned Start" and changed to group by current start rather than baseline planned start – LUSB-1068, merged 2026-07-28. If you're comparing against an older baseline schedule, note this now follows the schedule's live dates, not the original plan.)
 
 Click **Apply Settings** to apply your selection. Click **Use Default Settings** to reset all options to their defaults.
 

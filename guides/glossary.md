@@ -44,7 +44,7 @@ The first stage of Logic+ processing. The uploaded schedule is broken into analy
 A named container in Logic+ that groups one or more schedule files. A Logic+ project typically corresponds to a single construction project or programme.
 
 **Schedule**
-An uploaded file containing a point-in-time snapshot of a project programme. Logic+ supports `.xer`, `.mpp`, and `.xml` formats.
+An uploaded `.xer` file containing a point-in-time snapshot of a project programme.
 
 **Slack (Total Slack)**
 Similar to total float but calculated differently in some schedule engines. Logic+ records both where available.

@@ -4,8 +4,8 @@ route: /module/8/project/:projectId
 title: Schedule Risk Analysis (SRA)
 audience: external
 status: draft
-version: 1.0.0
-last-reviewed: 2026-07-20
+version: 1.1.0
+last-reviewed: 2026-07-29
 ---
 
 ## Schedule Risk Analysis (SRA) – Overview
@@ -41,7 +41,7 @@ Headline finish-date statistics at **P50, P80, and P90** (the 50th, 80th, and 90
 
 **Data used:** the selected schedule, plus an optional pasted risk register (risk ID, target activity or WBS area, likelihood, and a minimum/most-likely/maximum day impact per risk). Risk register rows are matched to activities by **exact activity code match** – there is no fuzzy or approximate matching, so a mistyped or reformatted activity code in a pasted row will not match and that risk will be excluded from the run rather than partially matched.
 
-**How it's calculated:** each simulation run draws a random duration for every activity or WBS block from its three-point range (optimistic/most likely/pessimistic, set by the chosen preset or a per-block override), re-evaluates the schedule's logic forward, and records the resulting project finish date – repeated for the chosen number of iterations. If a risk register is included, each risk independently "fires" per its own likelihood on each iteration and adds its day impact on top. Across every iteration, the Tornado ranking measures how strongly each activity or WBS area's duration correlates with a later finish; the criticality index separately measures how often that area actually ended up on the driving path. Date constraints already in the schedule (Finish On, Finish On or After, Must Start On, and others) are not applied during the simulation – every constraint type is uniformly set aside, not selectively removed, so the simulation reflects the schedule's logic and durations alone. Running the simulation again on unchanged inputs and settings produces the same result rather than a new random draw each time.
+**How it's calculated:** each simulation run draws a random duration for every activity or WBS block from its three-point range (optimistic/most likely/pessimistic, set by the chosen preset or a per-block override), re-evaluates the schedule's logic forward, and records the resulting project finish date – repeated for the chosen number of iterations. If a risk register is included, each risk independently "fires" per its own likelihood on each iteration and adds its day impact on top. Across every iteration, the Tornado ranking measures how strongly each activity or WBS area's duration correlates with a later finish; the criticality index separately measures how often that area actually ended up on the driving path. Date constraints already in the schedule (Finish On, Finish On or After, Must Start On, and others) are not applied during the simulation – every constraint type is uniformly set aside, not selectively removed, so the simulation reflects the schedule's logic and durations alone. Each run uses a fresh random seed – running the simulation again on unchanged inputs and settings produces a new random draw and a slightly different result, not a repeat of the previous run. (This was not always true: a hardcoded seed previously made every run identical regardless of inputs – fixed in LUSB-1100, merged 2026-07-28. If you're validating results against an older screenshot or write-up, expect the exact numbers to differ now even on the same file.)
 
 ## Note
 

@@ -3,19 +3,19 @@ page-id: getting-started
 title: Getting Started with Logic+ Online
 audience: external
 status: draft
-version: 1.0.3
-last-reviewed: 2026-06-08
+version: 1.1.0
+last-reviewed: 2026-07-29
 ---
 
 ## What is Logic+ Online?
 
-Logic+ Online is a web-based schedule analysis tool. You upload construction project schedules (exported from Primavera P6 or Microsoft Project) and Logic+ runs a suite of analytics to help you understand schedule health, delay risk, and critical path behaviour.
+Logic+ Online is a web-based schedule analysis tool. You upload construction project schedules exported from Primavera P6 and Logic+ runs a suite of analytics to help you understand schedule health, delay risk, and critical path behaviour.
 
 ## The workflow
 
 1. **Create a project** – in the Project Manager, add a project to group your schedule files
-2. **Upload a schedule** – drag in an `.xer`, `.mpp`, or `.xml` file (up to 100 MB)
-3. **Wait for processing** – Logic+ runs 7 analytics in the background; status shows "analysis N/7" as each completes
+2. **Upload a schedule** – drag in a `.xer` file (up to 100 MB)
+3. **Wait for processing** – the status badge shows `packetising…` while Logic+ works through the file, then `processed` once it's ready
 4. **Explore the views** – once processed, use the sidebar to navigate to the analytics views
 
 ## Uploading multiple schedules
@@ -27,8 +27,8 @@ Upload more than one schedule to the same project to enable comparison views. Fo
 | Format | Source |
 |--------|--------|
 | `.xer` | Primavera P6 |
-| `.mpp` | Microsoft Project |
-| `.xml` | Primavera P6 XML export |
+
+Only `.xer` is currently supported — the file must also pass a P6 header check on upload. `.mpp` (Microsoft Project) and `.xml` were previously listed here as supported; that's not the case in the current app (checked directly against `useFileUploadHandlers.ts`, 2026-07-29). If multi-format support is planned for a later release, update this table then — don't reintroduce it speculatively.
 
 
 ## Navigating the app

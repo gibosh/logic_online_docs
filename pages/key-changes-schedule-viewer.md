@@ -3,8 +3,8 @@ page-id: key-changes-schedule-viewer
 title: Schedule Viewer – Key Changes from Desktop
 audience: external
 status: draft
-version: 1.0.1
-last-reviewed: 2026-07-23
+version: 1.1.0
+last-reviewed: 2026-07-29
 ---
 
 ## Schedule Viewer Key Changes
@@ -41,18 +41,26 @@ Opening the panel shows:
 | Option | Choices |
 |--------|---------|
 | Outline Level | 1 / 2 / 3 / 4 |
-| Planned Start | Year / Month / Week |
+| Start | Year / Month / Week |
 | Exclude Summary Tasks | On/Off |
 | Exclude Level of Effort Tasks | On/Off |
 | Show Task Count | On/Off |
 
-Click **Apply Settings** to apply. Click **Use Default Settings** to reset to Outline Level 3, Planned Start Month, both exclusions on.
+Click **Apply Settings** to apply. Click **Use Default Settings** to reset to Outline Level 3, Start Month, both exclusions on.
+
+**Note:** this field was labelled "Planned Start" until 2026-07-28 (LUSB-1068) and also changed what it groups by – previously the activity's baseline planned start, now its current start date. Relevant if you're documenting or screenshotting this against an older build.
 
 ### Go To
 
 **Desktop:** No ability to navigate between activities via their predecessor/successor links.
 
 **Online:** A **Go To** button appears next to each related activity in the activity tray (**Relationships** tab) and the traceback tray (**Candidate Scoring** tab). Clicking it scrolls and highlights the Gantt chart to that activity.
+
+### Sharing a view
+
+**Desktop:** No equivalent – files and view state live only on the machine that opened them.
+
+**Online:** The browser address bar reflects the current project, Comparison/Baseline schedule selection, and active traceback. Copying and sending that URL lets a colleague open the same view directly, including the same traceback result, without re-selecting anything. (LUSB-1085, merged 2026-07-24.)
 
 ### Schedule History
 

@@ -26,6 +26,8 @@ Choose which schedule files to work with using the two selectors at the top of t
 
 Changing either selector resets any active traceback.
 
+**Sharing a view.** The browser address bar updates automatically as you work – it reflects the selected project, Comparison schedule, Baseline schedule, and (in Delay Analysis mode) the current traceback. Copy the URL at any point and send it to someone else with access to the same project; opening it restores that exact view, including re-loading the same traceback result. There's no separate "copy link" button – the address bar itself is always the shareable link. (Added 2026-07-24, LUSB-1085.)
+
 *Full detail coming soon.*
 
 ---

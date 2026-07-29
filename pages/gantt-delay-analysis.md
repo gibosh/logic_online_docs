@@ -4,8 +4,8 @@ route: /schedule-viewer/gantt
 title: Gantt Viewer – Delay Analysis
 audience: external
 status: draft
-version: 1.0.3
-last-reviewed: 2026-06-08
+version: 1.1.0
+last-reviewed: 2026-07-29
 ---
 
 ## About this mode
@@ -96,7 +96,7 @@ The **Exit Traceback** button (X icon) switches back to Traceback Setup mode. If
 
 ## Restarting a traceback
 
-At any step in the traceback, you can change which activity the algorithm selected as the next driver and restart the analysis from that point. Two options are available from the Gantt chart in Delay Analysis mode:
+At any step in the traceback, you can change which activity the algorithm selected as the next driver and restart the analysis from that point. Two options are available from the Gantt chart in Delay Analysis mode. While a restart is running, a status indicator shows "Restarting Traceback"; if it fails, it shows "Error Restarting Traceback" rather than failing silently. (LUSB-1082/1084, merged 2026-07-28.)
 
 ### Restart from shortlisted candidate
 
