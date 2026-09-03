@@ -87,7 +87,7 @@ The foundation cases: one thing changes, the chain is a simple finish-to-start, 
 
 ### S01 – Duration extension on the driving path
 
-![Duration extension on the driving path](pages/images/delay-attribution-2/S01.png)
+![Duration extension on the driving path](images/delay-attribution-2/S01.png)
 
 **What happens.** Activity A's planned duration grows from 4 to 9 working days. Its finish-to-start successor B is pushed the same 5 days, and the delay flows through unbroken logic all the way to Practical Completion.
 
@@ -99,7 +99,7 @@ The foundation cases: one thing changes, the chain is a simple finish-to-start, 
 
 ### S02 – Duration reduction (mitigation)
 
-![Duration reduction](pages/images/delay-attribution-2/S02.png)
+![Duration reduction](images/delay-attribution-2/S02.png)
 
 **What happens.** Activity A's duration is cut from 4 to 2 days. B pulls in 2 days earlier, and Practical Completion improves by 2 days.
 
@@ -111,7 +111,7 @@ The foundation cases: one thing changes, the chain is a simple finish-to-start, 
 
 ### S03 – Late start with logic satisfied
 
-![Late start with logic satisfied](pages/images/delay-attribution-2/S03.png)
+![Late start with logic satisfied](images/delay-attribution-2/S03.png)
 
 **What happens.** A finishes exactly on its baseline date. Its finish-to-start link to B is fully satisfied — yet B's actual start is 5 days later than planned anyway. Nothing in the logic, constraints, or durations explains the gap; the date is just later.
 
@@ -123,7 +123,7 @@ The foundation cases: one thing changes, the chain is a simple finish-to-start, 
 
 ### S04 – Slow progress after an on-time start
 
-![Slow progress after an on-time start](pages/images/delay-attribution-2/S04.png)
+![Slow progress after an on-time start](images/delay-attribution-2/S04.png)
 
 **What happens.** B starts exactly on its baseline date, but takes 9 days against a planned 4. The stretched bar pushes everything downstream by 5 days.
 
@@ -135,7 +135,7 @@ The foundation cases: one thing changes, the chain is a simple finish-to-start, 
 
 ### S05 – Constraint added
 
-![Constraint added](pages/images/delay-attribution-2/S05.png)
+![Constraint added](images/delay-attribution-2/S05.png)
 
 **What happens.** A Start-No-Earlier-Than constraint is applied to B, holding it 5 days beyond where its logic would otherwise place it. The constraint, not the logic, now controls B's start.
 
@@ -147,7 +147,7 @@ The foundation cases: one thing changes, the chain is a simple finish-to-start, 
 
 ### S06 – Constraint removed
 
-![Constraint removed](pages/images/delay-attribution-2/S06.png)
+![Constraint removed](images/delay-attribution-2/S06.png)
 
 **What happens.** The baseline carried a constraint holding B at a later date. That constraint is deleted, and B pulls back 3 days to its logic-driven date.
 
@@ -159,7 +159,7 @@ The foundation cases: one thing changes, the chain is a simple finish-to-start, 
 
 ### S07 – New relationship inserted
 
-![New relationship inserted](pages/images/delay-attribution-2/S07.png)
+![New relationship inserted](images/delay-attribution-2/S07.png)
 
 **What happens.** A new finish-to-start link is added from existing activity C to B. C finishes later than A did, so B is now driven 4 days later than its baseline logic would place it.
 
@@ -177,7 +177,7 @@ Every relationship type has its own hand-over point — the moment an activity's
 
 ### S08 – Lag increased on an existing link
 
-![Lag increased on an existing link](pages/images/delay-attribution-2/S08.png)
+![Lag increased on an existing link](images/delay-attribution-2/S08.png)
 
 **What happens.** The A→B relationship stays the same type, but its lag is edited from 0 to +5 days. B is pushed 5 days with no movement in A at all.
 
@@ -189,7 +189,7 @@ Every relationship type has its own hand-over point — the moment an activity's
 
 ### S09 – Relationship deleted
 
-![Relationship deleted](pages/images/delay-attribution-2/S09.png)
+![Relationship deleted](images/delay-attribution-2/S09.png)
 
 **What happens.** The A→B link is removed. B falls back onto its remaining predecessor D and starts 3 days earlier than baseline.
 
@@ -201,7 +201,7 @@ Every relationship type has its own hand-over point — the moment an activity's
 
 ### S10 – Start-to-start driving
 
-![Start-to-start driving](pages/images/delay-attribution-2/S10.png)
+![Start-to-start driving](images/delay-attribution-2/S10.png)
 
 **What happens.** A drives B through a start-to-start link with 2 days of lag. A's actual start slips 3 days, pushing B's start by 3 days too. A's own finish also blows out by 6 days — but nothing downstream depends on A's finish.
 
@@ -213,7 +213,7 @@ Every relationship type has its own hand-over point — the moment an activity's
 
 ### S11 – Finish-to-finish driving
 
-![Finish-to-finish driving](pages/images/delay-attribution-2/S11.png)
+![Finish-to-finish driving](images/delay-attribution-2/S11.png)
 
 **What happens.** A drives B's finish through a finish-to-finish link with 1 day of lag. A's duration extends 4 days, and B's finish is dragged 4 days with it.
 
@@ -225,7 +225,7 @@ Every relationship type has its own hand-over point — the moment an activity's
 
 ### S12 – Split attribution
 
-![Finish-to-finish partially explains the movement](pages/images/delay-attribution-2/S12.png)
+![Finish-to-finish partially explains the movement](images/delay-attribution-2/S12.png)
 
 **What happens.** A→B is finish-to-finish with 5 days of lag. A's finish slips 2 days, dragging B's required finish 2 days later. But B's actual start is 5 days later than plan — the FF logic only explains 2 of those days. The remaining 3 have no logic explanation at all.
 
@@ -237,7 +237,7 @@ Every relationship type has its own hand-over point — the moment an activity's
 
 ### S13 – Concurrent drivers
 
-![Concurrent drivers](pages/images/delay-attribution-2/S13.png)
+![Concurrent drivers](images/delay-attribution-2/S13.png)
 
 **What happens.** A and C both finish 5 days late, and both drive B through finish-to-start links. On the recalculated dates, the two drivers tie exactly.
 
@@ -251,7 +251,7 @@ Every relationship type has its own hand-over point — the moment an activity's
 
 ### S14 – Absorbed by float
 
-![Slip absorbed by float](pages/images/delay-attribution-2/S14.png)
+![Slip absorbed by float](images/delay-attribution-2/S14.png)
 
 **What happens.** A slips 2 days, but B is actually driven by C — and A's late finish still lands inside its own float. B doesn't move. PC doesn't move.
 
@@ -263,7 +263,7 @@ Every relationship type has its own hand-over point — the moment an activity's
 
 ### S15 – Start-to-finish
 
-![Start-to-finish](pages/images/delay-attribution-2/S15.png)
+![Start-to-finish](images/delay-attribution-2/S15.png)
 
 **What happens.** B→C is start-to-finish: C can't finish until B starts. B's start slips 5 days, holding C's finish 5 days later.
 
@@ -281,7 +281,7 @@ Fragnets, new activities, implied links, and resource levelling — the cases wh
 
 ### S16 – Fragnet inserted, net effect zero
 
-![Fragnet inserted, net effect zero](pages/images/delay-attribution-2/S16.png)
+![Fragnet inserted, net effect zero](images/delay-attribution-2/S16.png)
 
 **What happens.** An 8-day fragnet F is inserted between A and B. But B is held by a Start-No-Earlier-Than constraint and had never actually moved off its baseline date — the fragnet finishes comfortably inside B's existing wait. Practical Completion before the insertion equals Practical Completion after it.
 
@@ -293,7 +293,7 @@ Fragnets, new activities, implied links, and resource levelling — the cases wh
 
 ### S17 – Fragnet inserted, partial push
 
-![Fragnet inserted, partial push](pages/images/delay-attribution-2/S17.png)
+![Fragnet inserted, partial push](images/delay-attribution-2/S17.png)
 
 **What happens.** The same 8-day fragnet is inserted, but this time B was already sitting at day 9, and the fragnet's day-12 finish pushes B by 3 days.
 
@@ -305,7 +305,7 @@ Fragnets, new activities, implied links, and resource levelling — the cases wh
 
 ### S18 – Single new activity inserted
 
-![Single new activity inserted](pages/images/delay-attribution-2/S18.png)
+![Single new activity inserted](images/delay-attribution-2/S18.png)
 
 **What happens.** One new 3-day activity N is inserted into the A→B chain. B is pushed 3 days.
 
@@ -317,7 +317,7 @@ Fragnets, new activities, implied links, and resource levelling — the cases wh
 
 ### S19 – Implied link
 
-![Implied link — the algorithm finds a driver with no relationship](pages/images/delay-attribution-2/S19.png)
+![Implied link — the algorithm finds a driver with no relationship](images/delay-attribution-2/S19.png)
 
 **What happens.** B has moved 3 days, and its new start tracks D's finish exactly — but no relationship between D and B exists in the baseline *or* the current schedule. Logic+ surfaces D as the apparent driver anyway, from the pattern alone.
 
@@ -329,7 +329,7 @@ Fragnets, new activities, implied links, and resource levelling — the cases wh
 
 ### S20 – Resource levelling
 
-![Resource levelling — the candidate column](pages/images/delay-attribution-2/S20.png)
+![Resource levelling — the candidate column](images/delay-attribution-2/S20.png)
 
 **What happens.** B is 5 days later than baseline. Its logic is fully satisfied, no constraint exists, durations are unchanged, and the dates aren't actualised late — every other category comes back empty. Resource levelling is switched on in the schedule, and B's resources were over-allocated in the window it vacated.
 
@@ -379,7 +379,7 @@ Each section below is collapsed by default — expand the ones you need.
 
 Every discrete way a schedule can actually differ from its baseline, in both directions — the raw material every other family builds on. Each situation has exactly one home category, and gains are always recorded as a negative charge so the columns reconcile properly to the real movement at PC.
 
-![Family A — what changed](pages/images/delay-attribution-2/A.png)
+![Family A — what changed](images/delay-attribution-2/A.png)
 
 | ID | Situation | Treatment | Builds on |
 |---|---|---|---|
@@ -422,75 +422,75 @@ A-01, 02, 05, 07, 09, 12, 13, 18, 20, 24, 25, 26, 29 and 31 are exactly the base
 
 **A-03 — Remaining duration increased.** B started on time and was actualised to the data date; its remaining duration was then edited from 2 to 7 days. The edit is a plan change, so it charges Duration — not Progress — even though the bar is already underway.
 
-![A-03](pages/images/delay-attribution-2/A-03.png)
+![A-03](images/delay-attribution-2/A-03.png)
 
 **A-04 — Remaining duration decreased.** The same shape, opposite sign: remaining work cut from 4 to 2 days.
 
-![A-04](pages/images/delay-attribution-2/A-04.png)
+![A-04](images/delay-attribution-2/A-04.png)
 
 **A-06 — Relationship added, non-driving.** A link was added from C, but C finishes inside B's float. The schedule gained logic, not delay — recorded, but charged zero.
 
-![A-06](pages/images/delay-attribution-2/A-06.png)
+![A-06](images/delay-attribution-2/A-06.png)
 
 **A-08 — Relationship deleted, no driver left.** The only link into B was deleted. Nothing in the schedule now explains B's position, so the case escalates: Logic+ surfaces D as the candidate driver and the charge lands in Implied Logic.
 
-![A-08](pages/images/delay-attribution-2/A-08.png)
+![A-08](images/delay-attribution-2/A-08.png)
 
 **A-10 — Lag decreased.** The lag on A→B was cut from 3 days to 0, and B pulls forward — the gain twin of S08.
 
-![A-10](pages/images/delay-attribution-2/A-10.png)
+![A-10](images/delay-attribution-2/A-10.png)
 
 **A-11 — Relationship type changed.** The relationship was edited from finish-to-start to start-to-start+1. Measured as a delete plus an add, charged at the net.
 
-![A-11](pages/images/delay-attribution-2/A-11.png)
+![A-11](images/delay-attribution-2/A-11.png)
 
 **A-14 — Finish-side constraint added.** A Finish-No-Later-Than constraint was added. Dates don't actually move — total float goes negative instead. The pressure is flagged, but since nothing moved, the PC charge is zero.
 
-![A-14](pages/images/delay-attribution-2/A-14.png)
+![A-14](images/delay-attribution-2/A-14.png)
 
 **A-16 — Mandatory constraint added.** A Mandatory Start pins B to day 9 regardless of what the logic wants. The suppressed link is shown dotted, so the reader knows logic was overridden — but it isn't charged for it.
 
-![A-16](pages/images/delay-attribution-2/A-16.png)
+![A-16](images/delay-attribution-2/A-16.png)
 
 **A-19 — Early actual or forecast start.** B started 2 days earlier than planned with its logic satisfied — the gain twin of a late start, charged negative to Progress.
 
-![A-19](pages/images/delay-attribution-2/A-19.png)
+![A-19](images/delay-attribution-2/A-19.png)
 
 **A-21 — Fast progress.** Started on time and finished in half the planned time. Negative Progress Change.
 
-![A-21](pages/images/delay-attribution-2/A-21.png)
+![A-21](images/delay-attribution-2/A-21.png)
 
 **A-22 — Suspension and resume.** B worked 2 days, stopped for 3, then resumed. The suspension stretches the bar; the suspended span is Progress Change.
 
-![A-22](pages/images/delay-attribution-2/A-22.png)
+![A-22](images/delay-attribution-2/A-22.png)
 
 **A-23 — Out-of-sequence progress.** B started before A finished — the work on site got ahead of the logic. The overridden link is shown dotted; the recalculated effect depends on which scheduling option is in force (see P-02 and P-03 in the Family P section below).
 
-![A-23](pages/images/delay-attribution-2/A-23.png)
+![A-23](images/delay-attribution-2/A-23.png)
 
 **A-27 — Activity deleted.** B was deleted outright — a yellow baseline bar with no blue bar above it. Its successor rewires and pulls forward; the credit is carried against the deleted activity at the before/after delta.
 
-![A-27](pages/images/delay-attribution-2/A-27.png)
+![A-27](images/delay-attribution-2/A-27.png)
 
 **A-28 — Logic rewired in a WBS restructure.** One link deleted, another added, in a single restructure. The charge is the net of the two edits, carried on B with both links named.
 
-![A-28](pages/images/delay-attribution-2/A-28.png)
+![A-28](images/delay-attribution-2/A-28.png)
 
 **A-30 — Implied link, gain.** B sits 3 days earlier than anything in the schedule explains, tracking D's finish exactly — the gain twin of S19, with the same candidate-initiator discipline.
 
-![A-30](pages/images/delay-attribution-2/A-30.png)
+![A-30](images/delay-attribution-2/A-30.png)
 
 **A-32 — Resource levelling release.** The conflict that held B late in the baseline was resolved, and levelling releases B early. Negative Resource Levelling, subject to the same three-part test as S20.
 
-![A-32](pages/images/delay-attribution-2/A-32.png)
+![A-32](images/delay-attribution-2/A-32.png)
 
 **A-33 — Activity calendar reassigned.** B moved from a 5-day to a 7-day calendar — identical work content, two fewer elapsed days. The core case for the Calendar Change category.
 
-![A-33](pages/images/delay-attribution-2/A-33.png)
+![A-33](images/delay-attribution-2/A-33.png)
 
 **A-34 — Calendar body edited.** Two holidays were added to B's calendar. No edit to the activity itself, but two more elapsed days — and every other activity sharing that calendar is affected the same way.
 
-![A-34](pages/images/delay-attribution-2/A-34.png)
+![A-34](images/delay-attribution-2/A-34.png)
 
 </details>
 
@@ -499,7 +499,7 @@ A-01, 02, 05, 07, 09, 12, 13, 18, 20, 24, 25, 26, 29 and 31 are exactly the base
 
 A cause and its journey to Practical Completion are two separate questions, answered one after the other. Delay moves along the driving path; where the hand-over happens depends on the relationship type; and the charge always arrives at PC still named to wherever it started.
 
-![Family T — how delay travels to completion](pages/images/delay-attribution-2/T.png)
+![Family T — how delay travels to completion](images/delay-attribution-2/T.png)
 
 | ID | Situation | Treatment | Builds on |
 |---|---|---|---|
@@ -520,23 +520,23 @@ T-01 to T-07 are exactly the base scenarios above (S01, S10, S11, S15, S12, S14,
 
 **T-08 — Near-concurrency.** C finishes one day behind driver A. On the arithmetic, A drives — in practice, that's close enough to be a coin toss. The near-concurrency flag preserves how close it was, so a one-day recalculation difference can't silently flip the story.
 
-![T-08](pages/images/delay-attribution-2/T-08.png)
+![T-08](images/delay-attribution-2/T-08.png)
 
 **T-09 — Multi-hop relay.** A's 3-day extension passes through B and C untouched — they both move, but the charge doesn't; it arrives at PC still named to A. This is what keeps a per-activity total meaningful even across long chains.
 
-![T-09](pages/images/delay-attribution-2/T-09.png)
+![T-09](images/delay-attribution-2/T-09.png)
 
 **T-10 — Redundant parallel links.** Two links reach B, but only A's link actually binds. The redundant one is recorded, so the network history stays complete, but charged nothing.
 
-![T-10](pages/images/delay-attribution-2/T-10.png)
+![T-10](images/delay-attribution-2/T-10.png)
 
 **T-11 — Driving path switches mid-window.** A drove the first 2 days of B's movement; then a new constraint took over and drove 3 more. One window, two drivers in sequence — the charge splits by sub-period rather than forcing a single winner.
 
-![T-11](pages/images/delay-attribution-2/T-11.png)
+![T-11](images/delay-attribution-2/T-11.png)
 
 **T-12 — Gain blocked by a secondary path.** A gave back 3 days of duration, but C never moved and remains the driver — the gain never actually reached Practical Completion. Mitigation is only credited for the completion movement it genuinely achieved, which here is zero.
 
-![T-12](pages/images/delay-attribution-2/T-12.png)
+![T-12](images/delay-attribution-2/T-12.png)
 
 </details>
 
@@ -545,7 +545,7 @@ T-01 to T-07 are exactly the base scenarios above (S01, S10, S11, S15, S12, S14,
 
 Once a bar is genuinely in progress, the same edit can mean two different things — and the data date is the border between them. These five are the cases where the state of the work itself changes the reading, rather than combining with something else by rule.
 
-![Family P — work already underway](pages/images/delay-attribution-2/P.png)
+![Family P — work already underway](images/delay-attribution-2/P.png)
 
 | ID | Situation | Treatment | Builds on |
 |---|---|---|---|
@@ -557,23 +557,23 @@ Once a bar is genuinely in progress, the same edit can mean two different things
 
 **P-01 — Actual start plus revised remaining.** One bar, two territories: the 2-day late start is fact and charges Progress; the remaining-duration edit from 2 to 5 days is a plan change and charges Duration. The data date is the border between the two.
 
-![P-01](pages/images/delay-attribution-2/P-01.png)
+![P-01](images/delay-attribution-2/P-01.png)
 
 **P-02 — Retained logic vs. progress override.** B started out of sequence while A still had work outstanding. "Retained logic" and "progress override" are two different scheduling options that forecast different dates from identical facts — so which option was in force always travels with the charge, or two runs of the tool could disagree with no visible reason why.
 
-![P-02](pages/images/delay-attribution-2/P-02.png)
+![P-02](images/delay-attribution-2/P-02.png)
 
 **P-03 — Out-of-sequence progress.** The work on site got ahead of the logic. The gain is Progress Change; the overridden link is shown dotted; the recalculation follows P-02's rule.
 
-![P-03](pages/images/delay-attribution-2/P-03.png)
+![P-03](images/delay-attribution-2/P-03.png)
 
 **P-04 — Completed activity, later logic edits.** Both activities are complete. A lag edit on their link changes nothing — actualised dates can't move, the window has already closed, and the edit charges zero.
 
-![P-04](pages/images/delay-attribution-2/P-04.png)
+![P-04](images/delay-attribution-2/P-04.png)
 
 **P-05 — Prospective symmetry.** The whole network sits ahead of the data date — every bar shown is a forecast. The treatment is identical to S01; only the word changes, from "as-built movement" to "forecast movement."
 
-![P-05](pages/images/delay-attribution-2/P-05.png)
+![P-05](images/delay-attribution-2/P-05.png)
 
 </details>
 
@@ -582,7 +582,7 @@ Once a bar is genuinely in progress, the same edit can mean two different things
 
 The same delay can be a different number on a different calendar — so before any charge is stated in days, Logic+ has to know *whose* days it's counting. Three rules settle it.
 
-![Family K — counting the days](pages/images/delay-attribution-2/K.png)
+![Family K — counting the days](images/delay-attribution-2/K.png)
 
 | ID | Situation | Treatment | Builds on |
 |---|---|---|---|
@@ -592,15 +592,15 @@ The same delay can be a different number on a different calendar — so before a
 
 **K-01 — Cross-calendar translation.** A runs on a 5-day calendar, B on a 7-day one. A's slip is handed over at the link and counted in B's days from that point forward — the delta changes denomination right at the hand-over.
 
-![K-01](pages/images/delay-attribution-2/K-01.png)
+![K-01](images/delay-attribution-2/K-01.png)
 
 **K-02 — The PC milestone's own calendar.** Activity days and milestone days can genuinely differ. Whatever calendars the delay crossed on its way through the schedule, the number reported at PC is always counted on the PC milestone's own calendar.
 
-![K-02](pages/images/delay-attribution-2/K-02.png)
+![K-02](images/delay-attribution-2/K-02.png)
 
 **K-03 — Calendar vs. levelling, the fingerprint test.** B moved 2 days with every category silent — the exact signature both a calendar change and resource levelling can produce. The tiebreak: rerun the delta against the calendar diff. If it reproduces the movement exactly, it's a Calendar Change; levelling additionally needs a corroborating resource conflict in the window B vacated.
 
-![K-03](pages/images/delay-attribution-2/K-03.png)
+![K-03](images/delay-attribution-2/K-03.png)
 
 </details>
 
@@ -609,7 +609,7 @@ The same delay can be a different number on a different calendar — so before a
 
 Two or more causes hitting the same activity inside one reporting window. The answer here isn't a diagram for every possible combination — it's a fixed order of extraction: peel the causes off one at a time in the same sequence every time, and require the pieces to add back exactly to the real movement at PC.
 
-![Family X — several changes at once](pages/images/delay-attribution-2/X.png)
+![Family X — several changes at once](images/delay-attribution-2/X.png)
 
 | ID | Situation | Treatment | Builds on |
 |---|---|---|---|
@@ -620,15 +620,15 @@ Two or more causes hitting the same activity inside one reporting window. The an
 
 **X-01 — Constraint plus duration.** A new constraint and a duration edit landed in the same reporting window. The constraint is peeled off first (+3), the duration second (+2), and the two pieces reconcile exactly to the +5 seen at PC.
 
-![X-01](pages/images/delay-attribution-2/X-01.png)
+![X-01](images/delay-attribution-2/X-01.png)
 
 **X-02 — Logic edit plus progress.** A lag edit explains 2 of the 5 days that moved; the remaining 3 have no logic explanation and go to Progress. Logic is always extracted first, and the residual is never allowed to hide inside a logic charge.
 
-![X-02](pages/images/delay-attribution-2/X-02.png)
+![X-02](images/delay-attribution-2/X-02.png)
 
 **X-03 — Fragnet plus successor progress.** A fragnet went into the schedule while B also ran slow in the same window. The insertion's before/after delta is computed with B's progress isolated out (+3), so the fragnet isn't wrongly charged for B's own performance (+2). Two causes, two owners, one total that still reconciles.
 
-![X-03](pages/images/delay-attribution-2/X-03.png)
+![X-03](images/delay-attribution-2/X-03.png)
 
 **X-04 — The general ordering rule.** The rule underneath this whole family: constraints, then logic, then durations, then whatever's left goes to Progress — with the signed pieces always summing exactly to the real movement at PC.
 
