@@ -4,9 +4,9 @@ route: /module/1/project/:projectId
 title: Forecast Confidence
 audience: external
 status: draft
-version: 1.2.0
+version: 1.3.0
 last-reviewed: 2026-09-03
-blocked-reason: Content verified directly against ForecastConfidenceModule source and its call path from the live route, but exact on-screen wording (labels, tooltips) still needs a live-app screenshot before promoting to complete.
+blocked-reason: Content verified directly against ForecastConfidenceModule source and its call path from the live route, but exact on-screen wording (labels, tooltips) still needs a live-app screenshot before promoting to complete. Worked examples added from representative inputs run through the real formula, not from a live traceback.
 ---
 
 ## Forecast Confidence – Overview
@@ -23,7 +23,7 @@ A confidence gauge showing a percentage and a green, amber, or red read, with a 
 
 Below the gauge, a timeline shows the **data date of each uploaded update**, the **reported finish date**, a **forecasted (rules-adjusted) finish date**, and an **early/late likely range** either side of it. There is no separate "today" marker – the most recent point plotted is the latest update's own data date, not necessarily today's calendar date. The confidence percentage is a measure of how wide that likely range is relative to the time remaining – a tight range against a long remaining duration reads as high confidence; a wide range against a short remaining duration reads as low confidence.
 
-Below the timeline, a **Reliability ingredients** grid lists the individual metrics the model is built from, each with its own small sparkline history and a green/amber/watch status word:
+Below the timeline, a **Reliability Factors** grid lists the individual metrics the model is built from, each with its own small sparkline (the last 13 updates) and a green/amber/watch status word:
 
 | Metric | What it reflects |
 |---|---|
@@ -46,6 +46,30 @@ A closing note is intended to identify the single biggest activity currently dri
 **How it's calculated:** update files that don't share enough activity codes with the largest uploaded file (fewer than half in common) are treated as a different schedule's data and excluded from the read. The remaining files are lined up in date order to track how far the completion milestone's forecast date has moved and how fast. That trend is combined with two other signals into the confidence percentage: how consistent the movement has been update to update, and how much float has gone negative across the project. The confidence band is **60% or above is green, 40–59% is amber, below 40% is red.**
 
 The Forecast honesty panel's planned-vs-actual comparison is **not** one of these three inputs – it's computed and shown separately, and is capped at a moderate read until at least 20 activities have finished across at least 4 updates, since fewer than that isn't enough to judge reliably. Don't read the honesty panel as explaining the confidence percentage; the two can genuinely disagree.
+
+## Worked examples: what drives a high, medium, or low confidence
+
+The Reliability Factors don't add up to the confidence percentage – they explain it. Each one widens or narrows the likely-range window described above; the confidence percentage then falls out of comparing that window's width against how much time is left. Two schedules with very different Reliability Factors can land on a similar confidence percentage, and that's expected.
+
+The three examples below use the same illustrative project throughout – six monthly updates so far, six months of programme left, reported finish 15 December – with only the schedule's underlying health changing between them. They're representative inputs, not pulled from a real run, but the confidence percentages they produce are worked through the actual formula.
+
+**High confidence – around 65–70%**
+
+The Reliability Factors all score healthy: task-count growth low and steady, step-to-step volatility low (the forecast finish barely moves update to update), negative-float share low, and the slip-rate factors all close to flat – the schedule is tracking close to plan.
+
+What you'd see: the forecasted finish sits only a few days past the reported one (18 December vs. 15 December), and the window stretches from the reported date itself out to around 25 April – wide in absolute terms, but narrow relative to the six months still on the clock. That's the shape behind high confidence in Logic+: not a pinpoint date, but a window that isn't ballooning outward.
+
+**Medium confidence – around 40–55%**
+
+The Reliability Factors are mixed: moderate task-count growth, moderate step-to-step volatility, negative-float share creeping up, and a slip rate that's clearly non-zero but not extreme – a combination that comes across as worth watching, rather than healthy or in trouble.
+
+What you'd see: the forecasted finish moves out to around 11 January, and the window widens out to mid-July – more than a month of central shift, and a window wider than the time remaining. This is the zone where the reported date needs real scrutiny before it's repeated to a client.
+
+**Low confidence – below 40%**
+
+Several Reliability Factors are in trouble at once: high task-count growth, high step-to-step volatility, a high negative-float share, and a slip rate that's losing a meaningful fraction of a month for every month that passes.
+
+What you'd see: the forecasted finish moves to late February – more than two months past what's reported – and the window stretches out to early December the *following* year, nearly doubling the whole remaining duration. At this point the reported date isn't a useful anchor on its own; the width of the window is the real message.
 
 ## Note
 
