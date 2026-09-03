@@ -3,8 +3,8 @@ page-id: glossary
 title: Glossary
 audience: external
 status: draft
-version: 1.0.3
-last-reviewed: 2026-06-08
+version: 1.1.0
+last-reviewed: 2026-09-03
 ---
 
 ## Glossary
@@ -37,8 +37,8 @@ The amount of time an activity can be delayed without delaying the project end d
 **Level of Effort (LOE)**
 An activity type representing work that runs across a span of time rather than producing a specific deliverable (e.g. project management, safety monitoring). Logic+ displays LOE activities with a distinct bar style in the Gantt viewer.
 
-**Packetising**
-The first stage of Logic+ processing. The uploaded schedule is broken into analysable units ("packets") that the analytics pipeline can process in parallel.
+**Packet**
+The unit Logic+ breaks an uploaded schedule into internally so the analytics pipeline can process it. This is a backend/engineering term, not a status you'll see on screen – the upload status badge itself just reads **processing**, then **processed**.
 
 **Project**
 A named container in Logic+ that groups one or more schedule files. A Logic+ project typically corresponds to a single construction project or programme.
@@ -50,7 +50,7 @@ An uploaded `.xer` file containing a point-in-time snapshot of a project program
 Similar to total float but calculated differently in some schedule engines. Logic+ records both where available.
 
 **Traceback**
-An algorithm that identifies the chain of activities most responsible for project delay. It works by tracing the critical path backward from the delayed project end date through a comparison of baseline and current schedule.
+An algorithm that identifies the chain of activities most responsible for project delay, by scoring candidate predecessor activities at each step back from the completion milestone and picking the strongest chain. Logic+ offers a choice of scoring profile (Replica v2.1 is the default) that weights the scoring criteria differently – see [Traceback Setup](pages/traceback-setup.md) and [How Traceback and Delay Attribution Work](pages/traceback-engine.md).
 
 **WBS (Work Breakdown Structure)**
 A hierarchical grouping of activities used to organise and summarise schedule data. WBS codes appear as summary rows in the Gantt viewer.

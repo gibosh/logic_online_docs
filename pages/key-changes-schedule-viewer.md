@@ -3,8 +3,8 @@ page-id: key-changes-schedule-viewer
 title: Schedule Viewer – Key Changes from Desktop
 audience: external
 status: draft
-version: 1.1.0
-last-reviewed: 2026-07-29
+version: 1.2.0
+last-reviewed: 2026-09-03
 ---
 
 ## Schedule Viewer Key Changes
@@ -34,9 +34,7 @@ Options are labelled by the data date of each upload. All schedule packets uploa
 
 **Desktop:** Single grouping option of WBS or Date structures only.
 
-**Online:** A **Group Settings** panel (gear icon, top right of the toolbar) lets you control how activities are grouped and filtered. Grouping options include WBS, Dates and Activity Codes. 
-
-Opening the panel shows:
+**Online:** A **Group Settings** dialog (gear icon, top right of the toolbar) lets you control how activities are grouped. It opens on a three-way choice: **Group by WBS**, **Use custom grouping**, or **Don't group activities**. The custom options below only apply when "Use custom grouping" is selected:
 
 | Option | Choices |
 |--------|---------|

@@ -4,8 +4,9 @@ route: /project-manager
 title: Project Manager
 audience: external
 status: draft
-version: 1.1.0
-last-reviewed: 2026-07-29
+version: 1.1.1
+last-reviewed: 2026-09-03
+blocked-reason: Two items need confirming against the live app rather than code alone – (1) whether a newly created project reliably stays selected/highlighted (see note under "To create a project" – the code paths for the temporary ID shown in the UI and the ID actually saved look like they can disagree), and (2) the "a few minutes" typical processing time, which wasn't independently re-timed for this review.
 ---
 
 ## About this page
@@ -23,39 +24,45 @@ The Project Manager is the starting point for all work in Logic+. Use it to orga
 **To create a project:**
 1. Type a name in the **Add New Project** field
 2. Click **Add** or press Enter
-3. The new project appears in the left panel and is selected automatically
+3. The new project appears in the left panel
+
+**Note:** if the new project doesn't end up highlighted/selected after you click Add, click it in the list – this is a known possible rough edge, not something you're doing wrong. (Flagged for confirmation against the live app; not something this doc can fix.)
 
 **To rename a project:**
 - Click **Edit** next to the project name, type the new name, then click **Done**
 
 **To delete a project:**
-- Click **Delete** next to the project – this also removes all schedules attached to it
+- Click **Delete** next to the project. There is no confirmation step, so make sure before you click – it can't be undone from the page. Schedules that were in the project are no longer accessible afterwards either.
 
 ## Uploading schedules
 
 1. Select a project in the left panel
 2. In the right panel, drag a file onto the upload area or click **Browse Files** (drag-and-drop and click-to-browse both work on the same drop zone)
-3. Supported format: `.xer` (Primavera P6) only – other file types are rejected on upload with an alert
+3. Supported format: `.xer` (Primavera P6) only. Logic+ checks both the file name and the start of the file's content, so a file that isn't really a P6 export is rejected even if it's named `.xer`
 4. Maximum file size: 100 MB per file
-5. Multiple files can be selected and uploaded at once
+5. Multiple files can be selected and uploaded at once – they're sent one after another
 
-After upload, Logic+ processes each schedule automatically. You do not need to do anything – check the status badge to follow progress.
+After upload, Logic+ processes each schedule automatically. You do not need to do anything – check the status badge to follow progress. The page checks for updates every few seconds while a schedule is still processing.
 
 ## Schedule processing statuses
 
 | Status | Meaning |
 |--------|---------|
 | `unprocessed` | File uploaded but processing has not started |
-| `packetising` | Schedule is being processed – shown as "packetising…" for the full duration between upload and completion |
+| `processing` | Schedule is being processed – shown as "processing" for the full duration between upload and completion, with no visible sub-progress |
 | `processed` | Processing complete – schedule is ready for all views |
 | `failed` | An error occurred – use **Reprocess** to try again |
 
 Processing typically completes within a few minutes depending on schedule size.
 
-**Note:** earlier versions of this page described a separate `analysing` status with an "analysis N/7" counter as analytics ran. That granular step no longer exists in the app – `packetising` now covers the whole in-progress period, with no visible sub-progress. Confirmed directly against `ScheduleItem.tsx`'s status badge and `ScheduleRecord`'s status type (`uploading | failed | unprocessed | packetising | processed`) as of the LUSB-1060 Project Manager rework, merged 2026-07-28. This also resolves the "Logic+ runs 7 analytics… analysis N/7" line flagged as stale in `getting-started.md` across three earlier reviews – it's not that the count was wrong, the display itself was removed.
+**Note:** the in-progress badge now reads "processing" rather than "packetising" – the underlying status name changed as part of a schedule-status rework since this page was last reviewed (confirmed against `ScheduleItem.tsx`'s status badge and the `ScheduleStatus` type in `@lware/contracts`, now `STATUS_UPLOADING | STATUS_FAILED_TO_PROCESS | STATUS_UNPROCESSED | STATUS_PROCESSING | STATUS_PROCESSED`). There is still no separate "analysing" step or "analysis N/7" counter – that was already confirmed removed in the previous review of this page and remains gone.
+
+If a schedule fails, the page doesn't currently explain why – you'll only see the "failed" badge and a Reprocess button. If Reprocess doesn't resolve it, contact support with the schedule name and roughly when you uploaded it.
 
 ## Reprocessing a schedule
 
-The **Reprocess** button appears when a schedule is in `failed` or `unprocessed` status. (Previous wording also mentioned reprocessing being offered when analytics were flagged as out of date – that is not what the code does; `canReprocessSchedule` only checks for `failed` or `unprocessed`.)
+The **Reprocess** button appears when a schedule is in `failed` or `unprocessed` status. Click **Reprocess** to restart processing for that schedule. The schedule file is not re-uploaded – Logic+ reprocesses the file you already sent.
 
-Click **Reprocess** to restart processing for that schedule. The schedule data is not re-uploaded.
+## Removing a schedule
+
+Click **Delete** on a schedule to remove it from the project. As with deleting a project, there is no confirmation step, so make sure before you click.

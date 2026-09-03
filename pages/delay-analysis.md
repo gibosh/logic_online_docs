@@ -3,9 +3,9 @@ page-id: delay-analysis
 route: /schedule-viewer/gantt
 title: Delay Analysis
 audience: external
-status: draft
-version: 1.1.0
-last-reviewed: 2026-07-21
+status: complete
+version: 1.1.1
+last-reviewed: 2026-09-03
 ---
 
 ## About Delay Analysis
@@ -24,11 +24,11 @@ Before running a delay analysis, select a start activity (the endpoint you are t
 
 ### Traceback Settings
 
-The settings modal (gear icon in the Traceback Setup toolbar) has two sections:
+The settings modal (gear icon in the Traceback Setup toolbar) has two tabs:
 
-**Scoring** – adjust how much influence each measure has on which activity is selected as the next driver at each step. Primary scores (Closest Link, Implied Link) drive most of the decision. Thirteen secondary scores refine the ranking when primary scores are close.
+**Candidate Score Weights** – adjust how much influence each measure has on which activity is selected as the next driver at each step. Primary scores (Closest Link, Implied Link) drive most of the decision. Thirteen secondary scores refine the ranking when primary scores are close – this only applies to the Replica v2.1 and Calibrated v1 algorithm profiles; the Driving Task profile ignores these weights entirely.
 
-**Excluded activities** – five filters that narrow the candidate pool before scoring: by date proximity to the target activity, by duration, by finish date, by date containment, and by activity type.
+**Activity Exclusion Criteria** – six filters that narrow the candidate pool before scoring: by date proximity to the target activity (two filters), by duration, by finish date, by date containment, and by activity type. You can also manually exclude or include individual activities (or a whole WBS branch at once) directly in the activity list.
 
 [Full detail – Traceback Settings](pages/traceback-setup.md#step-3--adjust-settings-optional)
 
@@ -70,9 +70,9 @@ The **Candidate Scoring** tab shows a simplified view of the ranked candidates f
 
 ## Delay Attribute
 
-A summary of how much delay each activity on the traceback path contributed – separating delay that was inherited from earlier in the chain from delay the activity itself introduced, with a flag explaining the reason behind each charge (a relationship change, a duration change, a gap, a missing formal link, or a calendar difference).
+A per-activity breakdown, shown in a dedicated panel next to the Gantt chart's activity list (separate from the tray below), of how much delay each activity on the traceback path contributed – separating delay that was inherited from earlier in the chain from delay the activity itself introduced, with a flag explaining the reason behind each charge (a relationship change, a duration change, a start-date shift, a lag change, a missing formal link, a calendar difference, or newly added scope).
 
-[Full detail – How delay gets charged to each activity](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity)
+[Full detail – Delay Attribution panel](pages/gantt-delay-analysis.md#delay-attribution-panel) · [How the charge is calculated](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity)
 
 ---
 

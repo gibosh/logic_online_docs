@@ -4,15 +4,16 @@ route: /module/5/project/:projectId
 title: Bow-Wave Compression
 audience: external
 status: draft
-version: 1.0.0
-last-reviewed: 2026-07-20
+version: 1.0.1
+last-reviewed: 2026-09-03
+blocked-reason: Content below is corrected from direct code analysis (frontend/src/components/modules/BowWaveCompressionModule/, frontend/src/components/charts/, frontend/src/utils/forensicAnalysis.ts) but has not yet been checked against the running app. Confirm chart interaction and hover/tooltip behaviour before promoting to complete.
 ---
 
 ## Bow-Wave Compression – Overview
 
 Work that should happen steadily over time sometimes gets pushed later and later – re-sequenced rather than genuinely resourced – until it piles up into an unrealistic crunch near the end of the project. By the time this is visible in a normal Gantt view, it is often too late to add the crews, plant, or subcontractor capacity needed to absorb it.
 
-This module gives you the tools to see that shape forming: how many activities are scheduled to run at once, across the timeline and across schedule updates, plus a set of panels for comparing updates and tracking float and the critical path alongside it.
+This module gives you the tools to see that shape forming: how many activities are scheduled to run at once, across the timeline and across schedule updates, plus two panels for comparing updates side by side.
 
 ---
 
@@ -27,6 +28,8 @@ Four views are available via the buttons at the top of the page, with a **Granul
 | **Project Progress** | A cumulative percent-complete curve built from planned start and finish dates |
 | **Average Float** | The average total float across activities spanning each day or period |
 
+A **Criticality filter** (All / Critical) sits alongside the granularity selector and applies to every view, plus both panels below: "Critical" restricts every chart and panel to only the activities P6 itself flags as critical for that schedule update, before any of the calculations below run.
+
 **Reading the shape:** a line that climbs steadily suggests work is spread evenly across the timeline. A line that stays flat early and rises steeply late is the bow wave – work has been deferred rather than resourced to run earlier. Logic+ shows you this shape; deciding whether a given steepness is a real problem is a planning judgement, not something the chart scores for you.
 
 **Project Progress note:** this curve is built from each activity's *planned* dates, not from what has actually been completed – it shows the planned delivery shape, not progress against it. For a completed-vs-planned comparison, use the S-curve on the [Float Burn-down and Earned Schedule](float-burndown-earned-schedule.md) module instead.
@@ -35,18 +38,16 @@ Four views are available via the buttons at the top of the page, with a **Granul
 
 ## Panels
 
-Four panels sit alongside the chart. Schedule Summary and Schedule Explorer appear once at least one schedule update is loaded; Critical Path Explorer and Float Explorer need at least two.
+Two panels sit below the chart, both appearing once at least one schedule update is loaded.
 
-**Schedule Summary panel** – key stats side by side for each schedule update loaded for the project.
+**Schedule Summary panel** – key stats side by side for each schedule update loaded for the project: work content, peak concurrent activities, completion window (length, in months), and completion end date. Each row is compared against either the previous update or a chosen baseline update (toggle at the top of the panel), with the change shown as a coloured delta chip.
 
-**Schedule Explorer panel** – compares consecutive pairs of schedule updates. It highlights the pair with the single largest change in projected finish date, and lists the individual activities within that pair whose start date, finish date, or duration shifted the most. Use this to find where in the update history the biggest swing happened, and which activities moved the most at that point – not as a detector of logic changes themselves.
+**Schedule Forensics panel** – compares pairs of schedule updates (consecutive, or each update against a chosen baseline – same toggle as the Schedule Summary panel). It always shows the baseline-to-latest comparison first, then – on request via a "Show all updates" button – every other comparison, ranked by a combined score of activity churn, relationship changes, completion-date movement, and span/work/peak-concurrency swings. For each pair it names a probable structural cause (activity re-sequencing, logic rewiring, scope change, or a combination), counts relationships added/removed/retyped, gives an activity-churn percentage, and lists up to six "coordinated movements" – activities whose start and finish shifted together by a similar number of days. Use this to find where in the update history the biggest swing happened and what kind of change likely drove it – it is a pattern-matching summary of what moved, not a certified detector of logic changes.
 
-**Critical Path Explorer panel** – compares the critical path between consecutive schedule updates: which activities are new to the critical path, which have dropped off it, and which changed duration while remaining on it.
-
-**Float Explorer panel** – shown when the **Average Float** view is active. A searchable, sortable table of every activity's float for a selected schedule update, with a total and average shown in the footer. Use this to look up float at the individual-activity level behind the Average Float chart.
+**Important:** two panels previously documented here – a "Critical Path Explorer" comparing critical-path membership between updates, and a "Float Explorer" searchable/sortable float table shown under the Average Float view – do not exist anywhere in the current codebase (checked `frontend/src/components/modules/BowWaveCompressionModule/` and `frontend/src/components/charts/` in full). Either they were removed at some point in the 472 commits since the last full review, or this page previously documented planned-but-unbuilt features as live. This needs a PM decision: confirm in the running app whether these ever existed, and if the team still wants them, they should be tracked as a feature request rather than assumed already shipped.
 
 ## Calculation and other logic
 
 **Data used:** every activity's planned start and finish dates across every uploaded schedule update, plus float and critical-path flags for the relevant views.
 
-**How it's calculated:** the four views are calculated independently rather than being different slices of one shared number, and they don't all count "active" the same way. Bow Wave counts how many activities are active on each calendar day, including weekends. Peak Concurrent Tasks uses actual activity timestamps rather than a simple daily count, so it captures the true busiest moment within a day, not just which activities touch that day. Project Progress is calculated over **business days only** (Monday to Friday) rather than calendar days. Average Float is a mean across activities with a resolvable float value for that day – activities with no calculable float are left out of the average rather than counted as zero. In the Schedule Explorer panel, the update pair auto-flagged as the "most impactful transition" is whichever consecutive pair of schedules shows the single largest overall shift in computed project finish date – it is a finish-date-movement measure, not a direct detector of logic or sequencing changes between the two schedules.
+**How it's calculated:** the four views are calculated independently rather than being different slices of one shared number, and they don't all count "active" the same way. Bow Wave counts how many activities are active on each calendar day, including weekends. Peak Concurrent Tasks uses actual activity timestamps rather than a simple daily count, so it captures the true busiest moment within a day, not just which activities touch that day. Project Progress is calculated over **business days only** (Monday to Friday) rather than calendar days. Average Float is a mean across activities with a resolvable float value for that day – activities with no calculable float are left out of the average rather than counted as zero, and a task's float is repeated across every calendar day it spans. In the Schedule Forensics panel, the pair shown by default is whichever comparison scores highest on a combined measure of activity churn, relationship changes, completion-date movement, and span/work/peak-concurrency swings – not a single "largest finish-date shift" measure, and not a direct detector of logic or sequencing changes between the two schedules.

@@ -4,8 +4,9 @@ route: /module/7/project/:projectId
 title: Completion Forecast
 audience: external
 status: draft
-version: 1.0.0
-last-reviewed: 2026-07-20
+version: 1.0.1
+last-reviewed: 2026-09-03
+blocked-reason: Code-verified session bug (see Note) needs a product decision — fix the underlying guard, or keep as a disclosed workaround — before this page can move to complete.
 ---
 
 ## Completion Forecast – Overview
@@ -41,3 +42,5 @@ The rate used for the rules-adjusted finish is the **worst sustained rate** seen
 ## Note
 
 At least two schedule updates sharing a common completion milestone are needed to produce a projection. Depth of history matters: a read based on very few updates will show a wide confidence range even when the trend itself looks clear.
+
+**Known limitation – switching projects in the same browsing session.** This module keeps its working data in memory for the session rather than reloading it fresh each time, and currently only ever holds one project's analysis at a time. If you open Completion Forecast for a second project without refreshing the browser tab, the module can continue showing the first project's figures under the second project's page. **Refresh the page whenever you switch projects and reopen this module**, to be sure you're looking at the right project's numbers. The module's stated benchmark against other projects in its database is also affected by this – see the confidence table above; with only one project ever held, that comparison stays "indicative" rather than settling in over time as more projects are added.

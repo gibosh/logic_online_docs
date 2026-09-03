@@ -3,9 +3,9 @@ page-id: gantt-delay-analysis
 route: /schedule-viewer/gantt
 title: Gantt Viewer – Delay Analysis
 audience: external
-status: draft
-version: 1.1.0
-last-reviewed: 2026-07-29
+status: complete
+version: 1.1.1
+last-reviewed: 2026-09-03
 ---
 
 ## About this mode
@@ -17,6 +17,23 @@ For why the algorithm chose each activity on the path, and how delay is charged 
 ## The Gantt chart in Delay Analysis mode
 
 The Gantt chart highlights the traceback path – the chain of driving activities identified by the traceback algorithm. Click any highlighted activity to select it and load its data into the tray below.
+
+## Delay Attribution panel
+
+Separate from the tray, a panel sits alongside the Gantt chart's activity list showing the delay attributed to each activity on the traceback path, row by row. Two buttons in the panel's corner control it:
+
+- **Calendar icon** – toggle between delay measured on each activity's own calendar and delay measured on the project's standard calendar.
+- **Collapse/expand icon** – show or hide the panel.
+
+Each row shows:
+
+| Column | Description |
+|--------|-------------|
+| Cumulative Delay | Running total of assigned delay up to and including this activity |
+| Task Delay | Delay charged to this activity, with a coloured dot showing its share of the overall path delay (green = none, yellow = up to 5%, red = more than 5%) |
+| Flag columns | One column per reason the delay was charged – see [How delay gets charged to each activity](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for what each flag means |
+
+Hover the small info icon on a row to see the full breakdown of every flag raised for that activity. A row belonging to a group of new (unbaselined) activities is marked with an icon and tooltip explaining that the group shares one delay figure – see [New activities](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for why every activity in that group shows the same number rather than a split.
 
 ## Delay Analysis tray
 
@@ -96,7 +113,7 @@ The **Exit Traceback** button (X icon) switches back to Traceback Setup mode. If
 
 ## Restarting a traceback
 
-At any step in the traceback, you can change which activity the algorithm selected as the next driver and restart the analysis from that point. Two options are available from the Gantt chart in Delay Analysis mode. While a restart is running, a status indicator shows "Restarting Traceback"; if it fails, it shows "Error Restarting Traceback" rather than failing silently. (LUSB-1082/1084, merged 2026-07-28.)
+At any step in the traceback, you can change which activity the algorithm selected as the next driver and restart the analysis from that point. Two options are available from the Gantt chart in Delay Analysis mode. While a restart is running, a status indicator shows it's processing; if it fails, it shows "Error Restarting Traceback" rather than failing silently. (LUSB-1082/1084, merged 2026-07-28.)
 
 ### Restart from shortlisted candidate
 

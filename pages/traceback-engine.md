@@ -3,9 +3,9 @@ page-id: traceback-engine
 route: /schedule-viewer/gantt
 title: How Traceback and Delay Attribution Work
 audience: external
-status: draft
-version: 1.0.0
-last-reviewed: 2026-07-21
+status: complete
+version: 1.0.1
+last-reviewed: 2026-09-03
 ---
 
 ## About this page
@@ -23,6 +23,8 @@ Traceback works backwards through your schedule, one step at a time, asking the 
 Starting from the activity you select, Logic+ looks at every other activity that could plausibly have caused it to move, scores each one, and picks the strongest candidate. That candidate becomes the new starting point, and the question repeats. Run all the way back towards the start of the project, this builds a **chain** – the sequence of activities that, step by step, drove your selected activity to where it now sits.
 
 Nothing here is a guess. At every step Logic+ scores a shortlist of real candidates against a fixed set of criteria, and can show you exactly how each one scored – see [Activity Candidates](pages/gantt-delay-analysis.md#activity-candidates) for where to view that.
+
+Everything on this page describes the **Replica v2.1** and **Calibrated v1** algorithm profiles. There's also a **Driving Task** profile that skips this scoring model entirely and instead picks whichever predecessor the schedule's own logic and dates say is actually driving the target activity – see [Algorithm Profile](pages/traceback-setup.md#step-2--select-an-algorithm-profile-optional) for what it's for.
 
 ## How the candidate field gets narrowed down
 
@@ -77,8 +79,11 @@ Once the shortlist is built, every candidate on it is also scored on the criteri
 | Author | Whether the candidate and current activity were created or last edited by the same person | Work planned by the same person or team is more likely to be logically related |
 | Same File | Whether the candidate and current activity come from the same schedule update | Relevant when comparing across multiple schedule files |
 | Project ID | Whether the candidate and current activity belong to the same project | Prevents false connections between unrelated projects loaded together |
+| Sequence Number | How close together the two activities' internal line numbers are | A weak fallback signal – off by default, but useful if your schedule's build order is meaningful |
 
-See [Candidate Score Weights](pages/traceback-setup.md#step-3--adjust-settings-optional) to view or adjust how much each of these counts.
+That's 13 secondary criteria plus the 2 priority signals from Stage One – 15 in total. See [Candidate Score Weights](pages/traceback-setup.md#step-3--adjust-settings-optional) to view or adjust how much each of these counts.
+
+The **Calibrated v1** profile scores a 16th factor on top of these – a match against a construction-sequence dictionary (e.g. "excavate before pour"). It isn't user-adjustable, so it doesn't appear in Candidate Score Weights, but it does show up in the [Traceback Log](pages/traceback-log.md) for a Calibrated v1 run.
 
 ## How calendars affect the result
 
@@ -99,12 +104,14 @@ Each charge also comes with a plain-language flag explaining why it was charged:
 
 | Flag | What it means |
 |---|---|
-| Relationship changed | The actual link type to its predecessor is different from the baseline schedule, and that change measurably affected the date |
+| Relationship | The actual link type to its predecessor differs from the baseline schedule, and that change measurably shifted the date onto the predecessor (or, read the other way, this activity is shown as absorbing a successor's delay because of a relationship change) |
 | Duration | The activity's own duration changed from what was planned |
-| Gap | The time between it and its predecessor grew or shrank |
-| No link | There's no formal relationship to its predecessor, so the step is explained by date proximity rather than a real logic link |
+| Start Change | The activity's own start date shifted relative to what its predecessor implied, separate from any duration or relationship-type change – this is the flag you'll see for a plain widening or narrowing gap to the predecessor |
+| Lag Change | The lag on the link to its predecessor changed, shifting some of the successor's slip back onto the predecessor |
+| No Link | There's no formal relationship to its predecessor, so the step is explained by date proximity rather than a real logic link |
 | Calendar | The activity's own calendar behaves meaningfully differently from the project's standard calendar, which can itself explain some of the variance |
+| New | Delay from newly added (unbaselined) activities, charged to the group as a whole rather than split per activity – see below |
 
-**New activities** – where a traceback chain runs through activities that don't exist in the baseline schedule at all (genuinely new scope added since baseline), Logic+ groups them together and charges the delay they represent to the activity judged to have introduced them, once it can see how much extra delay resulted from their addition.
+**New activities** – where a traceback chain runs through activities that don't exist in the baseline schedule at all (genuinely new scope added since baseline), Logic+ groups the run of new activities together and, once it can see how much extra delay resulted from their addition, charges that one figure to *every* activity in the group – not split between them, and not charged to whichever earlier activity the new scope followed. Each gets the **New** flag with the same figure, tagged as belonging to that group.
 
 The end result is a running, activity-by-activity delay total, each one tagged with the reasoning behind it – shown in the [Delay Attribute](pages/delay-analysis.md#delay-attribute) summary and the [Cumulative Delay](pages/gantt-delay-analysis.md#cumulative-delay) chart.

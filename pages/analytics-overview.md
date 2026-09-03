@@ -4,8 +4,8 @@ route: /module/:moduleId/project/:projectId
 title: Analytics
 audience: external
 status: draft
-version: 1.0.0
-last-reviewed: 2026-07-14
+version: 1.1.0
+last-reviewed: 2026-09-03
 ---
 
 ## About Analytics
@@ -34,9 +34,9 @@ A plain green, amber, or red trust signal on the reported finish date, built fro
 
 ### Forecast Variance
 
-Separates finish-date movement into two causes: activities taking longer than planned (a productivity problem) and the sequence of work changing (a logic or re-planning event). Shows which cause is dominant, and where in the project it is happening.
+Separates finish-date movement into two causes: activities taking longer than planned (a productivity problem) and activities starting on a different date than planned (re-sequencing, a knock-on effect, or a manual override). Shows which cause is dominant, and where in the project it is happening.
 
-[About Forecast Variance](pages/forecast-variance.md) *(module coming soon)*
+[About Forecast Variance](pages/forecast-variance.md)
 
 ---
 
@@ -44,21 +44,21 @@ Separates finish-date movement into two causes: activities taking longer than pl
 
 ### Critical Path Evolution
 
-Shows which activity was driving the project finish date in each reporting period, when that role changed hands, and how much delay was newly introduced at each step versus carried forward from earlier in the path. Uses the same engine as the Delay Analysis traceback.
+Shows which activity was driving the project finish date in each reporting period, when that role changed hands, and how much delay was newly introduced at each step versus carried forward from earlier in the path. Uses the same delay-attribution maths as Delay Analysis, but builds its own driving-path history from critical-flagged activities rather than running a full traceback.
 
-[About Critical Path Evolution](pages/critical-path-evolution.md) *(module coming soon)*
+[About Critical Path Evolution](pages/critical-path-evolution.md)
 
 ### Bow Wave Compression
 
-Shows planned work volume distributed across the project timeline and how that distribution has changed between schedule updates. Includes Peak Concurrent Tasks, Project Progress, and Average Float sub-views, plus panels that identify the single largest re-sequencing event in the update history.
+Shows planned work volume distributed across the project timeline and how that distribution has changed between schedule updates, via a Schedule Summary view and a Schedule Forensics view with a Criticality filter.
 
 [Open Bow Wave Compression](pages/bow-wave-compression.md)
 
 ### Causes of Change
 
-Identifies the group of activities that moved later together between two schedule updates, names the most plausible upstream trigger, and compares the size of the movement against the schedule's own background variation – to distinguish a real event from routine re-baselining noise.
+Identifies the group of activities that moved later together between two schedule updates, classifies the movement (an identified root cause, an ambiguous one, or a logic cycle), and looks for constraint evidence – to distinguish a real event from routine re-baselining noise.
 
-[About Causes of Change](pages/causes-of-change.md) *(module coming soon)*
+[About Causes of Change](pages/causes-of-change.md)
 
 ---
 

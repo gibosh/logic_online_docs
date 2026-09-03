@@ -3,8 +3,8 @@ page-id: key-changes-delay-analysis
 title: Delay Analysis – Key Changes from Desktop
 audience: external
 status: draft
-version: 1.0.0
-last-reviewed: 2026-07-21
+version: 1.1.0
+last-reviewed: 2026-09-03
 ---
 
 ## Delay Analysis Key Changes
@@ -23,19 +23,19 @@ Records significant differences between the Logic+ Desktop delay/traceback workf
 
 **Desktop:** One fixed scoring algorithm.
 
-**Online:** A profile selector in the Traceback Setup mode bar lets you choose which scoring rule set to use:
+**Online:** A profile selector in the Traceback Setup mode bar lets you choose which scoring rule set to use. The Desktop-replica "Legacy" profile has since been retired from the selector – **Replica v2.1 is now the default**:
 
 | Profile | Description |
 |---------|-------------|
-| Desktop (Legacy) | Reproduces Desktop's original scoring exactly, bugs included — useful for like-for-like comparison while migrating. **Default.** |
-| Replica v2.1 | The validated, corrected rule set — see [Algorithm Logic](#algorithm-logic) below for what changes. |
+| Replica v2.1 | The validated, corrected rule set — see [Algorithm Logic](#algorithm-logic) below for what changes. **Default.** |
 | Calibrated v1 | The Replica v2.1 rule set, with scoring weights statistically recalibrated against real project data. |
+| Driving Task | A different mode entirely, not scored against the weighted criteria below – it follows the single driving (least-float) predecessor chain instead of running full candidate scoring at each step. |
 
 ### Algorithm Logic
 
 The traceback engine and delay attribution have both been reviewed and improved for Online. A couple of things are worth knowing before reading the table below:
 
-- **Most of these changes only take effect if you select Replica v2.1 or Calibrated v1** in the profile selector above. If you leave the profile on its default (Desktop Legacy), traceback candidate selection behaves exactly as it does in Desktop — that's deliberate, so you have a stable baseline to compare against while migrating.
+- **These candidate-selection changes apply to Replica v2.1 and Calibrated v1**, both of which are now scored candidate selection. The Driving Task profile works differently again (see above) and isn't affected by this table.
 - **Delay attribution — how a chain gets turned into a day-by-day charge — isn't affected by that profile selector.** Its improvements apply no matter which profile you've selected for traceback selection, because the two are separate stages: the profile only changes how a candidate is picked, not how delay is subsequently charged.
 
 #### More accurate candidate selection
@@ -52,7 +52,7 @@ The traceback engine and delay attribution have both been reviewed and improved 
 
 | Change | What it does | Why it matters | Where it applies |
 |---|---|---|---|
-| **"Gap" vs. genuine defect classification** | When the engine's best available choice at a step has almost no real supporting evidence — no strong link, no close dates — that step is now classified as an unattributable **Gap** rather than reported the same way as an actual scheduling defect. This check happens first, so it can't be silently overridden by another flag. | Early-project activities like procurement and mobilisation often legitimately have sparse formal logic. That's a normal, expected pattern — it shouldn't be reported the same way as a genuine data error elsewhere in the schedule. | Replica v2.1 / Calibrated v1 |
+| **"Start Change" vs. genuine defect classification** | When the engine's best available choice at a step has almost no real supporting evidence — no strong link, no close dates — that step is now classified as an unattributable **Start Change** rather than reported the same way as an actual scheduling defect. This check happens first, so it can't be silently overridden by another flag. | Early-project activities like procurement and mobilisation often legitimately have sparse formal logic. That's a normal, expected pattern — it shouldn't be reported the same way as a genuine data error elsewhere in the schedule. | Replica v2.1 / Calibrated v1 |
 | **Full scoring audit trail** | Every traceback step now writes a complete record: every candidate's score, the winner, the runner-up, and a "low confidence" flag when the winner only just beat the runner-up. | Gives you — or anyone reviewing or challenging a result — the actual evidence behind every decision, not just the final answer. | Replica v2.1 / Calibrated v1 |
 | **Calendar-sensitivity flag** | Flags when an activity's own calendar produces a noticeably different delay figure than the project's shared reference calendar, and reports both figures. | Improves transparency in cases where calendar choice meaningfully changes the answer. | All profiles — this is part of delay attribution, not candidate selection |
 
@@ -67,7 +67,7 @@ The traceback engine and delay attribution have both been reviewed and improved 
 
 | Change | What it does | Why it matters |
 |---|---|---|
-| **Grouped charging for added scope** | When new activities are added to a schedule with no equivalent in the baseline, the delay they represent is now charged once, to the activity that introduced them — instead of being split artificially across each new activity by duration. | The old per-activity split implied a level of precision the evidence doesn't support, and wouldn't hold up under a real challenge or dispute. |
+| **Grouped charging for added scope** | When new activities are added to a schedule with no equivalent in the baseline, the delay they represent is now charged as one group figure, applied to every new activity in the group — instead of being split artificially across each new activity by duration. | The old per-activity split implied a level of precision the evidence doesn't support, and wouldn't hold up under a real challenge or dispute. |
 
 ---
 

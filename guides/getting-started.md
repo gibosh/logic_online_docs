@@ -3,8 +3,9 @@ page-id: getting-started
 title: Getting Started with Logic+ Online
 audience: external
 status: draft
-version: 1.1.0
-last-reviewed: 2026-07-29
+version: 1.2.0
+last-reviewed: 2026-09-03
+blocked-reason: Rewritten from code (header nav structure, status labels, help-panel claim removed as unbuilt) but not yet walked through live — confirm before promoting to complete.
 ---
 
 ## What is Logic+ Online?
@@ -15,8 +16,8 @@ Logic+ Online is a web-based schedule analysis tool. You upload construction pro
 
 1. **Create a project** – in the Project Manager, add a project to group your schedule files
 2. **Upload a schedule** – drag in a `.xer` file (up to 100 MB)
-3. **Wait for processing** – the status badge shows `packetising…` while Logic+ works through the file, then `processed` once it's ready
-4. **Explore the views** – once processed, use the sidebar to navigate to the analytics views
+3. **Wait for processing** – the status badge shows `processing` while Logic+ works through the file, then `processed` once it's ready
+4. **Explore the views** – once processed, use the navigation bar at the top of the page to move between modules
 
 ## Uploading multiple schedules
 
@@ -33,15 +34,16 @@ Only `.xer` is currently supported — the file must also pass a P6 header check
 
 ## Navigating the app
 
-The navigation bar gives access to four modules:
+The navigation bar at the top of the page gives access to three modules:
 
 - **[Project Manager](pages/project-manager)** – project list, file upload, processing status
-- **[Schedule Viewer](pages/gantt-viewer)** – Gantt chart, schedule comparison, delay analysis
-- **[Delay Analysis](pages/delay-analysis)** – Traceback setup, results, save and load
+- **[Schedule Viewer](pages/gantt-viewer)** – Gantt chart, schedule comparison, and (as one of its three modes) Delay Analysis / traceback setup and results
 - **[Analytics](pages/analytics-overview)** – schedule quality checks, bow wave compression, completion forecast, and more
+
+Delay Analysis isn't a separate top-level module – it's reached from inside the Schedule Viewer, by switching modes. See [Schedule Viewer – Three modes](pages/gantt-viewer?id=three-modes).
 
 Not all views will show meaningful data unless a project with processed schedules is selected.
 
 ## Getting help
 
-Each page in Logic+ has a help panel. Look for the **Learn about this page** link to open contextual help for the view you are on.
+This documentation site is the current source of contextual help – there is no in-app help panel or "Learn about this page" link inside Logic+ itself yet. Use the navigation on the left, or the search box, to find the page for the view you're on.

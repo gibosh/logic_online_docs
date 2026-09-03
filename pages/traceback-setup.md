@@ -3,9 +3,9 @@ page-id: traceback-setup
 route: /schedule-viewer/gantt
 title: Gantt Viewer – Traceback Setup
 audience: external
-status: draft
-version: 1.0.3
-last-reviewed: 2026-06-08
+status: complete
+version: 1.0.4
+last-reviewed: 2026-09-03
 ---
 
 ## About this mode
@@ -32,11 +32,15 @@ The **Algorithm Profile** dropdown lets you choose how the traceback scores and 
 
 | Profile | Description |
 |---------|-------------|
-| Desktop (Legacy) | Original scoring from Logic+ Desktop. Default. |
-| Replica v2.1 | Ground-truth parity profile using the validated rule set. |
-| Calibrated v1 | Replica rule set with calibrated score weights. |
+| Replica v2.1 | The validated, corrected rule set – see [How Traceback and Delay Attribution Work](pages/traceback-engine.md). **Default.** |
+| Calibrated v1 | The Replica v2.1 rule set, with scoring weights statistically recalibrated against real project data, plus an extra construction-sequence scoring factor (see note below). |
+| Driving Task | A different kind of profile – see note below. |
 
-Start with **Desktop (Legacy)** unless you have a specific reason to use another profile.
+Start with **Replica v2.1** (the default) unless you have a specific reason to use another profile.
+
+*An earlier beta build defaulted to a "Desktop (Legacy)" profile that reproduced Logic+ Desktop's original scoring exactly, bugs included. That option has been retired – Replica v2.1 is now the default and the recommended starting point.*
+
+**Driving Task** works differently to the other two profiles. Instead of scoring candidates against the 15 weighted criteria described in [How Traceback and Delay Attribution Work](pages/traceback-engine.md), it looks only at the schedule's own logic links and dates and picks whichever predecessor is actually driving the target activity's date – the same underlying logic Logic+ uses to work out critical path. There is nothing to tune: the Candidate Score Weights settings below have no effect when this profile is selected. It's most useful as a ground-truth comparison against what the other two profiles pick.
 
 ### Step 3 – Adjust settings (optional)
 
@@ -62,6 +66,7 @@ Controls how much influence each scoring measure has on which activity is select
 | Activity Name | 3.75% |
 | Primary Resource | 6.25% |
 | Created Date | 3.75% |
+| Sequence Number | 0% |
 | Same File | 3.75% |
 | Project ID | 3.75% |
 | Author | 2.5% |
@@ -70,11 +75,13 @@ Controls how much influence each scoring measure has on which activity is select
 | Complexity | 3.75% |
 | Activity Coding | 3.75% |
 
-The defaults represent the recommended starting point. Adjust them if the standard traceback is not correctly identifying the delay drivers for your schedule type.
+The defaults represent the recommended starting point. Adjust them if the standard traceback is not correctly identifying the delay drivers for your schedule type. Sequence Number (how close together two activities' internal line numbers are) defaults to 0% – raise it if your schedule's build order is a meaningful signal on its own.
+
+*Calibrated v1 also scores a 16th factor automatically – a match against a construction-sequence dictionary (e.g. "excavate before pour"). It isn't listed above because its weight isn't user-adjustable, but it does appear in the [Traceback Log](pages/traceback-log.md) for a Calibrated v1 run.*
 
 **Activity Exclusion Criteria**
 
-Narrows the pool of candidate activities before scoring. Five filters are available:
+Narrows the pool of candidate activities before scoring. Six filters are available:
 
 | Filter | What it excludes |
 |--------|-----------------|
@@ -87,9 +94,17 @@ Narrows the pool of candidate activities before scoring. Five filters are availa
 
 Click **Save** to apply settings and close the modal. Changes take effect on the next traceback run. Click **Cancel** to discard changes.
 
+Logic+ also always excludes a candidate that has already been chosen as a driving activity earlier in the same traceback (**exclude duplicate critical activities**), so the chain can't loop back on itself. This rule isn't adjustable here, but it does show up in the [Traceback Log](pages/traceback-log.md) for a completed run.
+
+### Manually excluding activities
+
+Alongside the automatic filters above, the activity list in Traceback Setup mode has an **Excluded** column with a checkbox on every row. Untick an activity to exclude it from candidate scoring regardless of what the automatic filters decided, or tick it back in to include it. Ticking the checkbox on a WBS summary row bulk-excludes or bulk-includes all of that branch's child activities at once.
+
+LOE and WBS Summary activities are automatically excluded and their checkboxes are disabled while **Exclude LOE or WBS Summary activities** (above) is switched on – turn that filter off first if you need to manually include one of them.
+
 ### Step 4 – Start Traceback
 
-Click **Start Traceback**. Logic+ runs the traceback algorithm against the comparison and baseline schedules. When complete, the mode automatically switches to **Delay Analysis**.
+Click **Start Traceback**. Logic+ runs the traceback algorithm against the comparison and baseline schedules, honouring the exclusion criteria and any manual exclusions above. When complete, the mode automatically switches to **Delay Analysis**.
 
 If a traceback has already been run and you change the start activity or weights, click **Start Traceback** again to re-run.
 
