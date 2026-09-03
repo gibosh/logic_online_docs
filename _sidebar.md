@@ -89,3 +89,8 @@
 ---
 
 * [Glossary](guides/glossary)
+
+---
+
+* [Next Release](pages/delay-attribution-2)
+  * [Delay Attribution 2.0](pages/delay-attribution-2)
