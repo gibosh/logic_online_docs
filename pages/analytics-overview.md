@@ -4,7 +4,7 @@ route: /module/:moduleId/project/:projectId
 title: Analytics
 audience: external
 status: draft
-version: 1.2.0
+version: 1.2.1
 last-reviewed: 2026-09-04
 ---
 
@@ -16,6 +16,7 @@ Analytics are organised in three groups: **schedule quality** (is the schedule w
 
 Select a project and schedule from the header to load data into the analytics views.
 
+<div class="grid-group-label">Schedule Quality</div>
 <div class="module-grid cols-3">
   <a class="module-tile" href="#/pages/forecast-confidence">
     <div class="tile-label">01</div>
@@ -32,6 +33,10 @@ Select a project and schedule from the header to load data into the analytics vi
     <h3>Schedule Quality</h3>
     <p>Automated health check against DCMA, CIOB, or Additional Best Practice standards.</p>
   </a>
+</div>
+
+<div class="grid-group-label">Schedule Insights</div>
+<div class="module-grid cols-3">
   <a class="module-tile" href="#/pages/critical-path-evolution">
     <div class="tile-label">04</div>
     <h3>Critical Path Evolution</h3>
@@ -47,6 +52,10 @@ Select a project and schedule from the header to load data into the analytics vi
     <h3>Causes of Change</h3>
     <p>Groups of activities that moved together, with a candidate root cause.</p>
   </a>
+</div>
+
+<div class="grid-group-label">Schedule Predictions</div>
+<div class="module-grid cols-3">
   <a class="module-tile" href="#/pages/completion-forecast">
     <div class="tile-label">07</div>
     <h3>Completion Forecast</h3>
