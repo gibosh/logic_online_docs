@@ -4,17 +4,15 @@ route: /module/:moduleId/project/:projectId
 title: Analytics
 audience: external
 status: draft
-version: 1.2.1
+version: 1.3.0
 last-reviewed: 2026-09-04
 ---
 
 ## About Analytics
 
-Logic+ Analytics runs a suite of deterministic analyses against your uploaded schedule files. The same schedule always produces the same result – there is no random element. This makes the output defensible: you can explain exactly how each number was calculated.
+Logic+ Analytics runs the same fixed set of calculations against your uploaded schedule files every time – there's no random element, so the same schedule always produces the same result. This makes the output defensible: you can explain exactly how each number was calculated.
 
-Analytics are organised in three groups: **schedule quality** (is the schedule well-built enough to trust?), **where we are now** (what is the current state of delay and risk?), and **predictive** (where is the project likely to end up?).
-
-Select a project and schedule from the header to load data into the analytics views.
+Analytics are organised in three groups: **Schedule Quality** (is the schedule well-built enough to trust?), **Schedule Insights** (what is the current state of delay and risk?), and **Schedule Predictions** (where is the project likely to end up?).
 
 <div class="grid-group-label">Schedule Quality</div>
 <div class="module-grid cols-3">
