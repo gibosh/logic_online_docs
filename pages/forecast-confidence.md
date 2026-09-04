@@ -4,7 +4,7 @@ route: /module/1/project/:projectId
 title: Forecast Confidence
 audience: external
 status: draft
-version: 1.5.0
+version: 1.6.0
 last-reviewed: 2026-09-04
 blocked-reason: Content verified directly against ForecastConfidenceModule source and its call path from the live route, but exact on-screen wording (labels, tooltips) still needs a live-app screenshot before promoting to complete. Worked examples added from representative inputs run through the real formula, not from a live traceback. "Forecast honesty" panel is due to be renamed "Forecast accuracy" in a future release — see workspace/GAPS.md; kept as "honesty" here to match current shipped code.
 ---
@@ -57,17 +57,23 @@ The Reliability Factors all score healthy: task-count growth low and steady, ste
 
 What you'd see: the forecasted finish sits only a few days past the reported one (18 December vs. 15 December), and the window stretches from the reported date itself out to around 25 April – wide in absolute terms, but narrow relative to the six months still on the clock. That's the shape behind high confidence in Logic+: not a pinpoint date, but a window that isn't ballooning outward.
 
+![High confidence – gauge at 66%, likely finish window 4.3 months wide](images/forecast-confidence/high.svg)
+
 **Medium confidence – around 40–55%**
 
 The Reliability Factors are mixed: moderate task-count growth, moderate step-to-step volatility, negative-float share creeping up, and a slip rate that's clearly non-zero but not extreme – a combination that comes across as worth watching, rather than healthy or in trouble.
 
 What you'd see: the forecasted finish moves out to around 11 January, and the window widens out to run from 15 December to mid-July – more than a month of central shift, and a window wider than the time remaining. This is the zone where the reported date needs real scrutiny before it's repeated to a client.
 
+![Medium confidence – gauge at 46%, likely finish window 6.9 months wide](images/forecast-confidence/medium.svg)
+
 **Low confidence – below 40%**
 
 Several Reliability Factors are in trouble at once: high task-count growth, high step-to-step volatility, a high negative-float share, and a slip rate that's losing a meaningful fraction of a month for every month that passes.
 
 What you'd see: the forecasted finish moves to late February – more than two months past what's reported – and the window stretches from 15 December all the way out to early December the *following* year, nearly doubling the whole remaining duration. At this point the reported date isn't a useful anchor on its own; the width of the window is the real message.
+
+![Low confidence – gauge at 9%, likely finish window 11.6 months wide](images/forecast-confidence/low.svg)
 
 ## Note
 
