@@ -4,8 +4,8 @@ route: /module/:moduleId/project/:projectId
 title: Analytics
 audience: external
 status: draft
-version: 1.1.0
-last-reviewed: 2026-09-03
+version: 1.2.0
+last-reviewed: 2026-09-04
 ---
 
 ## About Analytics
@@ -16,15 +16,57 @@ Analytics are organised in three groups: **schedule quality** (is the schedule w
 
 Select a project and schedule from the header to load data into the analytics views.
 
+<div class="module-grid cols-3">
+  <a class="module-tile" href="#/pages/forecast-confidence">
+    <div class="tile-label">01</div>
+    <h3>Forecast Confidence</h3>
+    <p>A plain green, amber, or red trust signal on the reported finish date.</p>
+  </a>
+  <a class="module-tile" href="#/pages/forecast-variance">
+    <div class="tile-label">02</div>
+    <h3>Forecast Variance</h3>
+    <p>Separates finish-date movement into duration growth and timing shift, by work area.</p>
+  </a>
+  <a class="module-tile" href="#/pages/schedule-quality">
+    <div class="tile-label">03</div>
+    <h3>Schedule Quality</h3>
+    <p>Automated health check against DCMA, CIOB, or Additional Best Practice standards.</p>
+  </a>
+  <a class="module-tile" href="#/pages/critical-path-evolution">
+    <div class="tile-label">04</div>
+    <h3>Critical Path Evolution</h3>
+    <p>Which activity was driving the finish date each period, and when that changed hands.</p>
+  </a>
+  <a class="module-tile" href="#/pages/bow-wave-compression">
+    <div class="tile-label">05</div>
+    <h3>Bow-Wave Compression</h3>
+    <p>Work volume across the timeline, and how it has shifted between schedule updates.</p>
+  </a>
+  <a class="module-tile" href="#/pages/causes-of-change">
+    <div class="tile-label">06</div>
+    <h3>Causes of Change</h3>
+    <p>Groups of activities that moved together, with a candidate root cause.</p>
+  </a>
+  <a class="module-tile" href="#/pages/completion-forecast">
+    <div class="tile-label">07</div>
+    <h3>Completion Forecast</h3>
+    <p>The reported finish date alongside a data-driven, rules-based projection.</p>
+  </a>
+  <a class="module-tile" href="#/pages/schedule-risk">
+    <div class="tile-label">08</div>
+    <h3>Schedule Risk Analysis (SRA)</h3>
+    <p>A Monte Carlo schedule-risk simulation, run entirely in-browser.</p>
+  </a>
+  <a class="module-tile" href="#/pages/float-burndown-earned-schedule">
+    <div class="tile-label">09</div>
+    <h3>Float Burn-down</h3>
+    <p>Two independent finish-date estimates – an optimistic and a pessimistic bound.</p>
+  </a>
+</div>
+
 ---
 
 ## Schedule Quality
-
-### Schedule Quality – DCMA / CIOB / Best Practice
-
-Runs an automated health check against your schedule and scores it against an industry-standard quality profile. Choose from the DCMA 14-Point Assessment, CIOB PP21 Standard, CIOB PP21 Major, or the Additional Industry Best Practice checks. Results are shown per check, with a pass/fail badge and the list of offending activities for any failed check.
-
-[Open Schedule Quality](pages/schedule-quality.md)
 
 ### Forecast Confidence
 
@@ -37,6 +79,12 @@ A plain green, amber, or red trust signal on the reported finish date, built fro
 Separates finish-date movement into two causes: activities taking longer than planned (a productivity problem) and activities starting on a different date than planned (re-sequencing, a knock-on effect, or a manual override). Shows which cause is dominant, and where in the project it is happening.
 
 [About Forecast Variance](pages/forecast-variance.md)
+
+### Schedule Quality – DCMA / CIOB / Best Practice
+
+Runs an automated health check against your schedule and scores it against an industry-standard quality profile. Choose from the DCMA 14-Point Assessment, CIOB PP21 Standard, CIOB PP21 Major, or the Additional Industry Best Practice checks. Results are shown per check, with a pass/fail badge and the list of offending activities for any failed check.
+
+[Open Schedule Quality](pages/schedule-quality.md)
 
 ---
 

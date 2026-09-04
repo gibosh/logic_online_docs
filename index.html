@@ -315,6 +315,9 @@
     .module-tile h3 { margin: 0 0 8px; font-size: 17px; color: #00203D; border: none !important; }
     .module-tile p  { margin: 0; font-size: 14px; color: #64748b; line-height: 1.5; }
     @media (max-width: 600px) { .module-grid { grid-template-columns: 1fr; } }
+    .module-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 900px) { .module-grid.cols-3 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .module-grid.cols-3 { grid-template-columns: 1fr; } }
 
     /* ── PAGE FEEDBACK WIDGET ── */
     .page-feedback {
