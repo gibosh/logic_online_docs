@@ -4,8 +4,9 @@ route: /schedule-viewer/gantt
 title: Gantt Viewer – Traceback Setup
 audience: external
 status: complete
-version: 1.0.4
-last-reviewed: 2026-09-03
+version: 1.0.5
+last-reviewed: 2026-09-04
+blocked-reason: Algorithm Profile table is expected to change soon (Replica v2.1 → "Weighted Scoring", Calibrated v1 removed as a profile) — see workspace/GAPS.md "Upcoming release changes to watch for." Not yet updated ahead of that release.
 ---
 
 ## About this mode
@@ -37,8 +38,6 @@ The **Algorithm Profile** dropdown lets you choose how the traceback scores and 
 | Driving Task | A different kind of profile – see note below. |
 
 Start with **Replica v2.1** (the default) unless you have a specific reason to use another profile.
-
-*An earlier beta build defaulted to a "Desktop (Legacy)" profile that reproduced Logic+ Desktop's original scoring exactly, bugs included. That option has been retired – Replica v2.1 is now the default and the recommended starting point.*
 
 **Driving Task** works differently to the other two profiles. Instead of scoring candidates against the 15 weighted criteria described in [How Traceback and Delay Attribution Work](pages/traceback-engine.md), it looks only at the schedule's own logic links and dates and picks whichever predecessor is actually driving the target activity's date – the same underlying logic Logic+ uses to work out critical path. There is nothing to tune: the Candidate Score Weights settings below have no effect when this profile is selected. It's most useful as a ground-truth comparison against what the other two profiles pick.
 

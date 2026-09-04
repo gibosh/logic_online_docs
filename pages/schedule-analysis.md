@@ -4,9 +4,9 @@ route: /schedule-viewer/gantt
 title: Gantt Viewer – Schedule Viewer mode
 audience: external
 status: draft
-version: 1.1.1
-last-reviewed: 2026-09-03
-blocked-reason: Exact drag/resize feel (column drag-reorder, panel/column/tray resize handles) verified from component structure only, not tested live.
+version: 1.1.2
+last-reviewed: 2026-09-04
+blocked-reason: Exact drag/resize feel (column drag-reorder, panel/column/tray resize handles) verified from component structure only, not tested live. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
 ---
 
 ## About this mode
@@ -78,7 +78,7 @@ The settings below are only editable when **Use custom grouping** is selected:
 
 **Outline Level** sets how many levels of WBS hierarchy are shown. Level 1 shows only the top-level groupings; Level 4 shows a deeper breakdown.
 
-**Start** groups activities by their current start date – by year, month, or week. Use this to see work clustered by reporting period. (Renamed from "Planned Start" and changed to group by current start rather than baseline planned start – LUSB-1068. If you're comparing against an older baseline schedule, note this follows the schedule's live dates, not the original plan.)
+**Start** groups activities into a Year, Month, or Week bucket. Despite the name, this isn't about an activity's start date specifically – any activity shorter than the bucket size (a year, when grouping by year) lands in the same bucket regardless of which of its dates you'd use to place it. Use this to see work clustered by reporting period.
 
 Click **Apply Settings** to apply your selection and close the dialog. Click **Use Default Settings** to reset all options to their defaults and close the dialog.
 

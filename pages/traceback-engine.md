@@ -4,8 +4,8 @@ route: /schedule-viewer/gantt
 title: How Traceback and Delay Attribution Work
 audience: external
 status: complete
-version: 1.0.1
-last-reviewed: 2026-09-03
+version: 1.0.2
+last-reviewed: 2026-09-04
 ---
 
 ## About this page
@@ -53,11 +53,11 @@ A candidate has to earn its place on strong evidence before the finer-grained, c
 
 **Indirect Evidence – Date Proximity.** Even without a formal link, do the candidate's dates line up closely with the current activity's, in a way consistent with a driving relationship? Schedules are rarely fully linked in practice, so date proximity is the next-best evidence – an activity finishing right when the current one started is a strong hint of cause and effect, even with no formal link recording it. Logic+ measures this closeness in working days, not plain calendar days, so a completely ordinary Friday-finish-to-Monday-start transition isn't mistaken for lost time.
 
-### Why these two come first – and what "Gap" really means
+### Why these two come first – and what happens when neither is strong
 
 Direct Evidence is as close to proof as schedule data gets, and Indirect Evidence is the best substitute when direct evidence is missing. Everything scored in Stage Two is corroborating at best – useful for deciding between two similar candidates, but not something that should overrule a genuine formal link or an obvious date match on its own.
 
-You may hear "gap" used in two different ways – worth keeping them separate. **Plain "gap"** is just elapsed time: the number of working days between one activity's dates and another's – a measurement, not a judgement. Separately, Logic+ can flag a step as a **Gap** when neither Direct nor Indirect Evidence gave strong support for the candidate it had to pick – meaning the chain still continues through that step, but it should be read as "best available answer" rather than a confirmed cause. A Gap-flagged step doesn't necessarily have a large plain-gap in time behind it, and a wide time gap doesn't automatically produce a Gap flag either – the flag is about how much evidence backs the selection, not how far apart the two activities sit in time.
+When neither Direct nor Indirect Evidence gives strong support for the candidate Logic+ had to pick at a step, that step is flagged **Start Change** rather than reported the same way as a genuine scheduling defect. The chain still continues through that step – it just means the pick should be read as the best available answer given weak evidence, not a confirmed cause. This flag is about how much evidence backed the selection, not about how many working days separate the two activities' dates – a wide separation in time doesn't automatically produce a Start Change flag, and a Start Change flag doesn't necessarily mean the two activities' dates were far apart.
 
 *This confidence flagging is part of the Replica v2.1 and Calibrated v1 algorithm profiles – see [Key Changes – Delay Analysis](pages/key-changes-delay-analysis.md) for which profile you're using.*
 

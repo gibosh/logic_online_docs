@@ -3,9 +3,9 @@ page-id: getting-started
 title: Getting Started with Logic+ Online
 audience: external
 status: draft
-version: 1.2.0
-last-reviewed: 2026-09-03
-blocked-reason: Rewritten from code (header nav structure, status labels, help-panel claim removed as unbuilt) but not yet walked through live — confirm before promoting to complete.
+version: 1.3.0
+last-reviewed: 2026-09-04
+blocked-reason: Rewritten from code (header nav structure, status labels, help-panel claim removed as unbuilt) but not yet walked through live — confirm before promoting to complete. Describes Delay Analysis as a fourth module ahead of its actual code split (PM's call, expected ~2026-09-11) — see workspace/GAPS.md "Upcoming release changes to watch for."
 ---
 
 ## What is Logic+ Online?
@@ -29,18 +29,17 @@ Upload more than one schedule to the same project to enable comparison views. Fo
 |--------|--------|
 | `.xer` | Primavera P6 |
 
-Only `.xer` is currently supported — the file must also pass a P6 header check on upload. `.mpp` (Microsoft Project) and `.xml` were previously listed here as supported; that's not the case in the current app (checked directly against `useFileUploadHandlers.ts`, 2026-07-29). If multi-format support is planned for a later release, update this table then — don't reintroduce it speculatively.
+Currently only `.xer` files are supported. The ability to import Microsoft Project and Asta files is planned for a later release.
 
 
 ## Navigating the app
 
-The navigation bar at the top of the page gives access to three modules:
+The navigation bar at the top of the page gives access to four modules:
 
 - **[Project Manager](pages/project-manager)** – project list, file upload, processing status
-- **[Schedule Viewer](pages/gantt-viewer)** – Gantt chart, schedule comparison, and (as one of its three modes) Delay Analysis / traceback setup and results
+- **[Schedule Viewer](pages/gantt-viewer)** – Gantt chart, schedule comparison, and activity relationships
+- **[Delay Analysis](pages/delay-analysis)** – traceback setup and results, reached today via the Schedule Viewer's mode switcher
 - **[Analytics](pages/analytics-overview)** – schedule quality checks, bow wave compression, completion forecast, and more
-
-Delay Analysis isn't a separate top-level module – it's reached from inside the Schedule Viewer, by switching modes. See [Schedule Viewer – Three modes](pages/gantt-viewer?id=three-modes).
 
 Not all views will show meaningful data unless a project with processed schedules is selected.
 

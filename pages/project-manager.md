@@ -4,9 +4,9 @@ route: /project-manager
 title: Project Manager
 audience: external
 status: draft
-version: 1.1.1
-last-reviewed: 2026-09-03
-blocked-reason: Two items need confirming against the live app rather than code alone – (1) whether a newly created project reliably stays selected/highlighted (see note under "To create a project" – the code paths for the temporary ID shown in the UI and the ID actually saved look like they can disagree), and (2) the "a few minutes" typical processing time, which wasn't independently re-timed for this review.
+version: 1.1.2
+last-reviewed: 2026-09-04
+blocked-reason: The "a few minutes" typical processing time wasn't independently re-timed for this review. This whole page is expected to be split into Project Manager (folders) + a renamed Schedule Manager (upload) within a week or two — see workspace/GAPS.md "Upcoming release changes to watch for."
 ---
 
 ## About this page
@@ -26,7 +26,7 @@ The Project Manager is the starting point for all work in Logic+. Use it to orga
 2. Click **Add** or press Enter
 3. The new project appears in the left panel
 
-**Note:** if the new project doesn't end up highlighted/selected after you click Add, click it in the list – this is a known possible rough edge, not something you're doing wrong. (Flagged for confirmation against the live app; not something this doc can fix.)
+**Note:** if the new project isn't already selected, click it in the list to open it.
 
 **To rename a project:**
 - Click **Edit** next to the project name, type the new name, then click **Done**

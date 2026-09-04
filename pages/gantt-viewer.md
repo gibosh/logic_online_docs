@@ -4,9 +4,9 @@ route: /schedule-viewer/gantt
 title: Schedule Viewer
 audience: external
 status: draft
-version: 1.1.2
-last-reviewed: 2026-09-03
-blocked-reason: Default schedule/baseline selection on first load and exact drag/hover behaviour for column reordering are inferred from component code, not confirmed against the live app.
+version: 1.1.3
+last-reviewed: 2026-09-04
+blocked-reason: Default schedule/baseline selection on first load and exact drag/hover behaviour for column reordering are inferred from component code, not confirmed against the live app. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
 ---
 
 ## About the Schedule Viewer
@@ -29,7 +29,7 @@ Changing either selector resets any active traceback.
 
 **Default selections.** The first time you open a project with no schedule already chosen, the Comparison selector defaults to the most recent schedule uploaded and the Baseline selector defaults to the earliest one available. If you've visited before, your last selection for this project is restored from the page URL instead.
 
-**Sharing a view.** The browser address bar updates automatically as you work – it reflects the selected project, Comparison schedule, Baseline schedule, and (in Delay Analysis mode) the current traceback. Copy the URL at any point and send it to someone else with access to the same project; opening it restores that exact view, including re-loading the same traceback result. There's no separate "copy link" button – the address bar itself is always the shareable link. (Added 2026-07-24, LUSB-1085.)
+**Sharing a view.** The browser address bar updates automatically as you work – it reflects the selected project, Comparison schedule, Baseline schedule, and (in Delay Analysis mode) the current traceback. Copy the URL at any point and send it to someone else with access to the same project; opening it restores that exact view, including re-loading the same traceback result. There's no separate "copy link" button – the address bar itself is always the shareable link.
 
 ---
 
@@ -92,7 +92,9 @@ When **Use custom grouping** is selected, these become available:
 | Group and sort by WBS | On / Off | On |
 | Show activity counts | On / Off | On |
 
-**Start** groups activities by their current start date (not the original baseline plan) – by year, month, or week. If you're comparing against an older baseline schedule, note this follows the schedule's live dates, not the original plan. (Renamed from "Planned Start" and changed to group by current start rather than baseline planned start – LUSB-1068, still in effect as of this review.)
+**Outline Level** controls how many levels of WBS hierarchy are shown – Level 1 shows only the top-level groupings, Level 4 shows a deeper breakdown.
+
+**Start** groups activities into a Year, Month, or Week bucket. Despite the name, this isn't about an activity's start date specifically – any activity shorter than the bucket size (a year, when grouping by year) lands in the same bucket regardless of which of its dates you'd use to place it.
 
 Click **Apply Settings** to apply your selection and close the dialog. Click **Use Default Settings** to reset to the defaults above and close the dialog.
 

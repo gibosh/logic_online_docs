@@ -4,9 +4,9 @@ route: /module/5/project/:projectId
 title: Bow-Wave Compression
 audience: external
 status: draft
-version: 1.0.1
-last-reviewed: 2026-09-03
-blocked-reason: Content below is corrected from direct code analysis (frontend/src/components/modules/BowWaveCompressionModule/, frontend/src/components/charts/, frontend/src/utils/forensicAnalysis.ts) but has not yet been checked against the running app. Confirm chart interaction and hover/tooltip behaviour before promoting to complete.
+version: 1.0.2
+last-reviewed: 2026-09-04
+blocked-reason: Content below is corrected from direct code analysis but has not yet been checked against the running app. Confirm chart interaction and hover/tooltip behaviour before promoting to complete.
 ---
 
 ## Bow-Wave Compression – Overview
@@ -42,9 +42,7 @@ Two panels sit below the chart, both appearing once at least one schedule update
 
 **Schedule Summary panel** – key stats side by side for each schedule update loaded for the project: work content, peak concurrent activities, completion window (length, in months), and completion end date. Each row is compared against either the previous update or a chosen baseline update (toggle at the top of the panel), with the change shown as a coloured delta chip.
 
-**Schedule Forensics panel** – compares pairs of schedule updates (consecutive, or each update against a chosen baseline – same toggle as the Schedule Summary panel). It always shows the baseline-to-latest comparison first, then – on request via a "Show all updates" button – every other comparison, ranked by a combined score of activity churn, relationship changes, completion-date movement, and span/work/peak-concurrency swings. For each pair it names a probable structural cause (activity re-sequencing, logic rewiring, scope change, or a combination), counts relationships added/removed/retyped, gives an activity-churn percentage, and lists up to six "coordinated movements" – activities whose start and finish shifted together by a similar number of days. Use this to find where in the update history the biggest swing happened and what kind of change likely drove it – it is a pattern-matching summary of what moved, not a certified detector of logic changes.
-
-**Important:** two panels previously documented here – a "Critical Path Explorer" comparing critical-path membership between updates, and a "Float Explorer" searchable/sortable float table shown under the Average Float view – do not exist anywhere in the current codebase (checked `frontend/src/components/modules/BowWaveCompressionModule/` and `frontend/src/components/charts/` in full). Either they were removed at some point in the 472 commits since the last full review, or this page previously documented planned-but-unbuilt features as live. This needs a PM decision: confirm in the running app whether these ever existed, and if the team still wants them, they should be tracked as a feature request rather than assumed already shipped.
+**Schedule Forensics panel** – compares pairs of schedule updates (consecutive, or each update against a chosen baseline – same toggle as the Schedule Summary panel). It always shows the baseline-to-latest comparison first, then – on request via a "Show all updates" button – every other comparison, ranked by a combined score of activity churn, relationship changes, completion-date movement, and span/work/peak-concurrency swings. For each pair it names a probable structural cause (activity re-sequencing, logic rewiring, scope change, or a combination), counts relationships added/removed/retyped, gives an activity-churn percentage, and lists up to six "coordinated movements" – activities whose start and finish shifted together by a similar number of days. Use this to find where in the update history the biggest swing happened and what kind of change most likely drove it.
 
 ## Calculation and other logic
 

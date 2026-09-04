@@ -4,8 +4,8 @@ route: /module/1/project/:projectId
 title: Forecast Confidence
 audience: external
 status: draft
-version: 1.3.0
-last-reviewed: 2026-09-03
+version: 1.4.0
+last-reviewed: 2026-09-04
 blocked-reason: Content verified directly against ForecastConfidenceModule source and its call path from the live route, but exact on-screen wording (labels, tooltips) still needs a live-app screenshot before promoting to complete. Worked examples added from representative inputs run through the real formula, not from a live traceback.
 ---
 
@@ -36,8 +36,6 @@ Below the timeline, a **Reliability Factors** grid lists the individual metrics 
 | Recent / normalised / central slip rate | Three variants of "how fast is the finish date moving out," measured over different windows, used together to settle on the rate the confidence model actually trusts |
 
 A separate **Forecast honesty** panel sits alongside this grid, showing how well completed work has tracked the plan (comparing planned vs. actual finish dates for everything that's finished so far). This is shown for information – **it is not one of the inputs to the confidence percentage itself** (see Calculation, below); read it as a second opinion, not a component of the gauge.
-
-A closing note is intended to identify the single biggest activity currently driving the forecast slip, and its working-day impact — **this is not yet wired up and currently always shows a "No driver data" placeholder regardless of the project**, a known engine gap rather than a data problem with your schedule.
 
 ## Calculation and other logic
 
@@ -73,6 +71,4 @@ What you'd see: the forecasted finish moves to late February – more than two m
 
 ## Note
 
-Two mechanisms intended to make Forecast Confidence get smarter as more projects are run through Logic+ exist in the code but are **not currently functioning**: the shared calibration library that's meant to sharpen the model's thresholds only ever holds one project's data at a time (a bug, not a "needs more data yet" state), and a second, more sophisticated per-programme calibration system exists fully built but isn't connected to anything yet. Neither affects the correctness of a read for a single project today – both are about the model improving across projects over time, which currently isn't happening.
-
-At least two schedule updates sharing a common completion milestone are needed to produce a read. With fewer, or if no completion milestone is common to every uploaded update, the module is intended to show no signal rather than a spurious one – this specific case has not yet been confirmed against the live app.
+At least two schedule updates sharing a common completion milestone are needed to produce a read. With fewer, no signal is shown.

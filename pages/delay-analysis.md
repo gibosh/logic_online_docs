@@ -4,8 +4,8 @@ route: /schedule-viewer/gantt
 title: Delay Analysis
 audience: external
 status: complete
-version: 1.1.1
-last-reviewed: 2026-09-03
+version: 1.1.2
+last-reviewed: 2026-09-04
 ---
 
 ## About Delay Analysis
@@ -80,7 +80,7 @@ A per-activity breakdown, shown in a dedicated panel next to the Gantt chart's a
 
 The **View Traceback Log** button (log icon in the Delay Analysis toolbar) opens the complete log for the current traceback in a separate page. The log shows every driving activity and scoring decision made during the run.
 
-[Full detail – Traceback Log](pages/gantt-delay-analysis.md#mode-bar-controls)
+[Full detail – Traceback Log](pages/traceback-log.md)
 
 ---
 

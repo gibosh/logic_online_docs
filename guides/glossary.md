@@ -3,8 +3,8 @@ page-id: glossary
 title: Glossary
 audience: external
 status: draft
-version: 1.1.0
-last-reviewed: 2026-09-03
+version: 1.2.0
+last-reviewed: 2026-09-04
 ---
 
 ## Glossary
@@ -23,7 +23,7 @@ An earlier snapshot of the schedule used as a reference point. Comparing the cur
 A representation of work volume across the project timeline. A bow wave builds as work accumulates and releases as activities complete. A wave that pushes forward without releasing can indicate schedule pressure.
 
 **Category**
-A classification applied to activities in the schedule. Categories are used in Logic+ to group and compare activity data across views such as the Category Float Matrix and Category Critical Path.
+A classification applied to activities in the schedule, used in Logic+ to group and compare activity data.
 
 **Critical Path**
 The longest sequence of dependent activities that determines the project's earliest possible finish date. Any delay to a critical path activity delays the project end date.
@@ -37,17 +37,11 @@ The amount of time an activity can be delayed without delaying the project end d
 **Level of Effort (LOE)**
 An activity type representing work that runs across a span of time rather than producing a specific deliverable (e.g. project management, safety monitoring). Logic+ displays LOE activities with a distinct bar style in the Gantt viewer.
 
-**Packet**
-The unit Logic+ breaks an uploaded schedule into internally so the analytics pipeline can process it. This is a backend/engineering term, not a status you'll see on screen – the upload status badge itself just reads **processing**, then **processed**.
-
 **Project**
 A named container in Logic+ that groups one or more schedule files. A Logic+ project typically corresponds to a single construction project or programme.
 
 **Schedule**
 An uploaded `.xer` file containing a point-in-time snapshot of a project programme.
-
-**Slack (Total Slack)**
-Similar to total float but calculated differently in some schedule engines. Logic+ records both where available.
 
 **Traceback**
 An algorithm that identifies the chain of activities most responsible for project delay, by scoring candidate predecessor activities at each step back from the completion milestone and picking the strongest chain. Logic+ offers a choice of scoring profile (Replica v2.1 is the default) that weights the scoring criteria differently – see [Traceback Setup](pages/traceback-setup.md) and [How Traceback and Delay Attribution Work](pages/traceback-engine.md).

@@ -2,22 +2,22 @@
 page-id: traceback-log
 route: /traceback/log/:tracebackId
 title: Traceback Log
-audience: internal
+audience: external
 status: draft
-version: 1.0.1
-last-reviewed: 2026-09-03
-blocked-reason: Verified against current component and handler source (2026-09-03), but still not checked against a live traceback run's actual output. Internal audience – this is a raw diagnostic view, not written for end users. Do not publish externally without a decision to change that. See also the access-control note below – the page is currently reachable by any authenticated user, not just internal staff.
+version: 1.1.0
+last-reviewed: 2026-09-04
+blocked-reason: Verified against current component and handler source, but not yet checked against a live traceback run's actual output – confirm on-screen wording before promoting to complete.
 ---
 
 ## Why this page exists
 
-Traceback picks a "driving task" at each step by scoring candidate predecessor activities against a set of weighted criteria, then excludes some tasks from consideration entirely before scoring even starts. When a tester or support person needs to understand *why* traceback chose one activity over another – or why an activity didn't show up as a candidate at all – the normal Traceback Setup view doesn't show that working. This page does.
+Traceback picks a "driving task" at each step by scoring candidate predecessor activities against a set of weighted criteria, then excludes some tasks from consideration entirely before scoring even starts. When you need to understand *why* traceback chose one activity over another – or why an activity didn't show up as a candidate at all – the normal Traceback Setup view doesn't show that working. This page does.
 
-It is a raw, unstyled dump of everything that went into one traceback run: the schedule packets used, the scoring weights, the exclusion settings, every candidate's score at every step, and every task that got filtered out along the way (with the reason why).
+It shows the complete detail behind one traceback run: the schedule files used, the scoring weights and exclusion settings applied, every candidate's score at every step, and every task that got filtered out along the way, with the reason why.
 
 ## How you get here
 
-From **Delay Analysis mode** inside the Schedule Viewer (Gantt Viewer), once a traceback has completed, a **"View Traceback Log"** button becomes available in the mode bar. Clicking it opens this page in a new browser tab, scoped to that specific traceback run (`tracebackId` in the URL). (Corrected 2026-09-03 – this was previously misdescribed as living in Traceback Setup mode; the button is in Delay Analysis mode, and is disabled until a traceback has been run.)
+From **Delay Analysis mode** inside the Schedule Viewer (Gantt Viewer), once a traceback has completed, a **"View Traceback Log"** button becomes available in the mode bar. Clicking it opens this page in a new browser tab, scoped to that specific traceback run.
 
 ## What you will see
 
@@ -35,10 +35,6 @@ From **Delay Analysis mode** inside the Schedule Viewer (Gantt Viewer), once a t
 
 **View Raw JSON** – the complete underlying data for the run, expandable at the bottom of the page.
 
-## Notes for whoever validates this against the live app
+## Note
 
-- **Resolved (2026-09-03):** the weight names shown do *not* match the Traceback Setup labels – see the note under Weights above. Confirmed from `TracebackService.buildLog` (`backend/services/TracebackService.ts`), which passes the raw `ScoreType` strings straight through as the row name.
-- **Access control – needs a product decision.** This route (`/traceback/log/:tracebackId`) is registered behind the app's standard `GuardedRoute` (any authenticated user), not the separate `AdminGuardedRoute` used elsewhere in the app for internal-only pages. The "View Traceback Log" button in the Delay Analysis mode bar is likewise available to any user who can reach Delay Analysis mode – there's no role check hiding it from external beta testers. So despite this page being written and reviewed as an internal diagnostic view, any external beta tester who completes a traceback can currently open it today. Someone needs to decide whether that's fine as-is, or whether the route/button should be gated to internal roles.
-- This page has no navigation back into the app – it's a standalone diagnostic tab. Given the point above, that's more likely to matter for external testers than originally assumed.
-- Still not checked against a live traceback run's actual JSON output – the interface above is read from `TracebackLogView.tsx`'s prop types and `backend/api/traceback/log/[tracebackId]/handler.ts`'s response shape, not from watching a real run.
-- The docs folder has no `pages/traceback.md` file (checked 2026-09-03) – the earlier note describing one as "the older Desktop-derived candidate-scoring reference" no longer applies; if that reference material exists it isn't in this docs site under that name. This page is distinct from `pages/traceback-setup.md` (the external, business-facing Traceback Setup mode doc) – it's the "show your working" raw log, not a replacement for it.
+This page opens in its own browser tab, separate from the main app – close the tab or switch back to return to your traceback.

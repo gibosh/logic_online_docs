@@ -4,8 +4,8 @@ route: /schedule-viewer/gantt
 title: Gantt Viewer – Delay Analysis
 audience: external
 status: complete
-version: 1.1.1
-last-reviewed: 2026-09-03
+version: 1.1.2
+last-reviewed: 2026-09-04
 ---
 
 ## About this mode
@@ -105,6 +105,8 @@ The **View Traceback Log** button (log icon) opens the full log for the current 
 
 Disabled until a traceback has been completed.
 
+[Full detail – Traceback Log](pages/traceback-log.md)
+
 ### Exit Traceback
 
 The **Exit Traceback** button (X icon) switches back to Traceback Setup mode. If the current traceback has not been saved, Logic+ prompts to save or discard before switching.
@@ -113,7 +115,7 @@ The **Exit Traceback** button (X icon) switches back to Traceback Setup mode. If
 
 ## Restarting a traceback
 
-At any step in the traceback, you can change which activity the algorithm selected as the next driver and restart the analysis from that point. Two options are available from the Gantt chart in Delay Analysis mode. While a restart is running, a status indicator shows it's processing; if it fails, it shows "Error Restarting Traceback" rather than failing silently. (LUSB-1082/1084, merged 2026-07-28.)
+At any step in the traceback, you can change which activity the algorithm selected as the next driver and restart the analysis from that point. Two options are available from the Gantt chart in Delay Analysis mode. While a restart is running, a status indicator shows it's processing.
 
 ### Restart from shortlisted candidate
 

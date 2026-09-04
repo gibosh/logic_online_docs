@@ -4,8 +4,8 @@ route: /module/3/project/:projectId
 title: DCMA 14-Point Check
 audience: external
 status: complete
-version: 1.2.0
-last-reviewed: 2026-09-03
+version: 1.2.1
+last-reviewed: 2026-09-04
 ---
 
 ## DCMA 14-Point Check – Overview
@@ -111,7 +111,7 @@ A handful of checks are implemented as a defensible proxy for the literal indust
 - **CIOB "has the programme been rescheduled"** (CIOB 14) – proxied by comparing forecast dates against calculated early dates.
 - **CIOB "key dates"** (CIOB 11) – matched by activity-ID prefix (`AD-`/`KD-`) with a date parsed from the milestone's name, since there's no separate key-date flag in the source data.
 
-Where a check uses a proxy, both the check-detail expand view and the schedule-list row's info icon state this. Separately, **High Duration (DCMA 8)** has its own fallback rather than a true proxy: on a schedule with no baseline uploaded, it doesn't go N/A like the other baseline-dependent checks – it silently compares against the *current* schedule's own durations instead, and flags that substitution as a note rather than withholding a result.
+Where a check uses a proxy, both the check-detail expand view and the schedule-list row's info icon state this. **High Duration (DCMA 8)** works a little differently: on a schedule with no baseline uploaded, instead of showing N/A like the other baseline-dependent checks, it compares each activity's duration against the schedule's own current durations, and notes this on the check.
 
 ## Calculation and other logic
 
