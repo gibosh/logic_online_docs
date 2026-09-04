@@ -4,16 +4,16 @@ route: /module/1/project/:projectId
 title: Forecast Confidence
 audience: external
 status: draft
-version: 1.4.0
+version: 1.5.0
 last-reviewed: 2026-09-04
-blocked-reason: Content verified directly against ForecastConfidenceModule source and its call path from the live route, but exact on-screen wording (labels, tooltips) still needs a live-app screenshot before promoting to complete. Worked examples added from representative inputs run through the real formula, not from a live traceback.
+blocked-reason: Content verified directly against ForecastConfidenceModule source and its call path from the live route, but exact on-screen wording (labels, tooltips) still needs a live-app screenshot before promoting to complete. Worked examples added from representative inputs run through the real formula, not from a live traceback. "Forecast honesty" panel is due to be renamed "Forecast accuracy" in a future release — see workspace/GAPS.md; kept as "honesty" here to match current shipped code.
 ---
 
 ## Forecast Confidence – Overview
 
 When a project reports a finish date, there is often no way to tell at a glance whether that date is genuinely achievable or quietly optimistic. Some schedules lose roughly a month of completion date for every month that passes, while still looking healthy on paper – the delay is hiding in work that hasn't started yet. Others show what appears to be a recovery, but the recovery was manufactured by cutting planned durations and adding logic links, not by real progress on site.
 
-Forecast Confidence gives you an honest trust read on the reported finish date – deliberately a plain green, amber, or red signal, not a false-precision score out of 100. It is built from the schedule's own update history: is the finish date stable, how consistently has it moved, and how much float has the programme burned through.
+Forecast Confidence gives you an honest trust read on the reported finish date. It's shown as a percentage, but it should be read as a band – green, amber, or red – rather than a precise score: the difference between 48% and 52% isn't meaningful, only which band you land in is. It's built from the schedule's own update history: is the finish date stable, how consistently has it moved, and how much float has the programme burned through.
 
 A planner or project manager can use this to answer the question "should I believe the finish date?" in seconds – and if the answer is amber or red, the detail behind the signal shows exactly why.
 
@@ -41,9 +41,9 @@ A separate **Forecast honesty** panel sits alongside this grid, showing how well
 
 **Data used:** every schedule update file uploaded for the project, plus the activity identified as the project completion milestone – auto-detected by name (activities named along the lines of "Practical Completion" are prioritised, then "Final/Contract/All of the Works/Project Completion," then a generic "Completion").
 
-**How it's calculated:** update files that don't share enough activity codes with the largest uploaded file (fewer than half in common) are treated as a different schedule's data and excluded from the read. The remaining files are lined up in date order to track how far the completion milestone's forecast date has moved and how fast. That trend is combined with two other signals into the confidence percentage: how consistent the movement has been update to update, and how much float has gone negative across the project. The confidence band is **60% or above is green, 40–59% is amber, below 40% is red.**
+**How it's calculated:** update files that don't share enough activity codes with the largest uploaded file (fewer than half in common) are treated as a different schedule's data and excluded from the read. The remaining files are lined up in date order to track how far the completion milestone's forecast date has moved and how fast. That trend is combined with other signals into the confidence percentage: how consistent the movement has been update to update, how much the programme's scope has grown, and how much float has gone negative across the project. The confidence band is **60% or above is green, 40–59% is amber, below 40% is red.**
 
-The Forecast honesty panel's planned-vs-actual comparison is **not** one of these three inputs – it's computed and shown separately, and is capped at a moderate read until at least 20 activities have finished across at least 4 updates, since fewer than that isn't enough to judge reliably. Don't read the honesty panel as explaining the confidence percentage; the two can genuinely disagree.
+The Forecast honesty panel's planned-vs-actual comparison is **not** one of these inputs – it's computed and shown separately, and is capped at a moderate read until at least 20 activities have finished across at least 4 updates, since fewer than that isn't enough to judge reliably. Don't read the honesty panel as explaining the confidence percentage; the two can genuinely disagree.
 
 ## Worked examples: what drives a high, medium, or low confidence
 
@@ -61,13 +61,13 @@ What you'd see: the forecasted finish sits only a few days past the reported one
 
 The Reliability Factors are mixed: moderate task-count growth, moderate step-to-step volatility, negative-float share creeping up, and a slip rate that's clearly non-zero but not extreme – a combination that comes across as worth watching, rather than healthy or in trouble.
 
-What you'd see: the forecasted finish moves out to around 11 January, and the window widens out to mid-July – more than a month of central shift, and a window wider than the time remaining. This is the zone where the reported date needs real scrutiny before it's repeated to a client.
+What you'd see: the forecasted finish moves out to around 11 January, and the window widens out to run from 15 December to mid-July – more than a month of central shift, and a window wider than the time remaining. This is the zone where the reported date needs real scrutiny before it's repeated to a client.
 
 **Low confidence – below 40%**
 
 Several Reliability Factors are in trouble at once: high task-count growth, high step-to-step volatility, a high negative-float share, and a slip rate that's losing a meaningful fraction of a month for every month that passes.
 
-What you'd see: the forecasted finish moves to late February – more than two months past what's reported – and the window stretches out to early December the *following* year, nearly doubling the whole remaining duration. At this point the reported date isn't a useful anchor on its own; the width of the window is the real message.
+What you'd see: the forecasted finish moves to late February – more than two months past what's reported – and the window stretches from 15 December all the way out to early December the *following* year, nearly doubling the whole remaining duration. At this point the reported date isn't a useful anchor on its own; the width of the window is the real message.
 
 ## Note
 
