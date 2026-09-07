@@ -3,9 +3,9 @@ page-id: getting-started
 title: Getting Started with Logic+ Online
 audience: external
 status: draft
-version: 1.3.0
-last-reviewed: 2026-09-04
-blocked-reason: Rewritten from code (header nav structure, status labels, help-panel claim removed as unbuilt) but not yet walked through live — confirm before promoting to complete. Describes Delay Analysis as a fourth module ahead of its actual code split (PM's call, expected ~2026-09-11) — see workspace/GAPS.md "Upcoming release changes to watch for."
+version: 1.4.0
+last-reviewed: 2026-09-07
+blocked-reason: Rewritten from code (header nav structure, status labels, help-panel claim removed as unbuilt) but not yet walked through live — confirm before promoting to complete. Fourth module slot updated from "Delay Analysis" to "Time-Impact Analysis" (2026-09-07) since that's what actually shipped as the real 4th nav item; Delay Analysis is still reached via the Schedule Viewer, not yet split out on its own — see workspace/GAPS.md.
 ---
 
 ## What is Logic+ Online?
@@ -37,8 +37,8 @@ Currently only `.xer` files are supported. The ability to import Microsoft Proje
 The navigation bar at the top of the page gives access to four modules:
 
 - **[Project Manager](pages/project-manager)** – project list, file upload, processing status
-- **[Schedule Viewer](pages/gantt-viewer)** – Gantt chart, schedule comparison, and activity relationships
-- **[Delay Analysis](pages/delay-analysis)** – traceback setup and results, reached today via the Schedule Viewer's mode switcher
+- **[Schedule Viewer](pages/gantt-viewer)** – Gantt chart, schedule comparison, activity relationships, and (via its mode switcher) Delay Analysis / traceback setup and results
+- **[Time-Impact Analysis](pages/time-impact-analysis)** – build a hypothetical delay event and test its calculated impact on Practical Completion
 - **[Analytics](pages/analytics-overview)** – schedule quality checks, bow wave compression, completion forecast, and more
 
 Not all views will show meaningful data unless a project with processed schedules is selected.

@@ -23,10 +23,10 @@ Logic+ groups key functionality into the four modules below. Select a module bel
     <h3>Schedule Viewer</h3>
     <p>Explore and compare schedules in the Gantt chart. View relationships and navigate the logic network.</p>
   </a>
-  <a class="module-tile" href="#/pages/delay-analysis">
+  <a class="module-tile" href="#/pages/time-impact-analysis">
     <div class="tile-label">Module</div>
-    <h3>Delay Analysis</h3>
-    <p>Run a Traceback to identify which activities are responsible for project delay and by how much.</p>
+    <h3>Time-Impact Analysis</h3>
+    <p>Build a hypothetical delay event and see its calculated impact on Practical Completion.</p>
   </a>
   <a class="module-tile" href="#/pages/analytics-overview">
     <div class="tile-label">Module</div>

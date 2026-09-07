@@ -61,6 +61,16 @@
 
 ---
 
+* [Time-Impact Analysis](pages/time-impact-analysis)
+  * [Setting up](pages/time-impact-analysis?id=setting-up)
+  * [Building a fragnet](pages/time-impact-analysis?id=building-a-fragnet)
+  * [Reading the result](pages/time-impact-analysis?id=reading-the-result)
+  * [Schedule impact views](pages/time-impact-analysis?id=schedule-impact-views)
+  * [Comparing fragnets](pages/time-impact-analysis?id=comparing-fragnets)
+  * [Reconciliation vs source float](pages/time-impact-analysis?id=reconciliation-vs-source-float)
+
+---
+
 * [Analytics](pages/analytics-overview)
   * [About Analytics](pages/analytics-overview?id=about-analytics)
   * [Schedule Quality](pages/analytics-overview?id=schedule-quality)
