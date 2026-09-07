@@ -4,11 +4,11 @@ route: /module/8/project/:projectId
 title: Schedule Risk Analysis (SRA)
 audience: external
 status: complete
-version: 1.1.2
-last-reviewed: 2026-09-04
+version: 1.2.0
+last-reviewed: 2026-09-07
 ---
 
-## Schedule Risk Analysis (SRA) – Overview
+## Schedule Risk Analysis (SRA)
 
 A finish date on its own doesn't tell you how much uncertainty sits behind it, or which risks matter most to it. Schedule Risk runs a quantitative schedule risk analysis – the kind of Monte Carlo simulation planners traditionally run in a separate risk tool – directly against your uploaded schedule, and ranks the risk drivers by how much they actually move the finish date.
 

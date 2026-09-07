@@ -4,12 +4,12 @@ route: /module/4/project/:projectId
 title: Critical Path Evolution
 audience: external
 status: draft
-version: 1.0.37
-last-reviewed: 2026-09-03
+version: 1.1.0
+last-reviewed: 2026-09-07
 blocked-reason: Content below is written and corrected from direct code analysis (frontend/src/analytics/impactWindows/, frontend/src/components/modules/CriticalPathEvolutionModule/) but has not yet been checked against the running app. Confirm chart interaction, hover behaviour, and on-screen wording before promoting to complete.
 ---
 
-## Critical Path Evolution – Overview
+## Critical Path Evolution
 
 At any point in a project, one activity (or chain of activities) is actually in the driver's seat – the thing that, if it slips further, directly moves the project finish date. But that driver's seat can change hands between reporting periods, sometimes without anyone explicitly noticing.
 

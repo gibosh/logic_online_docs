@@ -4,11 +4,11 @@ route: /module/2/project/:projectId
 title: Forecast Variance
 audience: external
 status: complete
-version: 1.0.37
-last-reviewed: 2026-09-03
+version: 1.1.0
+last-reviewed: 2026-09-07
 ---
 
-## Forecast Variance – Overview
+## Forecast Variance
 
 When a project's finish date moves, there are two very different reasons it could have done so – and they have different implications for who is accountable and what needs to happen next.
 

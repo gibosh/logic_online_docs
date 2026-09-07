@@ -4,12 +4,12 @@ route: /module/1/project/:projectId
 title: Forecast Confidence
 audience: external
 status: draft
-version: 1.6.0
-last-reviewed: 2026-09-04
+version: 1.7.0
+last-reviewed: 2026-09-07
 blocked-reason: Content verified directly against ForecastConfidenceModule source and its call path from the live route, but exact on-screen wording (labels, tooltips) still needs a live-app screenshot before promoting to complete. Worked examples added from representative inputs run through the real formula, not from a live traceback. "Forecast honesty" panel is due to be renamed "Forecast accuracy" in a future release — see workspace/GAPS.md; kept as "honesty" here to match current shipped code.
 ---
 
-## Forecast Confidence – Overview
+## Forecast Confidence
 
 When a project reports a finish date, there is often no way to tell at a glance whether that date is genuinely achievable or quietly optimistic. Some schedules lose roughly a month of completion date for every month that passes, while still looking healthy on paper – the delay is hiding in work that hasn't started yet. Others show what appears to be a recovery, but the recovery was manufactured by cutting planned durations and adding logic links, not by real progress on site.
 

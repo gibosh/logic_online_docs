@@ -4,12 +4,12 @@ route: /module/9/project/:projectId
 title: Float Burn-down
 audience: external
 status: draft
-version: 1.1.1
-last-reviewed: 2026-09-03
+version: 1.2.0
+last-reviewed: 2026-09-07
 blocked-reason: Re-verified 2026-09-03 against current source (frontend/src/components/modules/ProjectFloatCheckModule/, frontend/src/analytics/ProjectFloatCheck/) — content and in-app copy still match exactly, no drift found. Still not checked against the running app. Confirm chart interaction/hover behaviour before promoting to complete.
 ---
 
-## Float Burn-down – Overview
+## Float Burn-down
 
 There are two well-established ways to estimate when a project will really finish – and each one can be individually misleading.
 

@@ -4,12 +4,12 @@ route: /module/6/project/:projectId
 title: Causes of Change
 audience: external
 status: draft
-version: 1.0.1
-last-reviewed: 2026-09-03
+version: 1.1.0
+last-reviewed: 2026-09-07
 blocked-reason: Module 6 is now built (confirmed against current codebase — frontend/src/components/modules/CausesOfChangeModule/, frontend/src/analytics/causesOfChange.ts, with an in-repo README documenting the same calculation). Content below is written from that code and README, but has not yet been checked against the running app — confirm on-screen wording, Gantt rendering, and CSV export before promoting to complete.
 ---
 
-## Causes of Change – Overview
+## Causes of Change
 
 When a group of activities suddenly moves later together between schedule updates, something happened upstream that pushed them. A planner often has a hunch about what it was – a permit delay, a subcontractor issue, a late decision – but no systematic way to test it, and no way to separate a genuine trigger event from ordinary monthly re-baselining noise.
 

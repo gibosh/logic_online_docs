@@ -4,11 +4,11 @@ route: /module/7/project/:projectId
 title: Completion Forecast
 audience: external
 status: draft
-version: 1.0.2
-last-reviewed: 2026-09-04
+version: 1.1.0
+last-reviewed: 2026-09-07
 ---
 
-## Completion Forecast – Overview
+## Completion Forecast
 
 The reported finish date on a project and a rigorous, data-driven projection based on the schedule's own track record often disagree – sometimes by many months. Showing only the reported date hides that gap.
 

@@ -4,11 +4,11 @@ route: /module/3/project/:projectId
 title: DCMA 14-Point Check
 audience: external
 status: complete
-version: 1.2.1
-last-reviewed: 2026-09-04
+version: 1.3.0
+last-reviewed: 2026-09-07
 ---
 
-## DCMA 14-Point Check – Overview
+## DCMA 14-Point Check
 
 Before any forecast or delay analysis from a schedule can be trusted, the schedule itself needs to be well-built enough to produce reliable results. Schedule Quality runs an automated health check against every schedule you have uploaded for a project and tells you, in plain pass/fail terms, whether each one meets an industry-standard quality threshold.
 

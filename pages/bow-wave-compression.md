@@ -4,12 +4,12 @@ route: /module/5/project/:projectId
 title: Bow-Wave Compression
 audience: external
 status: draft
-version: 1.0.2
-last-reviewed: 2026-09-04
+version: 1.1.0
+last-reviewed: 2026-09-07
 blocked-reason: Content below is corrected from direct code analysis but has not yet been checked against the running app. Confirm chart interaction and hover/tooltip behaviour before promoting to complete.
 ---
 
-## Bow-Wave Compression – Overview
+## Bow-Wave Compression
 
 Work that should happen steadily over time sometimes gets pushed later and later – re-sequenced rather than genuinely resourced – until it piles up into an unrealistic crunch near the end of the project. By the time this is visible in a normal Gantt view, it is often too late to add the crews, plant, or subcontractor capacity needed to absorb it.
 
