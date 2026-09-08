@@ -4,8 +4,8 @@ route: /module/7/project/:projectId
 title: Completion Forecast
 audience: external
 status: draft
-version: 1.1.0
-last-reviewed: 2026-09-07
+version: 1.1.1
+last-reviewed: 2026-09-08
 ---
 
 ## Completion Forecast
@@ -32,11 +32,35 @@ A **data quality** note showing which completion milestone the projection is anc
 
 **Data used:** every schedule update file uploaded for the project, tracked over time – the same underlying trend-analysis approach as [Forecast Confidence](forecast-confidence.md), applied here to produce a projected finish date and range rather than a standalone confidence score.
 
-**How it's calculated:** update files that don't share enough activity codes with the largest uploaded file are excluded as a different schedule's data. The remaining files are lined up in date order to measure how the completion milestone's forecast date has moved, how consistently, how much float has gone negative, and how well completed work has tracked the plan. The projection and its confidence range are entirely rules-based arithmetic on this history – there is no simulation or random element, so identical inputs always produce the identical output.
+**How it's calculated:** update files that don't share enough activity codes with the largest uploaded file (a **Jaccard similarity** below 0.5, the same coherence check used in Forecast Confidence) are excluded as a different schedule's data. The remaining files are lined up in date order to measure how the completion milestone's forecast date has moved, how consistently, how much float has gone negative, and how well completed work has tracked the plan. The projection and its confidence range are entirely rules-based arithmetic on this history – there is no simulation or random element, so identical inputs always produce the identical output.
+
+**What's driving the programme** is a plain count, not a weighted score: every activity currently out of spare time (or, if none are, the worst 15% by float) is sorted into a category by keyword-matching its name, and the percentage shown against each category is simply that category's share of the activity count in that group – it is not weighted by float, duration, or delay impact.
 
 ## How the projection works
 
-The rate used for the rules-adjusted finish is the **worst sustained rate** seen across the schedule's update history – not an average, and not just the most recent trend. This is deliberate: an average can be flattered by a short-lived, unsustained recovery. The projection also checks how well past reported progress has matched actual completed work – a schedule with a track record of paper recoveries produces a wider, less confident range than one with a track record of honest reporting.
+The rate used for the rules-adjusted finish is the **worst sustained rate** seen across the schedule's update history – not an average, and not just the most recent trend. This is deliberate: an average can be flattered by a short-lived, unsustained recovery.
+
+> Worst sustained slip rate = the highest of: the overall average slip rate (total slip so far ÷ total time elapsed), the slip rate measured over just the last six updates (or fewer, if there are fewer than six available), and the highest slip rate ever recorded at any single update across the whole series
+
+> Rules-adjusted shift = worst sustained slip rate × months remaining, capped at 1.5 × months remaining
+> Rules-adjusted finish = reported finish + rules-adjusted shift
+
+The likely range around that date widens with schedule volatility – the same **volatility score** used in Forecast Confidence, blending step-to-step volatility, scope growth, and negative-float share – and narrows both as more updates come in for this project and as more projects build up this module's own benchmark database:
+
+> Half-width of the range (months) = (0.25 × months remaining + 6 × volatility score) × update-count adjustment × benchmark-calibration adjustment
+> Update-count adjustment = √(6 ÷ number of updates used, or 2 if fewer than 2 are available)
+> Benchmark-calibration adjustment = 1 + 0.5 ÷ (1 + number of projects in the benchmark database ÷ 4)
+
+Unlike Forecast Confidence's range, which leans a fixed amount further toward "later" regardless of the schedule's track record, this module's range is skewed by a **reality-backing trust factor** – how closely actual finished work has tracked the plan, checked with the same Pearson correlation used in Forecast Confidence's honesty panel. Here, that check is a direct input to the range, not just a separate read-out:
+
+> Earlier bound = the larger of 0 or (rules-adjusted shift − half-width × trust factor)
+> Later bound = rules-adjusted shift + half-width × (2 − trust factor)
+
+The trust factor is 1 when the correlation between finished-work variance and slip is 0.6 or above, 0.6 when it's 0.3–0.6, 0.3 when it's below 0.3, and a default of 0.6 when there isn't yet enough finished work to check (fewer than 20 finished activities across fewer than 4 updates) – so a schedule with a track record of paper recoveries genuinely produces a wider, later-skewed range, and one with a track record of honest reporting produces a tighter, more evenly-balanced one.
+
+> Forecast confidence % = 100 × (1 − (width of the range ÷ (months remaining × 0.8 + 8))), rounded, and held between 5% and 95%
+
+This is the same style of confidence read as Forecast Confidence, but it is calculated from this module's own wider range and trust factor, not copied from the Forecast Confidence module's own number.
 
 ## Note
 

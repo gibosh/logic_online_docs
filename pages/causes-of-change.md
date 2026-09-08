@@ -4,8 +4,8 @@ route: /module/6/project/:projectId
 title: Causes of Change
 audience: external
 status: draft
-version: 1.1.0
-last-reviewed: 2026-09-07
+version: 1.2.0
+last-reviewed: 2026-09-08
 blocked-reason: Module 6 is now built (confirmed against current codebase — frontend/src/components/modules/CausesOfChangeModule/, frontend/src/analytics/causesOfChange.ts, with an in-repo README documenting the same calculation). Content below is written from that code and README, but has not yet been checked against the running app — confirm on-screen wording, Gantt rendering, and CSV export before promoting to complete.
 ---
 
@@ -41,7 +41,19 @@ Above the event list, three controls filter and reorder what's shown: **Minimum 
 
 **How the root cause is identified:** within a group, the activity (or activities) with no incoming matching-movement link from another group member are the upstream candidates. Exactly one such candidate that reaches every other member through the chain is shown as the **identified** candidate root cause, with the rest as its downstream effects. More than one such candidate makes the group **ambiguous**. No candidate at all (every member has an incoming link from another member) means the group's logic forms a **cycle**, and the root is left **unresolved**. This is read directly off the schedule's own predecessor/successor direction — it is not a proof of external causation.
 
-**How "typical" and "standout" are judged:** for each update, the *typical* (background) delay is the median of every matched activity's largest date movement that update — the ordinary month-to-month churn, not just this group's. A group's *excess* delay is its own movement minus that typical figure; groups at 25 days or more excess are ranked ahead of everything else and flagged as standout by the drift badge. Ranking after that follows activity-day impact (activities affected × days moved), then excess delay, then group size, then update recency.
+**How "typical" and "standout" are judged:** for each update, the *typical* (background) delay is the median of every matched activity's largest date movement that update — the greater of that activity's own start-shift or finish-shift, rounded to whole days, across every activity that moved later at all that update, not just this group's members:
+
+> Typical (background) delay for an update = median, across every matched activity that moved later, of (the larger of its start-shift or finish-shift in days), rounded to the nearest whole day
+
+A group's *excess* delay is its own shared movement minus that typical figure:
+
+> Group's excess delay = the group's own shared movement (days) − that update's typical delay
+
+Groups at 25 days or more excess are ranked ahead of everything else and flagged as standout by the drift badge — this threshold is confirmed accurate against the current code (`STANDOUT_EXCESS_DAYS = 25`). Ranking after that follows activity-day impact, then excess delay, then group size, then update recency:
+
+> Activity-day impact = number of activities in the group × the group's shared movement (days)
+
+Full ranking order: standout groups (excess delay ≥ 25 days) first, then descending activity-day impact, then descending excess delay, then descending group size, then most recent update first.
 
 **Constraint evidence:** for every activity in a group, its primary and secondary constraint slots are compared with the preceding update (moving a constraint between primary and secondary without other change is ignored). A changed constraint is marked as *supporting* the movement only when it is a start/finish exact-date or lower-bound type, the relevant activity boundary actually moved later, the constraint was added/changed/moved later, and the boundary lands within one day of the constraint date. This is supporting schedule evidence for the movement, not proof the constraint was the binding cause.
 

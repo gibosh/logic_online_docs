@@ -4,8 +4,8 @@ route: /module/3/project/:projectId
 title: DCMA 14-Point Check
 audience: external
 status: complete
-version: 1.3.0
-last-reviewed: 2026-09-07
+version: 1.3.1
+last-reviewed: 2026-09-08
 ---
 
 ## DCMA 14-Point Check
@@ -118,6 +118,20 @@ Where a check uses a proxy, both the check-detail expand view and the schedule-l
 **Data used:** for each uploaded schedule, activity-level data covering predecessor/successor links and lag, constraint types, float, duration, actual and forecast dates, calendars, and WBS codes, plus – for the checks that need one – a baseline for comparison. The baseline used is currently **whichever uploaded schedule has the earliest data date**, not a schedule you've separately marked as the baseline.
 
 **How it's calculated:** DCMA 14-Point, CIOB PP21, and Additional Best Practice are three separately implemented check sets, not one shared engine with relabelled outputs – they share only a few low-level helpers (for example, how a relationship link or a float value is read from the schedule), and even define their own separate hard-constraint lists rather than reusing one. Even where two profiles test a conceptually similar thing, such as float or duration, the pass/fail thresholds genuinely differ between standards rather than being the same number reused. There's no separate "generate report" step and no stored report distinct from the schedule data itself – but results for a given schedule and profile are cached client-side once computed, and only recomputed the next time that project's schedules are freshly fetched from the server, not on every visit to the page.
+
+**Critical Path Length Index (CPLI):** built from the schedule's own completion point, found structurally rather than by name – the latest-finishing milestone with no successors, or if there isn't one, the latest-finishing activity with no successors, or failing that, the latest-finishing activity in the schedule. This is a different detection method from the name-based one used in Forecast Confidence's completion milestone. "Critical path length" here is not a sum of activity durations along a chain – it's measured directly as elapsed time between two dates:
+
+> Critical path length = working days between the schedule's status date and the completion milestone's own finish date, measured on the completion milestone's own calendar
+>
+> CPLI = (critical path length + completion milestone's own total float) ÷ critical path length, pass at ≥ 0.95
+
+The total float used is the completion milestone's own total float value – not a float figure summed or averaged across every activity on the path leading to it. If the completion milestone can't be found, has no finish date, has already finished at or before the status date, has no resolvable calendar, or the critical path length works out to zero, CPLI can't be calculated and the check shows N/A rather than a number.
+
+**Baseline Execution Index (BEI):** measured over a broader population than most other DCMA checks – both completed and not-yet-completed activities count, not incomplete activities only:
+
+> BEI = activities completed ÷ (activities baselined to finish by the status date + activities with no usable baseline finish date to compare against)
+
+Every completed activity in scope counts toward the numerator, including ones that finished ahead of their own baseline date – which is why BEI can read above 1.00; that reflects the DCMA standard's own definition and isn't a bug. An activity with no matching baseline record, or whose baseline record carries no finish date, is folded into the denominator as if it were still due – a deliberately conservative reading, since there's nothing to confirm it was ever on track to finish on time. If no baseline schedule is available at all, or no activity in scope was actually baselined to finish by the status date, BEI can't be calculated and the check shows N/A.
 
 ## Note
 

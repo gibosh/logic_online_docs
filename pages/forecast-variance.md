@@ -4,8 +4,8 @@ route: /module/2/project/:projectId
 title: Forecast Variance
 audience: external
 status: complete
-version: 1.1.0
-last-reviewed: 2026-09-07
+version: 1.1.1
+last-reviewed: 2026-09-08
 ---
 
 ## Forecast Variance
@@ -37,13 +37,48 @@ Four sections, in order:
 
 **Data used:** matched activities only – activities present in both of the two schedule updates being compared, matched by activity ID. An activity present in only one of the two updates has no baseline to compare against, so it isn't scored – but it is still counted, via `+detail`, in its area's structural change. WBS summary rows are excluded throughout, since their dates are structural rather than real. All day figures are whole working days on a P6 calendar (the activity's own calendar for activity-level maths, the project's default calendar for programme-level maths).
 
-**Forecast Reliability score:** for each matched activity, `finishVariance = current finish − baseline finish`, `startVariance = current start − baseline start`, and `durationVariance = finishVariance − startVariance` – an exact decomposition that always sums back to the finish movement. The 0–100 score is `round(100 × (1 − penalty))`, where `penalty` combines four weighted, unit-free components: how much of the schedule moved at all (35%), how far it moved relative to the length of the reporting window (30%), how many work areas it touched (20%), and how little of any slip was recovered (15%). 100 means nothing moved; 0 means the whole schedule moved a full window's worth of time, everywhere, with nothing pulled back. Two updates that share no activities score 0, not 100 – that reads as "cannot be checked," not a clean bill of health.
+**Forecast Reliability score:** for each matched activity, the finish movement is split into the only two things that can cause it:
 
-**Where the Change Sits – originated charge:** if activity A slips 10 days and its successor B slips the same 10 days purely because A pushed it, B did not cause anything, so charging both would double-count and smear one root cause across the whole downstream chain. Each activity's *originated* charge is its own finish variance minus its **driving predecessor's** finish variance – the driving predecessor being whichever predecessor has the least free float (ties broken by lowest internal activity ID). This collapses the network into one driver per activity, so a pure downstream cascade nets to zero and only the activity that actually caused the movement is charged. An area is marked **Reliable** if its total movement is below 10% of its own working-day content (a floor that scales with the area's size, not an absolute day count); otherwise it's **Active rework** if delay and recovery are roughly balanced (a 40–60% split) or **Volatile** if the movement is lopsided in one direction with little offset. "WBS area" here means the first named WBS summary level that has more than one sibling – not necessarily the very top level of the WBS, if a project's structure doesn't branch that high up.
+> Finish variance = current finish date − baseline finish date
+> Start variance = current start date − baseline start date (zero if either date is missing)
+> Duration variance = finish variance − start variance
 
-**Forecast Accuracy vs Forecast Change – horizon bands:** each activity is placed into a band by how many months ahead of the baseline data date it was forecast to finish (`0–1 mo`, `1–3 mo`, `3–6 mo`, `6–12 mo`, `12 mo+`, closed at the top so exactly 1 month lands in `0–1 mo`), measured on the project calendar's own month length rather than an assumed 30-day month. Activities already due or overdue at the baseline data date fall outside these bands and are currently dropped rather than measured – see Note, below. Each bar shows the mean *absolute* error in days, so early and late errors don't cancel into a false "accurate" reading; a signed mean shown alongside indicates whether the bias runs early or late.
+This is an exact decomposition – start variance and duration variance always add back up to the finish variance – so an activity whose finish moved but whose start didn't has genuinely run long, while one where both moved together has been re-sequenced.
 
-**Is Forecasting Improving? – trend:** unlike the other three sections, this walks every consecutive pair of updates across the project's full history, not just the latest two. For each pair, it measures the error – in working days – between the earlier update's forecast finish and the actual finish, for every activity that finished during that window (activities already actualised as of the earlier update are excluded, since their outcome was already known and tests nothing new). Windows in which nothing finished are left off the chart rather than shown as zero. The "improving?" read compares only the first and last plotted points, not a fitted trend line, and needs at least two plotted windows to call a direction.
+The 0–100 score itself is:
+
+> Reliability score = round(100 × (1 − penalty)), or 0 outright if the two updates share no matched activities at all
+>
+> penalty = 0.35 × (share of matched activities that moved at all) + 0.30 × (average slip size ÷ length of the reporting window, capped at 100%) + 0.20 × (share of work areas that moved) + 0.15 × (how little of any slip was recovered)
+
+100 means nothing moved; 0 means the whole schedule moved a full window's worth of time, everywhere, with nothing pulled back. The "how little was recovered" component only applies where the schedule actually lost time in the first place – it's one minus the recovered share (time pulled back ÷ total time pushed out and pulled back combined), measured against a perfectly-balanced 50/50 split; a programme that lost no time has nothing to recover and isn't penalised for failing to. A pair of updates that share no matched activities scores 0, not 100 – that reads as "cannot be checked," not a clean bill of health.
+
+**Where the Change Sits – originated charge:** if activity A slips 10 days and its successor B slips the same 10 days purely because A pushed it, B did not cause anything, so charging both would double-count and smear one root cause across the whole downstream chain.
+
+> Originated charge = activity's own finish variance − its driving predecessor's finish variance
+
+The driving predecessor is whichever predecessor has the least free float (ties broken by lowest internal activity ID). This collapses the network into one driver per activity, so a pure downstream cascade nets to zero and only the activity that actually caused the movement is charged. An area is marked **Reliable** if its total movement (delay plus recovery combined) is below 10% of its own working-day content – a floor that scales with the area's size, not an absolute day count – or if it didn't move at all; otherwise it's **Active rework** if delay makes up 40–60% of that movement (roughly balanced against recovery) or **Volatile** if the split is more lopsided than that. "WBS area" here means the first named WBS summary level that has more than one sibling – not necessarily the very top level of the WBS, if a project's structure doesn't branch that high up.
+
+**Forecast Accuracy vs Forecast Change – horizon bands:** each activity is placed into a band by how far ahead of the baseline data date it was forecast to finish:
+
+> Months ahead = working time between the baseline data date and the activity's baseline finish date ÷ the project calendar's own minutes-per-month value
+
+measured on the project calendar rather than an assumed 30-day month, so bands mean the same thing regardless of which calendar a project runs on. Bands are `0–1 mo`, `1–3 mo`, `3–6 mo`, `6–12 mo`, `12 mo+`, closed at the top so exactly 1 month lands in `0–1 mo`. Activities already due or overdue at the baseline data date fall outside these bands and are currently dropped rather than measured – see Note, below.
+
+Each bar and its signed label are built the same way, on whichever side (retrospective or prospective) the activity falls:
+
+> Day difference for one activity = −(outcome finish date − baseline finish date), so a late finish reads as a negative number
+> Bar height for a band = average of the absolute day differences across that band's activities
+> Signed mean shown alongside = the plain (non-absolute) average of the same day differences, showing whether the bias runs early or late
+
+Using the absolute value for the bar itself means early and late errors can't cancel into a false "accurate" reading.
+
+**Is Forecasting Improving? – trend:** unlike the other three sections, this walks every consecutive pair of updates across the project's full history, not just the latest two.
+
+> Forecast error for one activity in one window = |actual finish date − the earlier update's forecast finish date|, in working days
+> Mean forecast error for a window = average of that error across every activity that finished during the window
+
+Activities already actualised as of the earlier update are excluded, since their outcome was already known and tests nothing new. Windows in which nothing finished are left off the chart rather than shown as zero. The "improving?" read compares only the first and last plotted points, not a fitted trend line, and needs at least two plotted windows to call a direction.
 
 ## Note
 

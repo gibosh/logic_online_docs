@@ -4,8 +4,8 @@ route: /module/4/project/:projectId
 title: Critical Path Evolution
 audience: external
 status: draft
-version: 1.1.0
-last-reviewed: 2026-09-07
+version: 1.2.0
+last-reviewed: 2026-09-08
 blocked-reason: Content below is written and corrected from direct code analysis (frontend/src/analytics/impactWindows/, frontend/src/components/modules/CriticalPathEvolutionModule/) but has not yet been checked against the running app. Confirm chart interaction, hover behaviour, and on-screen wording before promoting to complete.
 ---
 
@@ -31,9 +31,22 @@ Two views, selected by tab:
 
 **Data used:** every uploaded schedule update, plus each activity's critical-path status and float.
 
-**How the driving chain is built:** for each window, Logic+ takes every non-summary activity flagged critical in the newer schedule and sorts it chronologically by start date. "Critical" here means zero float for an activity that has already finished by that schedule's data date (using the same float resolver as the rest of the app), or P6's own critical flag for an activity that hasn't finished yet – P6 commonly stops reporting float once an activity completes, so the two checks are needed to cover the whole chain. This is a simpler method than the full predecessor-by-predecessor traceback the Gantt Viewer's Delay Analysis mode uses: it does not walk backward through logic links from a completion milestone, and if the schedule genuinely has more than one critical path, all of it is included as one time-ordered list rather than a single walked chain. The chain is then trimmed to just the portion that changed since the previous window's data date, so unaffected early activities aren't recomputed for every window.
+**How a window boundary is defined:** every uploaded schedule update is sorted into date order by its data date, and a "window" is the gap between one update and the very next one in that order. N uploaded updates therefore produce N−1 windows; a project with only one update produces none.
 
-**How the delay is attributed:** that trimmed chain is run through the same activity-by-activity delay-attribution calculation as Gantt Viewer's Delay Analysis mode: each activity's own contribution is its finish-date variance minus the previous chain activity's, so a pure pass-through activity contributes close to nothing and only the activity that actually added delay is charged for it. Because the driving activity in a window is often one that hasn't started yet, its charge is split by how much of its duration has already elapsed: the elapsed portion counts as actual, the remainder as prospective.
+**How the driving chain is built:** for each window, Logic+ takes every non-summary activity flagged critical in the newer schedule and sorts it chronologically by start date. "Critical" here means zero float for an activity that has already finished by that schedule's data date (using the same float resolver as the rest of the app), or P6's own critical flag for an activity that hasn't finished yet – P6 commonly stops reporting float once an activity completes, so the two checks are needed to cover the whole chain. This is a simpler method than the full predecessor-by-predecessor traceback the Gantt Viewer's Delay Analysis mode uses: it does not walk backward through logic links from a completion milestone, and if the schedule genuinely has more than one critical path, all of it is included as one time-ordered list rather than a single walked chain.
+
+The chain is then trimmed to just the portion that changed since the previous window's data date, so unaffected early activities aren't recomputed for every window. Logic+ walks the chain from its earliest activity and moves the trim point forward past every activity that had **both** already finished before the window opened **and** shown no finish-date movement (within one day) from the previous update; everything from the last such "settled" activity onward is kept for recalculation.
+
+**How the delay is attributed:** that trimmed chain is run through the same activity-by-activity delay-attribution calculation as Gantt Viewer's Delay Analysis mode: each activity's own contribution is its finish-date variance minus the previous chain activity's, so a pure pass-through activity contributes close to nothing and only the activity that actually added delay is charged for it:
+
+> An activity's own delay charge (working days) = round(its cumulative critical-path delay this window, including its own effect) − round(the previous chain activity's cumulative critical-path delay this window)
+
+Because the driving activity in a window is often one that hasn't started yet, its charge is split by how much of its duration has already elapsed at the data date: the elapsed portion counts as actual, the remainder as prospective.
+
+> Elapsed fraction = (data date − activity's start date) ÷ (activity's finish date − activity's start date), held between 0 and 1
+> Actual (already-elapsed) share of the charge = round(charge × elapsed fraction); Prospective (forecast) share = charge − actual share
+
+An activity that has already finished has its whole charge counted as actual; one that hasn't started yet has its whole charge counted as prospective – the elapsed-fraction formula only comes into play for an activity that's currently in progress.
 
 ## Important
 
