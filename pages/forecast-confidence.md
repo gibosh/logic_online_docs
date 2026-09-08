@@ -4,7 +4,7 @@ route: /module/1/project/:projectId
 title: Forecast Confidence
 audience: external
 status: draft
-version: 1.8.1
+version: 1.9.0
 last-reviewed: 2026-09-08
 blocked-reason: Content verified directly against ForecastConfidenceModule source and its call path from the live route, but exact on-screen wording (labels, tooltips) still needs a live-app screenshot before promoting to complete. Worked examples added from representative inputs run through the real formula, not from a live traceback. "Forecast honesty" panel is due to be renamed "Forecast accuracy" in a future release — see workspace/GAPS.md; kept as "honesty" here to match current shipped code.
 ---
@@ -43,9 +43,16 @@ A separate **Forecast honesty** panel sits alongside this grid, showing how well
 
 **Data used:** every schedule update file uploaded for the project, plus the activity identified as the project completion milestone – auto-detected by name (activities named along the lines of "Practical Completion" are prioritised, then "Final/Contract/All of the Works/Project Completion," then a generic "Completion").
 
-**How it's calculated:** update files that don't share enough activity codes with the largest uploaded file (fewer than half in common) are treated as a different schedule's data and excluded from the read. The remaining files are lined up in date order to track how far the completion milestone's forecast date has moved and how fast. That trend is combined with other signals into the confidence percentage: how consistent the movement has been update to update, how much the programme's scope has grown, and how much float has gone negative across the project. The confidence band is **60% or above is green, 40–59% is amber, below 40% is red.**
+**How it's calculated:** update files that don't share enough activity codes with the largest uploaded file (fewer than half in common) are treated as a different schedule's data and excluded from the read. The remaining files are lined up in date order to track how far the completion milestone's forecast date has moved and how fast.
 
-The Forecast honesty panel's planned-vs-actual comparison is **not** one of these inputs – it's computed and shown separately, and is capped at a moderate read until at least 20 activities have finished across at least 4 updates, since fewer than that isn't enough to judge reliably. Don't read the honesty panel as explaining the confidence percentage; the two can genuinely disagree.
+**Building the forecasted finish date and its likely range:** the forecasted finish date starts from the reported finish date and shifts it forward by an amount based on the project's current slip rate – capped so that one bad reading can't push the forecast out by more than one and a half times however much programme time is left. Around that forecasted date, a likely range is drawn:
+
+- **How wide the range is** depends on how volatile the schedule has been recently – how much the forecast finish has been jumping around update to update, how much the programme's scope has grown, and how much float has gone negative – weighed against how much time is actually left on the project. More time remaining allows a wider range; a schedule with a longer run of updates behind it gets a tighter range than one with only a couple of updates to go on.
+- **The range isn't centred evenly** either side of the forecasted date – it leans further toward *later* than earlier, because in practice projects are far more likely to slip later than to genuinely pull earlier.
+
+**Turning the range into a percentage:** the confidence percentage compares the width of that likely range against how much time is left on the project – a range that's narrow relative to the time remaining reads as high confidence, a wide one reads as low confidence. A small fixed allowance is built into that comparison so a project with almost no time left doesn't automatically look highly confident just because there's barely anything left to slip. The confidence band is **60% or above is green, 40–59% is amber, below 40% is red.**
+
+**Forecast honesty panel:** a genuinely separate calculation from everything above, not one of its inputs. For every activity that has actually finished, Logic+ compares its actual finish date against the finish date that activity was originally given, back when it first appeared in an uploaded schedule, and averages that gap across everything finished so far at each update – a running track record of how far real progress has drifted from the original plan over time. Once at least 20 activities have finished across at least 4 updates, Logic+ checks how closely that track record moves in step with the reported finish date's own slippage. A strong match means the reported date is backed up by what's actually happening on site; a weak or absent match means the reported date is moving independently of real progress – exactly the "looks fine on paper" pattern this module exists to catch. Below that 20-activity/4-update threshold there isn't enough finished work to judge reliably, so no real reading is shown. Don't read the honesty panel as explaining the confidence percentage – the two are calculated independently and can genuinely disagree.
 
 ## Worked examples: what drives a high, medium, or low confidence
 
