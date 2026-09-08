@@ -4,8 +4,8 @@ route: /time-impact-analysis
 title: Time-Impact Analysis
 audience: external
 status: draft
-version: 1.0.0
-last-reviewed: 2026-09-07
+version: 1.1.0
+last-reviewed: 2026-09-08
 blocked-reason: New module, written from source (frontend/src/time-impact-analysis/) but not yet checked against the running app or a live traceback-suggested insertion. Scoped deliberately to what's implemented and tested today.
 ---
 
@@ -23,14 +23,24 @@ Reach it from the **Time-Impact Analysis** link in the main navigation bar.
 
 Select a **project** and **schedule** to analyse, and the **Practical completion activity** – auto-detected from the schedule (the last activity on its primary float path, or a finish milestone), but you can choose a different one from the dropdown.
 
-Two settings control how the schedule recalculates, defaulted from the schedule file's own settings but adjustable:
+Two settings control how the schedule recalculates, defaulted from the schedule file's own settings but adjustable. These are the same progressed-schedule and lag-calendar options P6 itself uses – if you're not sure which your schedule was built with, the defaults already reflect what's in the file.
 
-| Setting | Options |
+**Scheduling** – this only matters for an activity that's already under way (has started but not finished). It decides how the *remaining*, not-yet-worked portion of that activity gets positioned when the schedule recalculates:
+
+| Option | What it does |
 |---|---|
-| Scheduling | Retain logic · Progress override · Actual dates |
-| Relationship lag | Predecessor calendar · Successor calendar · 24-hour calendar · Project default |
+| Retain logic | The remaining work stays tied to the activity's original predecessor logic, even once it's under way – its position (and whether it still counts as "driven" by that predecessor) keeps following the network logic rather than where progress on site actually resumed. This can produce a remaining-work position that doesn't match real progress, which is the trade-off this option accepts. |
+| Progress override | Once an activity is under way, its logic tie to its predecessor is set aside for the remaining work – it's repositioned to start from the schedule's own current progress point instead, regardless of what the original logic link implied. |
+| Actual dates | Behaves like Progress override – logic is set aside once work starts – but if the schedule itself recorded an explicit resume date for the remaining work, that recorded date is used, never earlier than the schedule's own progress point. |
 
-These are the same progressed-schedule and lag-calendar options P6 itself uses – if you're not sure which your schedule was built with, the defaults already reflect what's in the file.
+**Relationship lag** – every logic link that carries a lag (e.g. "start 5 days after") has to convert that lag into elapsed time on *some* calendar, since 5 days means something different on a 5-day-week calendar than a 7-day one. This setting picks which calendar does the converting for every link in the network:
+
+| Option | What it does |
+|---|---|
+| Predecessor calendar | Each link's lag is converted using the predecessor activity's own calendar. |
+| Successor calendar | Each link's lag is converted using the successor activity's own calendar instead. |
+| 24-hour calendar | Each link's lag is converted using a fixed round-the-clock, seven-day calendar, regardless of either activity's own working pattern. |
+| Project default | Each link's lag is converted using the project's overall default calendar. |
 
 ## Building a fragnet
 
