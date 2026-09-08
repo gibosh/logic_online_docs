@@ -4,7 +4,7 @@ route: /module/1/project/:projectId
 title: Forecast Confidence
 audience: external
 status: draft
-version: 1.9.0
+version: 1.10.0
 last-reviewed: 2026-09-08
 blocked-reason: Content verified directly against ForecastConfidenceModule source and its call path from the live route, but exact on-screen wording (labels, tooltips) still needs a live-app screenshot before promoting to complete. Worked examples added from representative inputs run through the real formula, not from a live traceback. "Forecast honesty" panel is due to be renamed "Forecast accuracy" in a future release — see workspace/GAPS.md; kept as "honesty" here to match current shipped code.
 ---
@@ -43,14 +43,30 @@ A separate **Forecast honesty** panel sits alongside this grid, showing how well
 
 **Data used:** every schedule update file uploaded for the project, plus the activity identified as the project completion milestone – auto-detected by name (activities named along the lines of "Practical Completion" are prioritised, then "Final/Contract/All of the Works/Project Completion," then a generic "Completion").
 
-**How it's calculated:** update files that don't share enough activity codes with the largest uploaded file (fewer than half in common) are treated as a different schedule's data and excluded from the read. The remaining files are lined up in date order to track how far the completion milestone's forecast date has moved and how fast.
+**Which files count:** each update file is compared against the largest uploaded file using a **Jaccard similarity** score – the number of activity codes the two files share, divided by the total number of distinct codes across both. A file scoring below 0.5 (fewer than half its codes in common with the largest file) is treated as a different schedule's data and excluded from the read. The remaining files are lined up in date order to track how far the completion milestone's forecast date has moved and how fast.
 
-**Building the forecasted finish date and its likely range:** the forecasted finish date starts from the reported finish date and shifts it forward by an amount based on the project's current slip rate – capped so that one bad reading can't push the forecast out by more than one and a half times however much programme time is left. Around that forecasted date, a likely range is drawn:
+**The forecasted finish date** starts from the reported finish date and shifts it forward by an amount based on the project's current slip rate (the Central slip rate from the table above), capped so one bad reading can't push the forecast out by more than one and a half times however much programme time is left:
 
-- **How wide the range is** depends on how volatile the schedule has been recently – how much the forecast finish has been jumping around update to update, how much the programme's scope has grown, and how much float has gone negative – weighed against how much time is actually left on the project. More time remaining allows a wider range; a schedule with a longer run of updates behind it gets a tighter range than one with only a couple of updates to go on.
-- **The range isn't centred evenly** either side of the forecasted date – it leans further toward *later* than earlier, because in practice projects are far more likely to slip later than to genuinely pull earlier.
+> Forecasted finish = reported finish + (current slip rate × months remaining), capped at 1.5 × months remaining
 
-**Turning the range into a percentage:** the confidence percentage compares the width of that likely range against how much time is left on the project – a range that's narrow relative to the time remaining reads as high confidence, a wide one reads as low confidence. A small fixed allowance is built into that comparison so a project with almost no time left doesn't automatically look highly confident just because there's barely anything left to slip. The confidence band is **60% or above is green, 40–59% is amber, below 40% is red.**
+**The likely-finish range** is drawn around that forecasted date. How wide it is depends on how volatile the schedule has been recently, weighed against how much time is actually left – more time remaining allows a wider range, and a schedule with a longer run of updates behind it gets a tighter range than one with only a couple of updates to go on:
+
+> Half-width (in months) = the larger of *(months remaining × (0.15 + 0.25 × volatility score))* or *(2 + 3 × volatility score)*, then narrowed by an update-count adjustment – the square root of (6 ÷ number of updates used, or 2 if there are fewer than 2 updates)
+
+The range isn't centred evenly either side of the forecasted date either – it leans further toward *later* than earlier, because in practice projects are far more likely to slip later than to genuinely pull earlier:
+
+> Early bound = forecasted shift − (0.6 × half-width), never earlier than the reported finish date itself
+> Late bound = forecasted shift + (1.4 × half-width)
+
+**The volatility score** used above combines three of the Reliability Factors, each scaled onto a comparable range first and then weighted so step-to-step volatility counts for the most, scope growth next, and negative float least. "Recent" here means roughly the last 3–6 updates, not the whole series:
+
+> Volatility score = 0.5 × (recent step-to-step volatility ÷ 3) + 0.3 × (recent effective scope growth ÷ 40) + 0.2 × (recent peak negative-float share ÷ 100), capped at 1.2
+
+**Turning the range into a percentage:** the confidence percentage compares the width of the likely-finish range (late bound minus early bound) against how much time is left on the project – a range that's narrow relative to the time remaining reads as high confidence, a wide one reads as low confidence:
+
+> Confidence % = 100 × (1 − (width of the likely-finish range ÷ (months remaining × 0.8 + 8))), rounded, and held between 5% and 95%
+
+The `+ 8` is a fixed allowance built into that comparison, so a project with almost no time left doesn't automatically look highly confident just because there's barely anything left to slip. The confidence band is **60% or above is green, 40–59% is amber, below 40% is red.**
 
 **Forecast honesty panel:** a genuinely separate calculation from everything above, not one of its inputs. For every activity that has actually finished, Logic+ compares its actual finish date against the finish date that activity was originally given, back when it first appeared in an uploaded schedule, and averages that gap across everything finished so far at each update – a running track record of how far real progress has drifted from the original plan over time. Once at least 20 activities have finished across at least 4 updates, Logic+ checks how closely that track record moves in step with the reported finish date's own slippage, using a statistical technique called a Pearson correlation. A strong match means the reported date is backed up by what's actually happening on site; a weak or absent match means the reported date is moving independently of real progress – exactly the "looks fine on paper" pattern this module exists to catch. Below that 20-activity/4-update threshold there isn't enough finished work to judge reliably, so no real reading is shown. Don't read the honesty panel as explaining the confidence percentage – the two are calculated independently and can genuinely disagree.
 
