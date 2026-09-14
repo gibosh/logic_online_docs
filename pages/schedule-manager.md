@@ -1,17 +1,19 @@
 ---
-page-id: project-manager
-route: /project-manager
-title: Project Manager
+page-id: schedule-manager
+route: /schedule-manager
+title: Schedule Manager
 audience: external
 status: draft
-version: 1.1.2
-last-reviewed: 2026-09-04
-blocked-reason: The "a few minutes" typical processing time wasn't independently re-timed for this review. This whole page is expected to be split into Project Manager (folders) + a renamed Schedule Manager (upload) within a week or two — see workspace/GAPS.md "Upcoming release changes to watch for."
+version: 1.2.0
+last-reviewed: 2026-09-15
+blocked-reason: The "a few minutes" typical processing time wasn't independently re-timed for this review. The Schedule Manager / All projects split described below is a confirmed but still-transitional state — both currently show the same screen — see workspace/GAPS.md for what's still pending.
 ---
 
 ## About this page
 
-The Project Manager is the starting point for all work in Logic+. Use it to organise your schedule files into projects and to track the processing status of each upload.
+Schedule Manager is where you organise your schedule files into projects and track the processing status of each upload. It sits below **All projects** in the navigation: All projects is the higher-level screen for creating and choosing which project you're working in, and Schedule Manager is where you go once a project is selected, to manage that project's schedules.
+
+**Right now, both "All projects" and "Schedule Manager" in the navigation open this same screen.** That's a deliberate in-progress state, not a bug – All projects is planned to become its own dedicated project-creation/selection screen, at which point Schedule Manager will stay focused purely on schedule management within one already-selected project. This page describes what's on screen today; the create/rename/delete-project instructions below will move to All projects once that split happens.
 
 ## Key concepts
 

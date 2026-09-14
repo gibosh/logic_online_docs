@@ -1,11 +1,11 @@
 ﻿---
 page-id: gantt-delay-analysis
-route: /schedule-viewer/gantt
+route: /delay-analysis/schedule-viewer
 title: Gantt Viewer – Delay Analysis
 audience: external
 status: complete
-version: 1.1.2
-last-reviewed: 2026-09-04
+version: 1.1.3
+last-reviewed: 2026-09-15
 ---
 
 ## About this mode

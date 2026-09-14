@@ -1,18 +1,25 @@
 ﻿---
 page-id: delay-analysis
-route: /schedule-viewer/gantt
+route: /delay-analysis
 title: Delay Analysis
 audience: external
 status: complete
-version: 1.1.2
-last-reviewed: 2026-09-04
+version: 1.2.0
+last-reviewed: 2026-09-15
 ---
 
 ## About Delay Analysis
 
-Delay Analysis identifies which activities in a project schedule are responsible for pushing the completion date later, and by how much. It traces the chain of driving activities backward from a selected endpoint, attributes delay to each link in that chain, and shows how the delay picture has built up over time.
+Delay Analysis is where you access Logic+'s different delay-analysis methods. Open it from **Delay Analysis** in the left-hand navigation, and choose which method you want:
 
-The Delay Analysis workflow lives inside the [Schedule Viewer](pages/gantt-viewer.md). There are two stages – setting up and running the traceback in **Traceback Setup** mode, then reviewing the results in **Delay Analysis** mode.
+| Method | Use it to |
+|---|---|
+| **Traceback** (this page) | Trace the chain of driving activities backward from a selected endpoint, attribute delay to each link in that chain, and see how the delay picture has built up over time |
+| **[Time-Impact Analysis](pages/time-impact-analysis.md)** | Build a hypothetical delay event, insert it into the schedule, and see its calculated impact on Practical Completion |
+
+More methods may be added here over time. The rest of this page covers the Traceback method.
+
+Traceback identifies which activities in a project schedule are responsible for pushing the completion date later, and by how much. Selecting it opens the [Schedule Viewer](pages/gantt-viewer.md) on its **Traceback Setup** mode – there are two stages, setting up and running the traceback in Traceback Setup mode, then reviewing the results in **Delay Analysis** mode. (You can also reach these same two modes directly from inside the Schedule Viewer itself, using its own mode switcher – both paths lead to the same screen.)
 
 ---
 

@@ -379,10 +379,10 @@
       </a>
     </div>
     <nav class="h-nav" id="h-nav">
-      <a href="#/pages/project-manager">Project Manager</a>
       <a href="#/pages/gantt-viewer">Schedule Viewer</a>
       <a href="#/pages/delay-analysis">Delay Analysis</a>
       <a href="#/pages/analytics-overview">Analytics</a>
+      <a href="#/pages/schedule-manager">Schedule Manager</a>
     </nav>
     <div class="h-right">
       <div id="search-slot"></div>
@@ -398,6 +398,8 @@
     var _analyticsPages = ['schedule-quality','bow-wave-compression','completion-forecast','schedule-risk','forecast-confidence','forecast-variance','critical-path-evolution','causes-of-change','float-burndown-earned-schedule','average-float-matrix'];
     // Schedule Viewer sub-pages
     var _svPages = ['schedule-analysis','traceback-setup','gantt-delay-analysis'];
+    // Delay Analysis sub-pages (methods nested under Delay Analysis)
+    var _delayPages = ['time-impact-analysis','traceback-engine'];
 
     function updateActiveTab() {
       var hash = window.location.hash || '#/';
@@ -420,6 +422,9 @@
       } else if (_svPages.indexOf(page) > -1) {
         var el2 = document.querySelector('#h-nav a[href="#/pages/gantt-viewer"]');
         if (el2) el2.classList.add('active');
+      } else if (_delayPages.indexOf(page) > -1) {
+        var el3 = document.querySelector('#h-nav a[href="#/pages/delay-analysis"]');
+        if (el3) el3.classList.add('active');
       }
     }
 

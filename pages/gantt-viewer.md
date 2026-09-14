@@ -1,17 +1,17 @@
 ---
 page-id: gantt-viewer
-route: /schedule-viewer/gantt
+route: /schedule-viewer
 title: Schedule Viewer
 audience: external
 status: draft
-version: 1.1.3
-last-reviewed: 2026-09-04
+version: 1.2.0
+last-reviewed: 2026-09-15
 blocked-reason: Default schedule/baseline selection on first load and exact drag/hover behaviour for column reordering are inferred from component code, not confirmed against the live app. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
 ---
 
 ## About the Schedule Viewer
 
-The Schedule Viewer is the central workspace for exploring and comparing construction project schedules. Open it from **Gantt Viewer** in the top navigation bar.
+The Schedule Viewer is the central workspace for exploring and comparing construction project schedules. Open it from **Schedule Viewer** in the left-hand navigation. (Its Traceback Setup and Delay Analysis modes are also reachable directly via **[Delay Analysis](pages/delay-analysis.md)** in the navigation – both paths lead to the same screen.)
 
 Use the Schedule Viewer to look at individual schedules, compare changes between updates, understand the logic connecting activities, and run delay analysis.
 

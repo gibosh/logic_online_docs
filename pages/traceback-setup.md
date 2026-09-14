@@ -1,11 +1,11 @@
 ﻿---
 page-id: traceback-setup
-route: /schedule-viewer/gantt
+route: /delay-analysis/schedule-viewer
 title: Gantt Viewer – Traceback Setup
 audience: external
 status: complete
-version: 1.0.5
-last-reviewed: 2026-09-04
+version: 1.0.6
+last-reviewed: 2026-09-15
 blocked-reason: Algorithm Profile table is expected to change soon (Replica v2.1 → "Weighted Scoring", Calibrated v1 removed as a profile) — see workspace/GAPS.md "Upcoming release changes to watch for." Not yet updated ahead of that release.
 ---
 

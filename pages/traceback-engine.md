@@ -1,11 +1,11 @@
 ---
 page-id: traceback-engine
-route: /schedule-viewer/gantt
+route: /delay-analysis
 title: How Traceback and Delay Attribution Work
 audience: external
 status: complete
-version: 1.0.2
-last-reviewed: 2026-09-04
+version: 1.0.3
+last-reviewed: 2026-09-15
 ---
 
 ## About this page

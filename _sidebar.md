@@ -10,16 +10,6 @@
 
 ---
 
-* [Project Manager](pages/project-manager)
-  * [About this page](pages/project-manager?id=about-this-page)
-  * [Key concepts](pages/project-manager?id=key-concepts)
-  * [Managing projects](pages/project-manager?id=managing-projects)
-  * [Uploading schedules](pages/project-manager?id=uploading-schedules)
-  * [Schedule processing statuses](pages/project-manager?id=schedule-processing-statuses)
-  * [Reprocessing a schedule](pages/project-manager?id=reprocessing-a-schedule)
-
----
-
 * [Schedule Viewer](pages/gantt-viewer)
   * [About the Schedule Viewer](pages/gantt-viewer?id=about-the-schedule-viewer)
   * [File selection](pages/gantt-viewer?id=file-selection)
@@ -37,15 +27,24 @@
 
 * [Delay Analysis](pages/delay-analysis)
   * [About Delay Analysis](pages/delay-analysis?id=about-delay-analysis)
-  * [Traceback Setup](pages/delay-analysis?id=traceback-setup)
-  * [Run Traceback](pages/delay-analysis?id=run-traceback)
-  * [Delay Overlay](pages/delay-analysis?id=delay-overlay)
-  * [Candidate Scores](pages/delay-analysis?id=candidate-scores)
-  * [Candidate Details](pages/delay-analysis?id=candidate-details)
-  * [Delay Attribute](pages/delay-analysis?id=delay-attribute)
-  * [Traceback Log](pages/delay-analysis?id=traceback-log)
-  * [Traceback Restart](pages/delay-analysis?id=traceback-restart)
-  * [Save and Load Traceback](pages/delay-analysis?id=save-and-load-traceback)
+  * **Traceback method**
+    * [Traceback Setup](pages/delay-analysis?id=traceback-setup)
+    * [Run Traceback](pages/delay-analysis?id=run-traceback)
+    * [Delay Overlay](pages/delay-analysis?id=delay-overlay)
+    * [Candidate Scores](pages/delay-analysis?id=candidate-scores)
+    * [Candidate Details](pages/delay-analysis?id=candidate-details)
+    * [Delay Attribute](pages/delay-analysis?id=delay-attribute)
+    * [Traceback Log](pages/delay-analysis?id=traceback-log)
+    * [Traceback Restart](pages/delay-analysis?id=traceback-restart)
+    * [Save and Load Traceback](pages/delay-analysis?id=save-and-load-traceback)
+  * **Time-Impact Analysis method**
+    * [Time-Impact Analysis](pages/time-impact-analysis)
+    * [Setting up](pages/time-impact-analysis?id=setting-up)
+    * [Building a fragnet](pages/time-impact-analysis?id=building-a-fragnet)
+    * [Reading the result](pages/time-impact-analysis?id=reading-the-result)
+    * [Schedule impact views](pages/time-impact-analysis?id=schedule-impact-views)
+    * [Comparing fragnets](pages/time-impact-analysis?id=comparing-fragnets)
+    * [Reconciliation vs source float](pages/time-impact-analysis?id=reconciliation-vs-source-float)
 
 ---
 
@@ -58,16 +57,6 @@
   * [Stage two – full scoring](pages/traceback-engine?id=stage-two--full-scoring)
   * [How calendars affect the result](pages/traceback-engine?id=how-calendars-affect-the-result)
   * [From chain to delay](pages/traceback-engine?id=from-chain-to-delay--how-days-get-charged-to-each-activity)
-
----
-
-* [Time-Impact Analysis](pages/time-impact-analysis)
-  * [Setting up](pages/time-impact-analysis?id=setting-up)
-  * [Building a fragnet](pages/time-impact-analysis?id=building-a-fragnet)
-  * [Reading the result](pages/time-impact-analysis?id=reading-the-result)
-  * [Schedule impact views](pages/time-impact-analysis?id=schedule-impact-views)
-  * [Comparing fragnets](pages/time-impact-analysis?id=comparing-fragnets)
-  * [Reconciliation vs source float](pages/time-impact-analysis?id=reconciliation-vs-source-float)
 
 ---
 
@@ -95,6 +84,17 @@
     * [Completion Forecast](pages/completion-forecast)
     * [Schedule Risk Analysis (SRA)](pages/schedule-risk)
     * [Float Burn-down](pages/float-burndown-earned-schedule)
+
+---
+
+* [Schedule Manager](pages/schedule-manager)
+  * [About this page](pages/schedule-manager?id=about-this-page)
+  * [Key concepts](pages/schedule-manager?id=key-concepts)
+  * [Managing projects](pages/schedule-manager?id=managing-projects)
+  * [Uploading schedules](pages/schedule-manager?id=uploading-schedules)
+  * [Schedule processing statuses](pages/schedule-manager?id=schedule-processing-statuses)
+  * [Reprocessing a schedule](pages/schedule-manager?id=reprocessing-a-schedule)
+  * [Removing a schedule](pages/schedule-manager?id=removing-a-schedule)
 
 ---
 

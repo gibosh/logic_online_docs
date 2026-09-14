@@ -10,28 +10,28 @@ See the [Glossary](guides/glossary) for key terms.
 
 ---
 
-Logic+ groups key functionality into the four modules below. Select a module below to get started.
+Logic+ groups key functionality into the modules below. Select a module below to get started.
 
 <div class="module-grid">
-  <a class="module-tile" href="#/pages/project-manager">
-    <div class="tile-label">Module</div>
-    <h3>Project Manager</h3>
-    <p>Create projects, upload schedule files, and track processing status.</p>
-  </a>
   <a class="module-tile" href="#/pages/gantt-viewer">
     <div class="tile-label">Module</div>
     <h3>Schedule Viewer</h3>
     <p>Explore and compare schedules in the Gantt chart. View relationships and navigate the logic network.</p>
   </a>
-  <a class="module-tile" href="#/pages/time-impact-analysis">
+  <a class="module-tile" href="#/pages/delay-analysis">
     <div class="tile-label">Module</div>
-    <h3>Time-Impact Analysis</h3>
-    <p>Build a hypothetical delay event and see its calculated impact on Practical Completion.</p>
+    <h3>Delay Analysis</h3>
+    <p>Trace which activities are driving project delay (Traceback), or model a hypothetical delay event's impact on Practical Completion (Time-Impact Analysis).</p>
   </a>
   <a class="module-tile" href="#/pages/analytics-overview">
     <div class="tile-label">Module</div>
     <h3>Analytics</h3>
     <p>Schedule quality checks, bow wave compression, completion forecasting, and more.</p>
+  </a>
+  <a class="module-tile" href="#/pages/schedule-manager">
+    <div class="tile-label">Module</div>
+    <h3>Schedule Manager</h3>
+    <p>Create projects, upload schedule files, and track processing status.</p>
   </a>
 </div>
 

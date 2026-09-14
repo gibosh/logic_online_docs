@@ -1,11 +1,11 @@
 ﻿---
 page-id: schedule-analysis
-route: /schedule-viewer/gantt
+route: /schedule-viewer
 title: Gantt Viewer – Schedule Viewer mode
 audience: external
 status: draft
-version: 1.1.2
-last-reviewed: 2026-09-04
+version: 1.1.3
+last-reviewed: 2026-09-15
 blocked-reason: Exact drag/resize feel (column drag-reorder, panel/column/tray resize handles) verified from component structure only, not tested live. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
 ---
 

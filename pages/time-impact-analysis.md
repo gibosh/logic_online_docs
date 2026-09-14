@@ -4,7 +4,7 @@ route: /time-impact-analysis
 title: Time-Impact Analysis
 audience: external
 status: draft
-version: 1.1.1
+version: 1.2.0
 last-reviewed: 2026-09-15
 blocked-reason: New module, written from source (frontend/src/time-impact-analysis/) but not yet checked against the running app or a live traceback-suggested insertion. Scoped deliberately to what's implemented and tested today.
 ---
@@ -17,7 +17,7 @@ This is the classic forensic-scheduling technique used to test a delay claim bef
 
 This is not the same job as [Delay Analysis](pages/delay-analysis.md). Delay Analysis explains what a chain of *already-recorded* schedule changes actually did between two real uploaded updates. Time-Impact Analysis is for testing a scenario that may not correspond to any uploaded schedule at all – "if this event happened here, for this long, what would it have done to the finish date?"
 
-Reach it from the **Time-Impact Analysis** link in the main navigation bar.
+Reach it from **[Delay Analysis](pages/delay-analysis.md)** in the left-hand navigation – it's one of the two delay-analysis methods offered there, alongside Traceback.
 
 ## Setting up
 

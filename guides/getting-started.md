@@ -3,9 +3,9 @@ page-id: getting-started
 title: Getting Started with Logic+ Online
 audience: external
 status: draft
-version: 1.4.0
-last-reviewed: 2026-09-07
-blocked-reason: Rewritten from code (header nav structure, status labels, help-panel claim removed as unbuilt) but not yet walked through live — confirm before promoting to complete. Fourth module slot updated from "Delay Analysis" to "Time-Impact Analysis" (2026-09-07) since that's what actually shipped as the real 4th nav item; Delay Analysis is still reached via the Schedule Viewer, not yet split out on its own — see workspace/GAPS.md.
+version: 1.5.0
+last-reviewed: 2026-09-15
+blocked-reason: Rewritten from code (left-hand nav structure, status labels, help-panel claim removed as unbuilt) but not yet walked through live — confirm before promoting to complete. Delay Analysis is now its own nav item with Traceback and Time-Impact Analysis as methods under it, and Schedule Manager/All projects both currently open the same screen (transitional state) — see workspace/GAPS.md.
 ---
 
 ## What is Logic+ Online?
@@ -14,10 +14,10 @@ Logic+ Online is a web-based schedule analysis tool. You upload construction pro
 
 ## The workflow
 
-1. **Create a project** – in the Project Manager, add a project to group your schedule files
+1. **Create a project** – in [Schedule Manager](pages/schedule-manager), add a project to group your schedule files (**All projects**, further down the left-hand navigation, currently opens this same screen – see [Schedule Manager](pages/schedule-manager) for why)
 2. **Upload a schedule** – drag in a `.xer` file (up to 100 MB)
 3. **Wait for processing** – the status badge shows `processing` while Logic+ works through the file, then `processed` once it's ready
-4. **Explore the views** – once processed, use the navigation bar at the top of the page to move between modules
+4. **Explore the views** – once processed, use the left-hand navigation to move between modules
 
 ## Uploading multiple schedules
 
@@ -34,12 +34,13 @@ Currently only `.xer` files are supported. The ability to import Microsoft Proje
 
 ## Navigating the app
 
-The navigation bar at the top of the page gives access to four modules:
+The left-hand navigation gives access to:
 
-- **[Project Manager](pages/project-manager)** – project list, file upload, processing status
-- **[Schedule Viewer](pages/gantt-viewer)** – Gantt chart, schedule comparison, activity relationships, and (via its mode switcher) Delay Analysis / traceback setup and results
-- **[Time-Impact Analysis](pages/time-impact-analysis)** – build a hypothetical delay event and test its calculated impact on Practical Completion
+- **[Schedule Viewer](pages/gantt-viewer)** – Gantt chart, schedule comparison, and activity relationships
+- **[Delay Analysis](pages/delay-analysis)** – choose a delay-analysis method: **Traceback** (trace which activities are driving project delay) or **[Time-Impact Analysis](pages/time-impact-analysis)** (build a hypothetical delay event and test its impact on Practical Completion)
 - **[Analytics](pages/analytics-overview)** – schedule quality checks, bow wave compression, completion forecast, and more
+- **[Schedule Manager](pages/schedule-manager)** – project list, file upload, processing status
+- **All projects** (below a divider) – the project-level landing page; right now it opens the same screen as Schedule Manager – see [Schedule Manager](pages/schedule-manager) for the current state and what's planned
 
 Not all views will show meaningful data unless a project with processed schedules is selected.
 
