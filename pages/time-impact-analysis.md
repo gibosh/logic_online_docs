@@ -4,8 +4,8 @@ route: /time-impact-analysis
 title: Time-Impact Analysis
 audience: external
 status: draft
-version: 1.1.0
-last-reviewed: 2026-09-08
+version: 1.1.1
+last-reviewed: 2026-09-15
 blocked-reason: New module, written from source (frontend/src/time-impact-analysis/) but not yet checked against the running app or a live traceback-suggested insertion. Scoped deliberately to what's implemented and tested today.
 ---
 
@@ -48,7 +48,7 @@ Click **+ New fragnet** to add one. Each fragnet has:
 
 - One or more **activities** – name, duration, and calendar, added with **+ add activity to this fragnet**
 - **Links** between its own activities (Finish-to-Start, Start-to-Start, Finish-to-Finish, or Start-to-Finish, with a working-day lag) – change a link to Start-to-Start or use a negative lag to overlap two activities
-- A **fragnet predecessor** and **fragnet successor** – the existing schedule activities (or another fragnet's activities) the new chain ties into, each with its own relationship type and lag
+- A **fragnet predecessor** and **fragnet successor** – the existing schedule activities (or another fragnet's activities) the new chain ties into, each with its own relationship type and lag. Both are searchable – start typing an activity ID or name to filter the list instead of scrolling through every activity in the schedule.
 
 **Suggest tasks for this fragnet** runs a real traceback (the same Replica v2.1 engine used in Delay Analysis) backward from the fragnet's successor, and offers the traced chain of activities as ready-made **insertion windows** – pick one to set the fragnet's predecessor/successor automatically, populated with the activities the traceback actually found along that path, rather than starting from a blank fragnet.
 
