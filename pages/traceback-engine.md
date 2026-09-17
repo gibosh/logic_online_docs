@@ -4,8 +4,9 @@ route: /delay-analysis
 title: How Traceback and Delay Attribution Work
 audience: external
 status: complete
-version: 1.0.3
-last-reviewed: 2026-09-15
+version: 1.1.0
+last-reviewed: 2026-09-17
+blocked-reason: New "Driving Task" section (added 2026-09-17) documents a real behaviour change (now traces through completed activities using imported dates) plus its use in the new Driving Task column/Driving path tab — documented from source, not yet screenshot-verified live.
 ---
 
 ## About this page
@@ -24,7 +25,15 @@ Starting from the activity you select, Logic+ looks at every other activity that
 
 Nothing here is a guess. At every step Logic+ scores a shortlist of real candidates against a fixed set of criteria, and can show you exactly how each one scored – see [Activity Candidates](pages/gantt-delay-analysis.md#activity-candidates) for where to view that.
 
-Everything on this page describes the **Replica v2.1** and **Calibrated v1** algorithm profiles. There's also a **Driving Task** profile that skips this scoring model entirely and instead picks whichever predecessor the schedule's own logic and dates say is actually driving the target activity – see [Algorithm Profile](pages/traceback-setup.md#step-2--select-an-algorithm-profile-optional) for what it's for.
+Everything on this page describes the **Replica v2.1** and **Calibrated v1** algorithm profiles. There's also a **Driving Task** profile, covered separately below, that skips this scoring model entirely.
+
+## Driving Task
+
+Driving Task is a different kind of algorithm profile to Replica v2.1 and Calibrated v1. Instead of scoring candidates against weighted criteria, it looks only at the schedule's own logic links and dates and follows whichever predecessor is actually driving the target activity's date – the same calculation Logic+ uses to work out critical path. There's nothing to tune: no weights, no exclusion criteria.
+
+This same driving-logic calculation also powers two other places in Logic+, independent of any traceback run: the **Driving Task** column in [Activity relationships](pages/schedule-analysis.md#activity-relationships) (a flag on each predecessor row) and the **Driving path** tab (a standalone chart of the chain) – both available throughout the Schedule Viewer and Delay Analysis, whether or not a traceback has been run. A red flag means an activity is directly driving the one you're looking at; an amber flag means it drives indirectly, further back along the chain.
+
+Driving Task traces through completed activities as well as remaining work – it doesn't stop once it reaches an activity that's already finished – and uses each activity's imported dates (as they came from the schedule file) rather than dates Logic+ has recalculated.
 
 ## How the candidate field gets narrowed down
 

@@ -4,9 +4,9 @@ route: /schedule-viewer
 title: Schedule Viewer
 audience: external
 status: draft
-version: 1.2.0
-last-reviewed: 2026-09-15
-blocked-reason: Default schedule/baseline selection on first load and exact drag/hover behaviour for column reordering are inferred from component code, not confirmed against the live app. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
+version: 1.3.0
+last-reviewed: 2026-09-17
+blocked-reason: Default schedule/baseline selection on first load and exact drag/hover behaviour for column reordering are inferred from component code, not confirmed against the live app. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md. New "Driving Path" tab (added 2026-09-17) documented from source, not yet screenshot-verified live.
 ---
 
 ## About the Schedule Viewer
@@ -64,6 +64,8 @@ The **Column Selection** button (next to the zoom controls, top right of the too
 The picker also has a date format menu and a duration format menu (controlling how dates/durations display across all columns), and a reset button that restores the default column set.
 
 Default visible columns: ID, Activity Name, Start, Finish, Baseline Start, Baseline Finish, At Completion Duration. Note that Baseline Start/Finish are shown by default even before you select a Baseline schedule — they'll be blank until you do.
+
+The **Predecessors** and **Successors** columns list every linked activity's ID, relationship type, and lag, comma-separated – e.g. `A100: SS (0 days), A200: FS (-0.5 days)`.
 
 The activity tray (see [Activity Detail](#activity-detail), [Schedule History](#schedule-history)) has its own, separate column picker per tab.
 
@@ -125,5 +127,13 @@ The **Changes over time** tab in the activity tray shows the selected activity's
 ## Activity Detail
 
 The **Activity detail** tab in the activity tray shows the selected activity's fields in a two-column key-value table. By default it shows every available column except ID; use the tab's column picker to narrow this down to just the fields you care about. Use it for a full read-out of a specific activity's properties.
+
+[Full detail – Activity tray](pages/schedule-analysis.md#activity-tray)
+
+---
+
+## Driving Path
+
+The **Driving path** tab in the activity tray shows a Gantt chart of the driving-path chain leading to the selected activity, using Logic+'s own driving-logic calculation (the same logic behind the Driving Task algorithm profile) rather than a traceback result. Checkboxes above the chart let you trace predecessors, successors, or both, and toggle the relationship arrows.
 
 [Full detail – Activity tray](pages/schedule-analysis.md#activity-tray)

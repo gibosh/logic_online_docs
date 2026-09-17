@@ -4,9 +4,9 @@ route: /delay-analysis/schedule-viewer
 title: Gantt Viewer – Traceback Setup
 audience: external
 status: complete
-version: 1.0.6
-last-reviewed: 2026-09-15
-blocked-reason: Algorithm Profile table is expected to change soon (Replica v2.1 → "Weighted Scoring", Calibrated v1 removed as a profile) — see workspace/GAPS.md "Upcoming release changes to watch for." Not yet updated ahead of that release.
+version: 1.1.0
+last-reviewed: 2026-09-17
+blocked-reason: Algorithm Profile table is expected to change soon (Replica v2.1 → "Weighted Scoring", Calibrated v1 removed as a profile) — see workspace/GAPS.md "Upcoming release changes to watch for." Not yet updated ahead of that release; reconfirmed 2026-09-17 that this rename still hasn't shipped. New Calibrated v1 calibration status/retry UX and the Driving Task profile's behaviour change (now traces through completed activities) documented from source, not yet screenshot-verified live.
 ---
 
 ## About this mode
@@ -39,7 +39,9 @@ The **Algorithm Profile** dropdown lets you choose how the traceback scores and 
 
 Start with **Replica v2.1** (the default) unless you have a specific reason to use another profile.
 
-**Driving Task** works differently to the other two profiles. Instead of scoring candidates against the 15 weighted criteria described in [How Traceback and Delay Attribution Work](pages/traceback-engine.md), it looks only at the schedule's own logic links and dates and picks whichever predecessor is actually driving the target activity's date – the same underlying logic Logic+ uses to work out critical path. There is nothing to tune: the Candidate Score Weights settings below have no effect when this profile is selected. It's most useful as a ground-truth comparison against what the other two profiles pick.
+**Calibrated v1 needs to be "trained" on your project before you can use it.** Logic+ automatically calibrates it in the background once your project has at least two schedule updates with confirmed data dates – you don't need to start this yourself. Open the **Algorithm Profile** dropdown to see a status line under Calibrated v1 telling you where things stand, for example *"Calibration in progress…"*, *"Calibration ready"*, or a message explaining what's missing (like needing a second schedule update). While training is running you'll see a spinning icon, and the **Start Traceback** button stays disabled for Calibrated v1 until the status says ready. If calibration fails or falls out of date (for example, after you upload a newer schedule), a small refresh icon appears next to the status message – click it to calibrate again.
+
+**Driving Task** works differently to the other two profiles. Instead of scoring candidates against the 15 weighted criteria described in [How Traceback and Delay Attribution Work](pages/traceback-engine.md), it looks only at the schedule's own logic links and dates and picks whichever predecessor is actually driving the target activity's date – the same underlying logic Logic+ uses to work out critical path, and the same calculation behind the Driving Task column in [Activity relationships](pages/schedule-analysis.md#activity-relationships) and the [Driving path](pages/schedule-analysis.md#driving-path) tab. There is nothing to tune: the Candidate Score Weights settings below have no effect when this profile is selected. It's most useful as a ground-truth comparison against what the other two profiles pick. It traces through completed activities as well as remaining work, using each activity's imported (not recalculated) dates.
 
 ### Step 3 – Adjust settings (optional)
 

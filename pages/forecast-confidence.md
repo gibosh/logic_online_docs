@@ -4,9 +4,9 @@ route: /module/1/project/:projectId
 title: Forecast Confidence
 audience: external
 status: draft
-version: 1.10.0
-last-reviewed: 2026-09-08
-blocked-reason: Content verified directly against ForecastConfidenceModule source and its call path from the live route, but exact on-screen wording (labels, tooltips) still needs a live-app screenshot before promoting to complete. Worked examples added from representative inputs run through the real formula, not from a live traceback. "Forecast honesty" panel is due to be renamed "Forecast accuracy" in a future release — see workspace/GAPS.md; kept as "honesty" here to match current shipped code.
+version: 2.0.0
+last-reviewed: 2026-09-17
+blocked-reason: Full rewrite following a ground-up engine and UI change (LUSB-1249, 2026-09-16). Content verified directly against the current ForecastConfidenceModule source (analyze.ts/predict.ts/series.ts) and its call path, but exact on-screen wording still needs a live-app screenshot before promoting to complete. The previous worked-examples section (specific percentages and dates run through the old formula) has been removed rather than carried forward inaccurately — new worked examples need recalculating against this engine before publishing; see workspace/GAPS.md.
 ---
 
 ## Forecast Confidence
@@ -19,87 +19,81 @@ A planner or project manager can use this to answer the question "should I belie
 
 ## Report details
 
-A confidence gauge showing a percentage and a green, amber, or red read, with a one-line explanation underneath.
+A confidence gauge showing a percentage, a green/amber/red read, and a risk label – **healthy**, **watch**, or **Distressed** – with a one-line explanation underneath:
 
-Below the gauge, a timeline shows the **data date of each uploaded update**, the **reported finish date**, a **forecasted (rules-adjusted) finish date**, and an **early/late likely range** either side of it. There is no separate "today" marker – the most recent point plotted is the latest update's own data date, not necessarily today's calendar date. The confidence percentage is a measure of how wide that likely range is relative to the time remaining – a tight range against a long remaining duration reads as high confidence; a wide range against a short remaining duration reads as low confidence.
+| Risk label | Shown when | Explanation shown |
+|---|---|---|
+| healthy | Recent movement is well contained and negative float is rare | "Recent movement is managed and schedule pressure is low." |
+| watch | Some pressure or one-way movement remains | "Some pressure or one-way movement remains — the forecast needs watching." |
+| Distressed | The finish is slipping with no recovery, or there's no float left to absorb more delay | "The finish date is slipping with no recovery, or there's no buffer left to absorb more delay – expect this range to stay wide." |
 
-Below the timeline, a **Reliability Factors** grid lists the individual metrics the model is built from, each with its own small sparkline (the last 13 updates) and a green/amber/watch status word:
+Below the gauge, a timeline chart plots the **reported finish** at each update's data date, the **projected central** finish date, and an **earliest–latest range** either side of it. There is no separate "today" marker – the most recent point plotted is the latest update's own data date, not necessarily today's calendar date. The confidence percentage is a measure of how wide that range is relative to the time remaining – a tight range against a long remaining duration reads as high confidence; a wide range against a short remaining duration reads as low confidence.
+
+Below the timeline, a **Schedule metrics** grid lists six metrics the model is built from, each with its own small sparkline (labelled "Last *n* estimates") and a green/amber/red status:
 
 | Metric | What it reflects |
 |---|---|
-| Task-count growth | How much the activity count has grown since the first uploaded update.<br>*Calculation:* (activity count at the latest update ÷ activity count at the first update − 1) × 100. |
-| Overall slip ratio | How far the forecast finish has moved, relative to time elapsed.<br>*Calculation:* months of slip at the latest update ÷ months elapsed since the first update. |
-| Step-to-step volatility | How much the forecast finish jumps around from one update to the next, rather than drifting smoothly.<br>*Calculation:* the standard deviation of the month-to-month change in slip, taken across every consecutive pair of updates. |
-| Median float (latest) | The typical spare time left across incomplete activities in the most recent update.<br>*Calculation:* the median total float, in days, across incomplete activities in that update only. In practice this tile only ever reads green or red – the amber band sits between two thresholds that can't both be reached at once, so it never appears. |
-| Negative-float share (latest) | The share of incomplete activities currently out of spare time.<br>*Calculation:* percentage of incomplete activities with negative float, in the most recent update only. |
-| Peak negative-float share | The worst that negative-float share has been across the whole series, not just the latest update.<br>*Calculation:* the highest negative-float share recorded at any single update across the whole series. |
-| Recent slip rate | How fast the finish date has been moving out lately, ignoring older history.<br>*Calculation:* slip rate measured over just the last six updates (or fewer, if the project has fewer than six). |
-| Normalised slip rate | The worst pace of slip the project has ever shown, at any point.<br>*Calculation:* the single highest slip-ratio value recorded at any update across the whole series – a peak-ever measure, not a current one. |
-| Central slip rate | The rate the model actually trusts once the above are weighed against each other.<br>*Calculation:* a recency-weighted median of the update-to-update marginal slip rates, so recent movement counts for more than movement from further back. The on-screen label describes an older, simpler formula (the highest of the three rates above); the number actually shown uses this weighted-median calculation instead whenever there's enough update history to run it – which is true for almost every project with two or more updates. |
+| Slip pace | How quickly the finish date is drifting later, in months of drift per month elapsed. |
+| Date bounce | How much the finish-date drift has swung from update to update recently, rather than moving smoothly. |
+| Meaningful plan growth | Growth in activity count since the first update, weighted towards work that's still remaining and discounted for any recovery already under way. |
+| Mitigation ratio | How much of the schedule's recent slippage has been offset by pulling other work forward, rather than just absorbed as pure delay. |
+| Schedule pressure | The worst share of incomplete work that's been out of float across the last few updates. |
+| Reporting depth | How many accepted schedule updates the read is built from – more updates make every other metric more trustworthy. |
 
-A separate **Forecast honesty** panel sits alongside this grid, showing how well completed work has tracked the plan (comparing planned vs. actual finish dates for everything that's finished so far). This is shown for information – **it is not one of the inputs to the confidence percentage itself** (see Calculation, below); read it as a second opinion, not a component of the gauge.
+Each metric card also shows a calculator icon explaining its calculation and an arrow showing whether it's improving, worsening, or holding steady.
+
+If any uploaded schedule updates were excluded from the read (see "Which files count," below), a **disclosure line** appears reading "*N* schedule update(s) excluded," which expands to list each excluded file and why.
+
+A closing note under the grid: *"This score isn't the whole picture. The Float Burn-down & Earned Schedule analytic is a separate, independent check on the same finish date that uses different inputs – use it to verify predicted finish dates."* Read this as a second opinion, not an input to the percentage above – Forecast Confidence and Float Burn-down & Earned Schedule are calculated independently and can genuinely disagree.
 
 ## Calculation and other logic
 
 **Data used:** every schedule update file uploaded for the project, plus the activity identified as the project completion milestone – auto-detected by name (activities named along the lines of "Practical Completion" are prioritised, then "Final/Contract/All of the Works/Project Completion," then a generic "Completion").
 
-**Which files count:** each update file is compared against the largest uploaded file using a **Jaccard similarity** score – the number of activity codes the two files share, divided by the total number of distinct codes across both. A file scoring below 0.5 (fewer than half its codes in common with the largest file) is treated as a different schedule's data and excluded from the read. The remaining files are lined up in date order to track how far the completion milestone's forecast date has moved and how fast.
+**Which files count:** the update with the most activities is used as the reference. Every other update is compared against it using a **Jaccard similarity** score – the number of activities the two files share, divided by the total number of distinct activities across both. A file scoring below 0.5 (fewer than half its activities in common with the reference) is excluded as a different schedule's scope, shown in the disclosure line with the reason "different scope (overlap *X*%)." Where two updates share the same data date, the one with fewer activities is excluded instead, with the reason "duplicate of *date*." At least two updates must remain, at least half a month (about 15 days) apart, or no read is produced (see Note, below).
 
-**The forecasted finish date** starts from the reported finish date and shifts it forward by an amount based on the project's current slip rate (the Central slip rate from the table above), capped so one bad reading can't push the forecast out by more than one and a half times however much programme time is left:
+**Slip pace** is a weighted Theil–Sen-style estimate of how fast the finish date is drifting. For every pair of remaining updates at least half a month apart, Logic+ works out how much further the finish date had drifted at the later update compared to the earlier one, divided by the time between them – then takes the **weighted median** of every one of those pairwise drift rates, weighting pairs that end more recently more heavily:
 
-> Forecasted finish = reported finish + (current slip rate × months remaining), capped at 1.5 × months remaining
+> For each pair of updates (earlier, later) at least 0.5 months apart:
+> pairwise rate = (drift at later update − drift at earlier update) ÷ (months between them)
+> weight = 0.9 ^ (how many updates back the later one is from the most recent)
+>
+> Slip pace = weighted median of every pairwise rate, never reported below zero
 
-**The likely-finish range** is drawn around that forecasted date. How wide it is depends on how volatile the schedule has been recently, weighed against how much time is actually left – more time remaining allows a wider range, and a schedule with a longer run of updates behind it gets a tighter range than one with only a couple of updates to go on:
+This replaces a simpler adjacent-updates-only comparison – checking every pair, not just each update against the one right before it, means a genuine slow drift can no longer be hidden by an occasional push followed by a pull-back.
 
-> Half-width (in months) = the larger of *(months remaining × (0.15 + 0.25 × volatility score))* or *(2 + 3 × volatility score)*, then narrowed by an update-count adjustment – the square root of (6 ÷ number of updates used, or 2 if there are fewer than 2 updates)
+**The forecasted (central) finish date** starts from the reported finish date and shifts it forward by slip pace, capped so one bad reading can't push the forecast out by more than one and a half times however much programme time is left:
 
-The range isn't centred evenly either side of the forecasted date either – it leans further toward *later* than earlier, because in practice projects are far more likely to slip later than to genuinely pull earlier:
+> Forecasted finish = reported finish + (slip pace × months remaining), capped at 1.5 × months remaining
 
-> Early bound = forecasted shift − (0.6 × half-width), never earlier than the reported finish date itself
-> Late bound = forecasted shift + (1.4 × half-width)
+**The earliest–latest range** is drawn evenly either side of that forecasted date – both bounds now use the same full half-width, with no lean toward later or earlier:
 
-**The volatility score** used above combines three of the Reliability Factors, each scaled onto a comparable range first and then weighted so step-to-step volatility counts for the most, scope growth next, and negative float least. "Recent" here means roughly the last 3–6 updates, not the whole series:
+> Half-width (months) = the larger of *(months remaining × (0.15 + 0.25 × volatility score))* or *(2 + 3 × volatility score)*, then narrowed by an update-count adjustment – the square root of (6 ÷ number of updates used, or 2 if there are fewer than 2 updates)
+>
+> Early bound = forecasted shift − half-width, never earlier than the reported finish date itself
+> Late bound = forecasted shift + half-width
 
-> Volatility score = 0.5 × (recent step-to-step volatility ÷ 3) + 0.3 × (recent effective scope growth ÷ 40) + 0.2 × (recent peak negative-float share ÷ 100), capped at 1.2
+**The volatility score** combines three of the six metrics above, each scaled onto a comparable range and weighted so date bounce counts for the most, plan growth next, and schedule pressure least, using each metric's recent-window reading:
 
-**Turning the range into a percentage:** the confidence percentage compares the width of the likely-finish range (late bound minus early bound) against how much time is left on the project – a range that's narrow relative to the time remaining reads as high confidence, a wide one reads as low confidence:
+> Volatility score = 0.5 × (Date bounce ÷ 3) + 0.3 × (Meaningful plan growth ÷ 40, floored at 0) + 0.2 × (Schedule pressure ÷ 100), capped at 1.2
 
-> Confidence % = 100 × (1 − (width of the likely-finish range ÷ (months remaining × 0.8 + 8))), rounded, and held between 5% and 95%
+**Turning the range into a percentage:** the confidence percentage compares the width of the earliest–latest range against how much time is left on the project – a range that's narrow relative to the time remaining reads as high confidence, a wide one reads as low confidence:
 
-The `+ 8` is a fixed allowance built into that comparison, so a project with almost no time left doesn't automatically look highly confident just because there's barely anything left to slip. The confidence band is **60% or above is green, 40–59% is amber, below 40% is red.**
+> Confidence % = 100 × (1 − (width of the range ÷ (months remaining × 0.8 + 8))), rounded, and held between 5% and 95%
 
-**Forecast honesty panel:** a genuinely separate calculation from everything above, not one of its inputs. For every activity that has actually finished, Logic+ compares its actual finish date against the finish date that activity was originally given, back when it first appeared in an uploaded schedule, and averages that gap across everything finished so far at each update – a running track record of how far real progress has drifted from the original plan over time. Once at least 20 activities have finished across at least 4 updates, Logic+ checks how closely that track record moves in step with the reported finish date's own slippage, using a statistical technique called a Pearson correlation. A strong match means the reported date is backed up by what's actually happening on site; a weak or absent match means the reported date is moving independently of real progress – exactly the "looks fine on paper" pattern this module exists to catch. Below that 20-activity/4-update threshold there isn't enough finished work to judge reliably, so no real reading is shown. Don't read the honesty panel as explaining the confidence percentage – the two are calculated independently and can genuinely disagree.
+The `+ 8` is a fixed allowance built into that comparison, so a project with almost no time left doesn't automatically look highly confident just because there's barely anything left to slip. The confidence band is **70% or above is green, 40–69% is amber, below 40% is red.**
 
-## Worked examples: what drives a high, medium, or low confidence
+**The six metrics, in detail:**
 
-The Reliability Factors don't add up to the confidence percentage – they explain it. Each one widens or narrows the likely-range window described above; the confidence percentage then falls out of comparing that window's width against how much time is left. Two schedules with very different Reliability Factors can land on a similar confidence percentage, and that's expected.
-
-The three examples below use the same illustrative project throughout – six monthly updates so far, six months of programme left, reported finish 15 December – with only the schedule's underlying health changing between them. They're representative inputs, not pulled from a real run, but the confidence percentages they produce are worked through the actual formula.
-
-**High confidence – around 65–70%**
-
-The Reliability Factors all score healthy: task-count growth low and steady, step-to-step volatility low (the forecast finish barely moves update to update), negative-float share low, and the slip-rate factors all close to flat – the schedule is tracking close to plan.
-
-What you'd see: the forecasted finish sits only a few days past the reported one (18 December vs. 15 December), and the window stretches from the reported date itself out to around 25 April – wide in absolute terms, but narrow relative to the six months still on the clock. That's the shape behind high confidence in Logic+: not a pinpoint date, but a window that isn't ballooning outward.
-
-![High confidence – gauge at 66%, likely finish window 4.3 months wide](images/forecast-confidence/high.svg)
-
-**Medium confidence – around 40–55%**
-
-The Reliability Factors are mixed: moderate task-count growth, moderate step-to-step volatility, negative-float share creeping up, and a slip rate that's clearly non-zero but not extreme – a combination that comes across as worth watching, rather than healthy or in trouble.
-
-What you'd see: the forecasted finish moves out to around 11 January, and the window widens out to run from 15 December to mid-July – more than a month of central shift, and a window wider than the time remaining. This is the zone where the reported date needs real scrutiny before it's repeated to a client.
-
-![Medium confidence – gauge at 46%, likely finish window 6.9 months wide](images/forecast-confidence/medium.svg)
-
-**Low confidence – below 40%**
-
-Several Reliability Factors are in trouble at once: high task-count growth, high step-to-step volatility, a high negative-float share, and a slip rate that's losing a meaningful fraction of a month for every month that passes.
-
-What you'd see: the forecasted finish moves to late February – more than two months past what's reported – and the window stretches from 15 December all the way out to early December the *following* year, nearly doubling the whole remaining duration. At this point the reported date isn't a useful anchor on its own; the width of the window is the real message.
-
-![Low confidence – gauge at 9%, likely finish window 11.6 months wide](images/forecast-confidence/low.svg)
+| Metric | Calculation | Green / amber / red |
+|---|---|---|
+| Slip pace | The weighted pairwise drift rate described above, in months of drift per month elapsed. | below 0.4 / 0.4–0.7 / above 0.7 |
+| Date bounce | The standard deviation of the month-to-month change in finish-date drift, over the last 6 update-to-update steps. | below 1 / 1–2 / above 2 (months) |
+| Meaningful plan growth | Activity-count growth per WBS branch between the first and latest update, weighted toward branches carrying more of the remaining work, then reduced by the mitigation ratio below (so growth that's actively being absorbed reads lower). | below 10% / 10–25% / above 25% |
+| Mitigation ratio | Averaged over the last 3 updates: working days of finish dates pulled earlier, divided by working days pushed later, capped at 1 per update (an update with nothing pushed later scores fully mitigated). Unlike the other five, a *higher* mitigation ratio is better. | below 15% / 15–40% / above 40% (good) |
+| Schedule pressure | The worst share of incomplete activities sitting on negative float, across the last 3 updates. | below 10% / 10–40% / above 40% |
+| Reporting depth | The number of updates the read is built from, after the coherence check above. | below 4 / 4–8 / above 8 updates |
 
 ## Note
 
-At least two schedule updates sharing a common completion milestone are needed to produce a read. With fewer, no signal is shown.
+At least two schedule updates sharing a common completion milestone, at least half a month apart, are needed to produce a read. With fewer, no signal is shown – Logic+ explains what's missing (e.g. needing a wider gap between updates) rather than showing a misleading number.

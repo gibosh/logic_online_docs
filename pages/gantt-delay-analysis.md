@@ -4,8 +4,9 @@ route: /delay-analysis/schedule-viewer
 title: Gantt Viewer – Delay Analysis
 audience: external
 status: complete
-version: 1.1.3
-last-reviewed: 2026-09-15
+version: 1.2.0
+last-reviewed: 2026-09-17
+blocked-reason: New "Driving path" tab (added 2026-09-17) documented from source, not yet screenshot-verified live.
 ---
 
 ## About this mode
@@ -37,7 +38,7 @@ Hover the small info icon on a row to see the full breakdown of every flag raise
 
 ## Delay Analysis tray
 
-The tray is collapsed by default. Click **Expand** to open it. The tray shows four tabs. The active activity ID is shown in the tray header.
+The tray is collapsed by default. Click **Expand** to open it. The tray shows five tabs. The active activity ID is shown in the tray header.
 
 ### Activity Candidates
 
@@ -80,6 +81,16 @@ A rising line means delay is accumulating. A flat or falling line means the proj
 **Hover any point** to see the activity ID, cumulative delay at that date, and the baseline delta (how much delay was added at this step).
 
 **Click any point** to navigate to and select the driving activity at that step in the Gantt chart and update all tray tabs to show that activity's data.
+
+### Driving path
+
+Shows a Gantt chart of the driving-path chain leading to whichever activity is currently selected – this is Logic+'s own driving-logic calculation (the same one behind the [Driving Task](pages/traceback-engine.md#driving-task) algorithm profile), independent of the traceback result shown elsewhere in this tray, so you can compare the two. Three checkboxes above the chart, all on by default, control what's traced and drawn:
+
+- **Predecessors** – trace backward from the selected activity
+- **Successors** – trace forward from the selected activity
+- **Relationship arrows** – draw the links between activities on the path
+
+Switch off Predecessors or Successors to trace in one direction only; switch off both to show just the selected activity with no chain. This tab has its own column picker (default columns: ID, Start, Finish). Select an activity to populate it – with nothing selected, or a WBS summary row selected, it shows a prompt instead of a chart.
 
 ## Mode bar controls
 

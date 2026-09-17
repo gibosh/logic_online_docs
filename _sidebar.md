@@ -22,6 +22,7 @@
   * [Go To](pages/gantt-viewer?id=go-to)
   * [Schedule History](pages/gantt-viewer?id=schedule-history)
   * [Activity Detail](pages/gantt-viewer?id=activity-detail)
+  * [Driving Path](pages/gantt-viewer?id=driving-path)
 
 ---
 
@@ -37,6 +38,7 @@
     * [Traceback Log](pages/delay-analysis?id=traceback-log)
     * [Traceback Restart](pages/delay-analysis?id=traceback-restart)
     * [Save and Load Traceback](pages/delay-analysis?id=save-and-load-traceback)
+    * [Driving Path](pages/gantt-delay-analysis?id=driving-path)
   * **Time-Impact Analysis method**
     * [Time-Impact Analysis](pages/time-impact-analysis)
     * [Setting up](pages/time-impact-analysis?id=setting-up)
