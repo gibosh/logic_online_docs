@@ -4,9 +4,9 @@ route: /delay-analysis/schedule-viewer
 title: Gantt Viewer – Traceback Setup
 audience: external
 status: complete
-version: 1.1.0
-last-reviewed: 2026-09-17
-blocked-reason: Algorithm Profile table is expected to change soon (Replica v2.1 → "Weighted Scoring", Calibrated v1 removed as a profile) — see workspace/GAPS.md "Upcoming release changes to watch for." Not yet updated ahead of that release; reconfirmed 2026-09-17 that this rename still hasn't shipped. New Calibrated v1 calibration status/retry UX and the Driving Task profile's behaviour change (now traces through completed activities) documented from source, not yet screenshot-verified live.
+version: 1.1.1
+last-reviewed: 2026-09-18
+blocked-reason: Algorithm Profile table is expected to change soon (Replica v2.1 → "Weighted Scoring", Calibrated v1 removed as a profile) — see workspace/GAPS.md "Upcoming release changes to watch for." Not yet updated ahead of that release; reconfirmed 2026-09-18 that this rename still hasn't shipped. New Calibrated v1 calibration status/retry UX and the Driving Task profile's behaviour change (now traces through completed activities) documented from source, not yet screenshot-verified live. Step 1's search box updated for the LUSB-1231 redesign (now the shared toolbar search box, not a mode-specific one).
 ---
 
 ## About this mode
@@ -23,7 +23,7 @@ For how the algorithm actually chooses each activity, see [How Traceback and Del
 
 The start activity is the delayed end point you want to trace from – typically the project completion milestone or another critical endpoint.
 
-Use the activity search box in the mode bar to find the activity by ID or name. The selected activity is highlighted in the Gantt chart. You can also click an activity in the chart and it will populate the search box.
+Use the activity search box in the toolbar (shared with Schedule Viewer mode's activity search) to find the activity by ID or name. The selected activity is highlighted in the Gantt chart. You can also click an activity in the chart and it will populate the search box.
 
 The **Start Traceback** button is disabled until an activity is selected.
 

@@ -4,67 +4,57 @@ route: /schedule-manager
 title: Schedule Manager
 audience: external
 status: draft
-version: 1.2.0
-last-reviewed: 2026-09-15
-blocked-reason: The "a few minutes" typical processing time wasn't independently re-timed for this review. The Schedule Manager / All projects split described below is a confirmed but still-transitional state — both currently show the same screen — see workspace/GAPS.md for what's still pending.
+version: 2.0.0
+last-reviewed: 2026-09-18
+blocked-reason: Rewritten following a real split from All projects (feature/table-backed-projects, 2026-09-17) – the previous "transitional state, same screen" framing no longer applies. The "a few minutes" typical processing time wasn't independently re-timed for this review. Multi-format upload (MPP/Asta PP/MSPDI XML alongside XER) is confirmed accepted at upload, but parsing fidelity for the three newer formats wasn't independently verified against a live upload – see workspace/GAPS.md.
 ---
 
 ## About this page
 
-Schedule Manager is where you organise your schedule files into projects and track the processing status of each upload. It sits below **All projects** in the navigation: All projects is the higher-level screen for creating and choosing which project you're working in, and Schedule Manager is where you go once a project is selected, to manage that project's schedules.
+Schedule Manager is where you upload and manage the schedule files for one project – select a project first (from **[All projects](pages/all-projects.md)** or the Project dropdown at the top of the sidebar), then open **Schedule Manager** in the left-hand navigation.
 
-**Right now, both "All projects" and "Schedule Manager" in the navigation open this same screen.** That's a deliberate in-progress state, not a bug – All projects is planned to become its own dedicated project-creation/selection screen, at which point Schedule Manager will stay focused purely on schedule management within one already-selected project. This page describes what's on screen today; the create/rename/delete-project instructions below will move to All projects once that split happens.
+A breadcrumb at the top (**[Project Name] / Files**) shows which project you're viewing – it's a label, not a clickable link back to All projects.
+
+Creating, renaming, deleting, or grouping projects themselves is done on the **[All projects](pages/all-projects.md)** page, not here.
 
 ## Key concepts
 
-**Project** – a named container that groups one or more schedule files together. A project represents a single construction project or programme.
-
-**Schedule** – an uploaded `.xer` file representing a point-in-time snapshot of a project schedule. Multiple schedules in the same project are used for comparison and trend analysis.
-
-## Managing projects
-
-**To create a project:**
-1. Type a name in the **Add New Project** field
-2. Click **Add** or press Enter
-3. The new project appears in the left panel
-
-**Note:** if the new project isn't already selected, click it in the list to open it.
-
-**To rename a project:**
-- Click **Edit** next to the project name, type the new name, then click **Done**
-
-**To delete a project:**
-- Click **Delete** next to the project. There is no confirmation step, so make sure before you click – it can't be undone from the page. Schedules that were in the project are no longer accessible afterwards either.
+**Schedule** – an uploaded schedule file representing a point-in-time snapshot of the project. Multiple schedules in the same project are used for comparison and trend analysis.
 
 ## Uploading schedules
 
-1. Select a project in the left panel
-2. In the right panel, drag a file onto the upload area or click **Browse Files** (drag-and-drop and click-to-browse both work on the same drop zone)
-3. Supported format: `.xer` (Primavera P6) only. Logic+ checks both the file name and the start of the file's content, so a file that isn't really a P6 export is rejected even if it's named `.xer`
-4. Maximum file size: 100 MB per file
-5. Multiple files can be selected and uploaded at once – they're sent one after another
+Drag a file onto the page, or click **Upload** to browse for one. Multiple files can be selected and uploaded at once – they're sent one after another.
 
-After upload, Logic+ processes each schedule automatically. You do not need to do anything – check the status badge to follow progress. The page checks for updates every few seconds while a schedule is still processing.
+**Supported formats:** `.xer` (Primavera P6), `.mpp` (Microsoft Project), `.pp` (Asta Powerproject), and `.xml` (MSPDI). Logic+ checks the file name against these formats and rejects anything else with the message *"Use XER, MPP, Asta PP or MSPDI XML files."*
 
-## Schedule processing statuses
+**Maximum file size:** 100 MB per file.
 
-| Status | Meaning |
-|--------|---------|
-| `unprocessed` | File uploaded but processing has not started |
-| `processing` | Schedule is being processed – shown as "processing" for the full duration between upload and completion, with no visible sub-progress |
-| `processed` | Processing complete – schedule is ready for all views |
-| `failed` | An error occurred – use **Reprocess** to try again |
+After upload, Logic+ processes each schedule automatically – no action needed. The page checks for updates every few seconds while any schedule is still processing.
 
-Processing typically completes within a few minutes depending on schedule size.
+## Schedule status
 
-**Note:** the in-progress badge now reads "processing" rather than "packetising" – the underlying status name changed as part of a schedule-status rework since this page was last reviewed (confirmed against `ScheduleItem.tsx`'s status badge and the `ScheduleStatus` type in `@lware/contracts`, now `STATUS_UPLOADING | STATUS_FAILED_TO_PROCESS | STATUS_UNPROCESSED | STATUS_PROCESSING | STATUS_PROCESSED`). There is still no separate "analysing" step or "analysis N/7" counter – that was already confirmed removed in the previous review of this page and remains gone.
+| Status shown | Meaning |
+|---|---|
+| Processing… | File uploaded and/or being processed – shown for the full duration between upload and completion, with no visible sub-progress |
+| Ready for analysis | Processing complete and a data date is set – schedule is ready for all views (shown with a checkmark) |
+| Data date required | Processing completed, but Logic+ couldn't detect a data date from the file – open **Edit schedule** to set one manually before this schedule can be used |
+| Processing failed | An error occurred – use **Retry processing** to try again |
 
-If a schedule fails, the page doesn't currently explain why – you'll only see the "failed" badge and a Reprocess button. If Reprocess doesn't resolve it, contact support with the schedule name and roughly when you uploaded it.
+If a schedule fails, the page doesn't currently explain why – you'll only see "Processing failed" and a **Retry processing** action. If retrying doesn't resolve it, contact support with the schedule name and roughly when you uploaded it.
 
-## Reprocessing a schedule
+## Editing a schedule
 
-The **Reprocess** button appears when a schedule is in `failed` or `unprocessed` status. Click **Reprocess** to restart processing for that schedule. The schedule file is not re-uploaded – Logic+ reprocesses the file you already sent.
+Open a schedule's actions menu (**...**) and choose **Edit schedule** to:
 
-## Removing a schedule
+- Rename it (the **Name** field – this is a display name only, separate from the original uploaded file name, which is still shown alongside it in the file list)
+- Set or correct its **Data date**
+- See the **Original data date** Logic+ detected from the file itself (or "Not available in the source file" if it couldn't detect one)
+- Click **Reset to original** to put the Data date field back to what the file itself said, undoing any manual correction – this only updates the field, you still need to click **Save**
 
-Click **Delete** on a schedule to remove it from the project. As with deleting a project, there is no confirmation step, so make sure before you click.
+## Other actions
+
+Each schedule's actions menu (**...**) also offers:
+
+- **Download original** – downloads the file exactly as it was uploaded
+- **Retry processing** – only shown when the schedule's status is "Processing failed"; re-processes the file you already sent, without needing to re-upload it
+- **Delete** – removes the schedule from the project. A confirmation dialog appears first ("This removes the schedule file from this project.") – read it before confirming, as this can't be undone afterwards.

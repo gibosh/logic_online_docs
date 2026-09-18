@@ -4,9 +4,9 @@ route: /time-impact-analysis
 title: Time-Impact Analysis
 audience: external
 status: draft
-version: 1.2.0
-last-reviewed: 2026-09-15
-blocked-reason: New module, written from source (frontend/src/time-impact-analysis/) but not yet checked against the running app or a live traceback-suggested insertion. Scoped deliberately to what's implemented and tested today.
+version: 1.3.0
+last-reviewed: 2026-09-18
+blocked-reason: New module, written from source (frontend/src/time-impact-analysis/) but not yet checked against the running app or a live traceback-suggested insertion. Scoped deliberately to what's implemented and tested today. The "Reconciliation vs source float" panel/section was removed 2026-09-18 (`062259547`) – TIA no longer blocks its own display on a reconciliation mismatch or missing data date; Full network/Driving path now always show the original schedule even if the impact calculation fails.
 ---
 
 ## Time-Impact Analysis – Overview
@@ -81,6 +81,8 @@ Five view modes, switched from the toolbar above the chart:
 
 Across every view, a dashed amber line marks the schedule's data date, and moved activities carry a small arrow from their original position to their current one.
 
+**If the impact calculation can't complete** (for example, a data or logic issue in the schedule), **Full network** and **Driving path** still show the original, unimpacted schedule. The other three views (Moved only, Charged, Cascade) can't be shown without a completed calculation – switching to one of them shows: *"Impact results are unavailable. Select Driving path or Full network to view the original schedule."*
+
 ## Comparing fragnets
 
 With two or more fragnets included, a comparison chart and table show, for each fragnet:
@@ -91,12 +93,6 @@ With two or more fragnets included, a comparison chart and table show, for each 
 - A **concurrency** tag when the fragnets' combined effect is less than the sum of their individual (gross) effects – a sign their impacts overlap in time
 
 The net figures always reconcile exactly to the combined total movement.
-
-## Reconciliation vs source float
-
-Before anything else runs, Logic+ recalculates your existing schedule from scratch (the same in-browser engine used for the fragnet analysis) and checks the result against the float values your source file already reported. The panel shows how many activities reconciled, or flags divergences if the recalculated network doesn't match the source data closely enough.
-
-If the mismatch is too large, the analysis refuses to run at all rather than show figures built on a network that doesn't match your schedule – you'll see an error instead of a result.
 
 ## Calculation and other logic
 

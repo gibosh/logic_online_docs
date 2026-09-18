@@ -4,28 +4,28 @@ route: /schedule-viewer
 title: Schedule Viewer
 audience: external
 status: draft
-version: 1.3.0
-last-reviewed: 2026-09-17
-blocked-reason: Default schedule/baseline selection on first load and exact drag/hover behaviour for column reordering are inferred from component code, not confirmed against the live app. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md. New "Driving Path" tab (added 2026-09-17) documented from source, not yet screenshot-verified live.
+version: 2.0.0
+last-reviewed: 2026-09-18
+blocked-reason: Rewritten following the LUSB-1231 Schedule Viewer redesign (2026-09-17/18) – single unified page now serves all three modes, combined schedule-selection popover, new fullscreen and colour-legend controls, conditional mode-tab visibility, merged zoom/reset behaviour. Default schedule/baseline selection on first load and exact drag/hover behaviour for column reordering are inferred from component code, not confirmed against the live app. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
 ---
 
 ## About the Schedule Viewer
 
-The Schedule Viewer is the central workspace for exploring and comparing construction project schedules. Open it from **Schedule Viewer** in the left-hand navigation. (Its Traceback Setup and Delay Analysis modes are also reachable directly via **[Delay Analysis](pages/delay-analysis.md)** in the navigation – both paths lead to the same screen.)
+The Schedule Viewer is the central workspace for exploring and comparing construction project schedules. One page, and one underlying screen, serves all three of its modes (see "Three modes," below) – open it from **Schedule Viewer** in the left-hand navigation, or reach its Traceback Setup / Delay Analysis modes directly via **[Delay Analysis](pages/delay-analysis.md)** in the navigation. Both paths land on the same page.
 
 Use the Schedule Viewer to look at individual schedules, compare changes between updates, understand the logic connecting activities, and run delay analysis.
 
 ---
 
-## File selection
+## Selecting schedules
 
-Choose which schedule files to work with using the two selectors at the top of the page.
+Click the **schedule selector** at the top of the page – it shows the currently-selected Baseline and Comparison schedules stacked (e.g. "Baseline: None" / "Comparison: [latest update]"). This opens a popover with both pickers:
 
 **Comparison** – the schedule you are analysing (typically the most recent update). Select from all schedule files uploaded for the current project. Files are labelled by data date.
 
 **Baseline** – an earlier schedule to compare against. When set, each activity in the Gantt chart shows a second bar representing the baseline dates. Select **None** to remove the baseline comparison.
 
-Changing either selector resets any active traceback.
+Click **Apply** in the popover to confirm your selection. Changing either schedule resets any active traceback.
 
 **Default selections.** The first time you open a project with no schedule already chosen, the Comparison selector defaults to the most recent schedule uploaded and the Baseline selector defaults to the earliest one available. If you've visited before, your last selection for this project is restored from the page URL instead.
 
@@ -33,9 +33,21 @@ Changing either selector resets any active traceback.
 
 ---
 
+## Fullscreen
+
+The **fullscreen** button (top right of the toolbar) expands the Schedule Viewer to fill the browser window, hiding the surrounding navigation. Click it again, or press **Escape**, to exit.
+
+---
+
+## Chart colour legend
+
+An info button in the toolbar opens a popover explaining what each Gantt bar colour means – Comparison schedule activities (complete, incomplete, or spanning the data date), the Baseline schedule's bars, Critical activities (complete or incomplete), Milestones (shown in red when critical), and Summary/WBS bars.
+
+---
+
 ## Three modes
 
-The Schedule Viewer operates in one of three modes, selectable from the tabs in the toolbar:
+The Schedule Viewer operates in one of three modes:
 
 | Mode | Use it to |
 |------|-----------|
@@ -45,7 +57,7 @@ The Schedule Viewer operates in one of three modes, selectable from the tabs in 
 
 > **Note:** the first mode tab is labelled "Schedule Viewer," the same name as this page. Where this page says "Schedule Viewer" without qualification it means the whole three-mode workspace; "Schedule Viewer mode" refers specifically to the first tab.
 
-The mode advances automatically to Delay Analysis when a traceback completes.
+**The mode tab strip isn't always shown.** In plain Schedule Viewer mode with no traceback loaded, there's nothing to switch to yet, so the tabs are hidden – they appear once you have a traceback in progress or completed, once you're in Traceback Setup or Delay Analysis mode, or if you arrived via the **Delay Analysis** navigation entry point (which opens straight into Traceback Setup). The mode also advances automatically to Delay Analysis when a traceback completes.
 
 For full detail on each mode see:
 - [Schedule Viewer mode](pages/schedule-analysis.md) – Gantt chart, activity tray, group settings
@@ -56,7 +68,7 @@ For full detail on each mode see:
 
 ## Column selector
 
-The **Column Selection** button (next to the zoom controls, top right of the toolbar) opens a two-panel picker:
+The **Configure columns** button (toolbar) opens a two-panel picker:
 
 - **Available columns** – every column, grouped by category (General, Dates, Durations, Float, Percent Completes, Lists, Variance, Coding, User Defined Fields, Costs). Tick a checkbox to add a column to the activity list.
 - **Selected columns** – the columns currently shown. Drag an item up or down to reorder it in the activity list. A few columns (like ID) are fixed and can't be moved or hidden.
@@ -73,7 +85,7 @@ The activity tray (see [Activity Detail](#activity-detail), [Schedule History](#
 
 ## Group and Sort
 
-The **Group Settings** dialog (gear icon, top right of the toolbar) controls how activities are grouped and filtered in the Gantt chart. It opens as a pop-up dialog, not an inline panel.
+The **Group Settings** dialog (**Chart settings** button, toolbar) controls how activities are grouped and filtered in the Gantt chart. It opens as a pop-up dialog, not an inline panel.
 
 **Mode** (top-level choice):
 
@@ -104,13 +116,14 @@ Click **Apply Settings** to apply your selection and close the dialog. Click **U
 
 ---
 
-## Go To
+## Jump to / Go To
 
-The **Go To** button (an arrow icon) appears next to related activities in the activity tray. Clicking it scrolls and highlights the Gantt chart to that activity without losing your current selection.
+A button next to related activities in the activity tray scrolls and highlights the Gantt chart to that activity, without losing your current selection. It's labelled differently depending on where you are:
 
-Go To is available in:
-- The **Activity relationships** tab of the activity tray (in Schedule Viewer mode)
-- The **Candidate Scoring** tab of the traceback tray (in Delay Analysis mode)
+- **Jump to** – in the **Activity relationships** tab, in Schedule Viewer and Traceback Setup modes
+- **Go To** – in the **Candidate Scoring** tab, in Delay Analysis mode
+
+Both buttons do the same thing; only the label and icon differ between the two trays.
 
 [Full detail – Activity tray](pages/schedule-analysis.md#activity-tray)
 

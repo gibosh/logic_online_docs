@@ -31,7 +31,12 @@ Logic+ groups key functionality into the modules below. Select a module below to
   <a class="module-tile" href="#/pages/schedule-manager">
     <div class="tile-label">Module</div>
     <h3>Schedule Manager</h3>
-    <p>Create projects, upload schedule files, and track processing status.</p>
+    <p>Upload schedule files for the current project and track processing status.</p>
+  </a>
+  <a class="module-tile" href="#/pages/all-projects">
+    <div class="tile-label">Module</div>
+    <h3>All Projects</h3>
+    <p>Create, organise into groups, and choose which project you're working in.</p>
   </a>
 </div>
 

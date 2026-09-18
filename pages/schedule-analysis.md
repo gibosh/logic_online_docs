@@ -4,9 +4,9 @@ route: /schedule-viewer
 title: Gantt Viewer – Schedule Viewer mode
 audience: external
 status: draft
-version: 1.2.0
-last-reviewed: 2026-09-17
-blocked-reason: Exact drag/resize feel (column drag-reorder, panel/column/tray resize handles) verified from component structure only, not tested live. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md. New "Driving path" tab and "Driving Task" column (added 2026-09-17) documented from source, not yet screenshot-verified live.
+version: 1.3.0
+last-reviewed: 2026-09-18
+blocked-reason: Updated following the LUSB-1231 Schedule Viewer redesign (2026-09-17/18) – "Jump to" relabel, default active tab change, merged zoom behaviour, toolbar button wording. Exact drag/resize feel (column drag-reorder, panel/column/tray resize handles) verified from component structure only, not tested live. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
 ---
 
 ## About this mode
@@ -18,7 +18,7 @@ blocked-reason: Exact drag/resize feel (column drag-reorder, panel/column/tray r
 The chart is split into two panels:
 
 - **Left panel** – the activity list with configurable columns. Drag the divider on the right edge of the panel to resize it, or drag the edge of an individual column header to resize just that column.
-- **Right panel** – the Gantt bars drawn against a timeline. Use the zoom controls (top right of the toolbar) to zoom in, zoom out, reset to 1x, or auto-fit the chart to the current width.
+- **Right panel** – the Gantt bars drawn against a timeline. Use the zoom controls (toolbar) to zoom in, or reset back to a 1x fit-to-width view. Zoom out is limited to that same 1x fit-to-width level – you can zoom in further than the default view, but not out past it.
 
 WBS summary rows can be expanded or collapsed using the arrow next to the WBS code. Activities are shown with their start and finish dates as horizontal bars. Milestones are shown as diamonds.
 
@@ -28,7 +28,7 @@ When a **Baseline** schedule is selected, each activity shows a thinner bar with
 
 ## Activity tray
 
-The tray is collapsed by default. Click **Show Details** to open it (the button relabels to **Hide Details** while open). When an activity is selected, the tray shows four tabs, each with its own column picker (top right of the tabs) so you can customise which fields that tab displays. The active activity ID is shown in the tray header. Drag the top edge of the open tray to resize its height.
+The tray is collapsed by default. Click the **Expand** control in the tray's header to open it (it relabels to **Minimize** while open – this is the only open/close control for the tray). When an activity is selected, the tray shows four tabs – **Activity relationships** is the default active tab – each with its own column picker (top right of the tabs) so you can customise which fields that tab displays. The active activity ID is shown in the tray header. Drag the top edge of the open tray to resize its height.
 
 ### Activity relationships
 
@@ -41,7 +41,7 @@ Shows all predecessors and successors of the selected activity.
 | Relationship Type | How the activities are linked – FS (Finish-to-Start), SS (Start-to-Start), FF (Finish-to-Finish), SF (Start-to-Finish) |
 | Critical | Whether the related activity sits on Logic+'s calculated critical path |
 | Driving Task | Predecessor rows only – whether the schedule's own logic and dates say this predecessor is actually driving the selected activity, independent of any traceback. A red flag means it's the direct driver; an amber flag means it drives indirectly further back along the chain (hover it to see the chain); no icon means it isn't on the driving path; an em-dash means the driving path couldn't be calculated. See [How Traceback and Delay Attribution Work](pages/traceback-engine.md#driving-task) for what "driving" means here. |
-| Go To | Arrow button – navigates the Gantt chart to the related activity |
+| Jump to | Button – navigates the Gantt chart to the related activity. (This same action is labelled **Go To** in the Delay Analysis tray's Candidate Scoring tab – see [Gantt Viewer – Delay Analysis](pages/gantt-delay-analysis.md#candidate-scoring).) |
 
 If no relationships are found for the selected activity, a message is shown.
 
@@ -53,7 +53,7 @@ Shows a Gantt chart of the driving-path chain leading to the selected activity �
 - **Successors** – trace forward from the selected activity
 - **Relationship arrows** – draw the links between activities on the path
 
-Switch off Predecessors or Successors to trace in one direction only; switch off both to show just the selected activity with no chain. This tab has its own column picker (default columns: ID, Start, Finish). Select an activity to populate it – with nothing selected, or a WBS summary row selected, it shows a prompt instead of a chart.
+Switch off Predecessors or Successors to trace in one direction only; switch off both to show just the selected activity with no chain. This tab has its own column picker (default columns: ID, Start, Finish). Select an activity to populate it – with nothing selected, or a WBS summary row selected, it shows a prompt instead of a chart. On larger schedules, a brief "Calculating driving path…" message appears while the chain is worked out.
 
 ### Changes over time
 
@@ -69,7 +69,7 @@ Shows the selected activity's fields in a two-column key-value table. By default
 
 ## Group Settings
 
-The **Group Settings** dialog (gear icon, top right of the toolbar) controls how activities are grouped and filtered in the Gantt chart. It opens as a pop-up dialog with a **Mode** choice at the top:
+The **Group Settings** dialog (**Chart settings** button, toolbar) controls how activities are grouped and filtered in the Gantt chart. It opens as a pop-up dialog with a **Mode** choice at the top:
 
 | Mode | Effect |
 |---|---|
@@ -98,7 +98,7 @@ Click **Apply Settings** to apply your selection and close the dialog. Click **U
 
 ## Column picker
 
-The **Column Selection** button (top right of the toolbar, next to the zoom controls) opens a two-panel picker:
+The **Configure columns** button (toolbar) opens a two-panel picker:
 
 - **Available columns**, grouped into categories – tick a column to add it.
 - **Selected columns** – drag to reorder. A few (like ID) are fixed in place.

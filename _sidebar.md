@@ -12,14 +12,16 @@
 
 * [Schedule Viewer](pages/gantt-viewer)
   * [About the Schedule Viewer](pages/gantt-viewer?id=about-the-schedule-viewer)
-  * [File selection](pages/gantt-viewer?id=file-selection)
+  * [Selecting schedules](pages/gantt-viewer?id=selecting-schedules)
+  * [Fullscreen](pages/gantt-viewer?id=fullscreen)
+  * [Chart colour legend](pages/gantt-viewer?id=chart-colour-legend)
   * [Three modes](pages/gantt-viewer?id=three-modes)
     * [Schedule Viewer mode](pages/schedule-analysis)
     * [Traceback Setup](pages/traceback-setup)
     * [Delay Analysis mode](pages/gantt-delay-analysis)
   * [Column selector](pages/gantt-viewer?id=column-selector)
   * [Group and Sort](pages/gantt-viewer?id=group-and-sort)
-  * [Go To](pages/gantt-viewer?id=go-to)
+  * [Jump to / Go To](pages/gantt-viewer?id=jump-to--go-to)
   * [Schedule History](pages/gantt-viewer?id=schedule-history)
   * [Activity Detail](pages/gantt-viewer?id=activity-detail)
   * [Driving Path](pages/gantt-viewer?id=driving-path)
@@ -46,7 +48,6 @@
     * [Reading the result](pages/time-impact-analysis?id=reading-the-result)
     * [Schedule impact views](pages/time-impact-analysis?id=schedule-impact-views)
     * [Comparing fragnets](pages/time-impact-analysis?id=comparing-fragnets)
-    * [Reconciliation vs source float](pages/time-impact-analysis?id=reconciliation-vs-source-float)
 
 ---
 
@@ -92,11 +93,20 @@
 * [Schedule Manager](pages/schedule-manager)
   * [About this page](pages/schedule-manager?id=about-this-page)
   * [Key concepts](pages/schedule-manager?id=key-concepts)
-  * [Managing projects](pages/schedule-manager?id=managing-projects)
   * [Uploading schedules](pages/schedule-manager?id=uploading-schedules)
-  * [Schedule processing statuses](pages/schedule-manager?id=schedule-processing-statuses)
-  * [Reprocessing a schedule](pages/schedule-manager?id=reprocessing-a-schedule)
-  * [Removing a schedule](pages/schedule-manager?id=removing-a-schedule)
+  * [Schedule status](pages/schedule-manager?id=schedule-status)
+  * [Editing a schedule](pages/schedule-manager?id=editing-a-schedule)
+  * [Other actions](pages/schedule-manager?id=other-actions)
+
+---
+
+* [All Projects](pages/all-projects)
+  * [About this page](pages/all-projects?id=about-this-page)
+  * [Key concepts](pages/all-projects?id=key-concepts)
+  * [Browsing and searching](pages/all-projects?id=browsing-and-searching)
+  * [Selecting a project](pages/all-projects?id=selecting-a-project)
+  * [Creating a group](pages/all-projects?id=creating-a-group)
+  * [Creating a project](pages/all-projects?id=creating-a-project)
 
 ---
 

@@ -4,9 +4,9 @@ route: /delay-analysis/schedule-viewer
 title: Gantt Viewer – Delay Analysis
 audience: external
 status: complete
-version: 1.2.0
-last-reviewed: 2026-09-17
-blocked-reason: New "Driving path" tab (added 2026-09-17) documented from source, not yet screenshot-verified live.
+version: 1.2.1
+last-reviewed: 2026-09-18
+blocked-reason: New "Driving path" tab (added 2026-09-17) documented from source, not yet screenshot-verified live. Note the activity list in this tray is intentionally flat (no WBS-depth colour/indent styling) as of the 2026-09-17/18 redesign, unlike Schedule Viewer mode's activity list.
 ---
 
 ## About this mode
@@ -90,7 +90,7 @@ Shows a Gantt chart of the driving-path chain leading to whichever activity is c
 - **Successors** – trace forward from the selected activity
 - **Relationship arrows** – draw the links between activities on the path
 
-Switch off Predecessors or Successors to trace in one direction only; switch off both to show just the selected activity with no chain. This tab has its own column picker (default columns: ID, Start, Finish). Select an activity to populate it – with nothing selected, or a WBS summary row selected, it shows a prompt instead of a chart.
+Switch off Predecessors or Successors to trace in one direction only; switch off both to show just the selected activity with no chain. This tab has its own column picker (default columns: ID, Start, Finish). Select an activity to populate it – with nothing selected, or a WBS summary row selected, it shows a prompt instead of a chart. On larger schedules, a brief "Calculating driving path…" message appears while the chain is worked out.
 
 ## Mode bar controls
 
