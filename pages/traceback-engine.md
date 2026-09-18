@@ -4,9 +4,9 @@ route: /delay-analysis
 title: How Traceback and Delay Attribution Work
 audience: external
 status: complete
-version: 1.1.0
-last-reviewed: 2026-09-17
-blocked-reason: New "Driving Task" section (added 2026-09-17) documents a real behaviour change (now traces through completed activities using imported dates) plus its use in the new Driving Task column/Driving path tab — documented from source, not yet screenshot-verified live.
+version: 1.2.0
+last-reviewed: 2026-09-18
+blocked-reason: New "Driving Task" section (added 2026-09-17) documents a real behaviour change (now traces through completed activities using imported dates) plus its use in the new Driving Task column/Driving path tab — documented from source, not yet screenshot-verified live. The "From chain to delay" flag table was fully rewritten 2026-09-18 (LUSB-1171, "Delay Attribution 2.0" categories now shipped) — Lag Change, Start Change, No Link and New are gone, replaced by a Constraint flag plus renamed/expanded Relationship, Progress, Implied Logic and New fragnet flags. Verified directly against `frontend/src/analytics/delay/delay.types.ts` and tooltip strings in `delayAnalysis.utils.ts`, not yet screenshot-verified live. Also corrected the Stage One confidence flag name from "Start Change" to "Low Confidence" (`activityColumns.tsx` column id `lowConfidence`) – "Start Change" no longer exists anywhere in the codebase; it's unrelated to the delay-attribution flag rename above, just a coincidentally-timed second correction. See workspace/GAPS.md for the open question on `pages/delay-attribution-2.md`'s status.
 ---
 
 ## About this page
@@ -66,7 +66,7 @@ A candidate has to earn its place on strong evidence before the finer-grained, c
 
 Direct Evidence is as close to proof as schedule data gets, and Indirect Evidence is the best substitute when direct evidence is missing. Everything scored in Stage Two is corroborating at best – useful for deciding between two similar candidates, but not something that should overrule a genuine formal link or an obvious date match on its own.
 
-When neither Direct nor Indirect Evidence gives strong support for the candidate Logic+ had to pick at a step, that step is flagged **Start Change** rather than reported the same way as a genuine scheduling defect. The chain still continues through that step – it just means the pick should be read as the best available answer given weak evidence, not a confirmed cause. This flag is about how much evidence backed the selection, not about how many working days separate the two activities' dates – a wide separation in time doesn't automatically produce a Start Change flag, and a Start Change flag doesn't necessarily mean the two activities' dates were far apart.
+When neither Direct nor Indirect Evidence gives strong support for the candidate Logic+ had to pick at a step, that step is flagged **Low Confidence** rather than reported the same way as a genuine scheduling defect. The chain still continues through that step – it just means the pick should be read as the best available answer given weak evidence, not a confirmed cause. This flag is about how much evidence backed the selection, not about how many working days separate the two activities' dates – a wide separation in time doesn't automatically produce a Low Confidence flag, and a Low Confidence flag doesn't necessarily mean the two activities' dates were far apart.
 
 *This confidence flagging is part of the Replica v2.1 and Calibrated v1 algorithm profiles – see [Key Changes – Delay Analysis](pages/key-changes-delay-analysis.md) for which profile you're using.*
 
@@ -100,27 +100,24 @@ Every day-based comparison above – gaps, durations, lags – is measured using
 
 ## From chain to delay – how days get charged to each activity
 
-Once the chain is built, Logic+ walks it in schedule order and works out how many days of delay to charge to each activity, by comparing it against your baseline schedule. For each activity, Logic+ looks at:
+Once the chain is built, Logic+ walks it in schedule order and works out how many days of delay to charge to each activity, by comparing it against your baseline schedule.
 
-- **Finish variance** – actual finish vs. baseline finish
-- **Start variance** – actual start vs. baseline start
-- **Duration variance** – did the activity itself take longer or shorter than planned
-- **Gap variance** – did the time between it and its predecessor grow or shrink, compared to what the baseline relationship implied
-
-**Each activity is only charged for the delay it added, not its total variance.** If the chain was already running 10 days late by the time it reaches a given activity, and that activity's own contribution only pushes things a further 2 days out, it's charged 2 days – not 12. This stops delay being double-counted as it's traced back through the chain.
+**Every activity has a window of influence** – it opens where the activity is first driven, and closes the moment its own logic hands dates to its successor. Whatever happens to an activity inside that window is its to answer for; whatever happens outside it is charged zero, however dramatic it looks on the bar chart. **Each activity is only charged for the delay it added, not its total variance** – if the chain was already running 10 days late by the time it reaches a given activity, and that activity's own contribution only pushes things a further 2 days out, it's charged 2 days, not 12. **An edit to the plan and a change in real-world performance are never mixed** – a duration, logic, or constraint edit is always kept separate from actual dates simply moving, even when they look identical on the chart. And **the charge always lands on the activity that owns the change**, never on a predecessor that just happened to be nearby.
 
 Each charge also comes with a plain-language flag explaining why it was charged:
 
 | Flag | What it means |
 |---|---|
-| Relationship | The actual link type to its predecessor differs from the baseline schedule, and that change measurably shifted the date onto the predecessor (or, read the other way, this activity is shown as absorbing a successor's delay because of a relationship change) |
-| Duration | The activity's own duration changed from what was planned |
-| Start Change | The activity's own start date shifted relative to what its predecessor implied, separate from any duration or relationship-type change – this is the flag you'll see for a plain widening or narrowing gap to the predecessor |
-| Lag Change | The lag on the link to its predecessor changed, shifting some of the successor's slip back onto the predecessor |
-| No Link | There's no formal relationship to its predecessor, so the step is explained by date proximity rather than a real logic link |
-| Calendar | The activity's own calendar behaves meaningfully differently from the project's standard calendar, which can itself explain some of the variance |
-| New | Delay from newly added (unbaselined) activities, charged to the group as a whole rather than split per activity – see below |
+| Duration | The activity's own planned (or remaining) duration was edited from what was baselined |
+| Relationship | A logic link to a predecessor was added, deleted, or had its type or lag changed vs baseline – charged on the successor, naming only the links that actually changed |
+| Constraint | A date constraint was added, removed, or moved – measured by recalculating with and without the constraint |
+| Calendar | The activity's, its predecessor's, or the project's calendar differs from its baseline counterpart, moving dates with no change to duration, logic, constraints, or progress |
+| Implied Logic | Traceback proposed a driving predecessor with no recorded relationship in baseline or current – a candidate explanation, not a proven cause; date correlation is evidence, not proof |
+| Progress | Actual or forecast dates moved and no other flag explains it – the catch-all for real-world performance (a late start against otherwise-satisfied logic, or work that simply ran slower than planned) |
+| New fragnet | New, unbaselined scope was inserted into the network – see below |
 
-**New activities** – where a traceback chain runs through activities that don't exist in the baseline schedule at all (genuinely new scope added since baseline), Logic+ groups the run of new activities together and, once it can see how much extra delay resulted from their addition, charges that one figure to *every* activity in the group – not split between them, and not charged to whichever earlier activity the new scope followed. Each gets the **New** flag with the same figure, tagged as belonging to that group.
+**New activities** – where a traceback chain runs through activities that don't exist in the baseline schedule at all (genuinely new scope added since baseline), Logic+ groups the run of new activities together and charges the group's *effect* on the finish date – never the new work's own length at face value – to the group's last member, tagged **New fragnet**.
+
+**Resource Levelling is not yet a flag Logic+ can charge** – delay genuinely caused by resource-levelling conflicts currently gets attributed to whichever other flag above best fits the date movement, since Logic+ doesn't yet model levelling as its own cause. This is a known gap, not a bug.
 
 The end result is a running, activity-by-activity delay total, each one tagged with the reasoning behind it – shown in the [Delay Attribute](pages/delay-analysis.md#delay-attribute) summary and the [Cumulative Delay](pages/gantt-delay-analysis.md#cumulative-delay) chart.

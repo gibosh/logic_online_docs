@@ -4,9 +4,9 @@ route: /delay-analysis/schedule-viewer
 title: Gantt Viewer – Delay Analysis
 audience: external
 status: complete
-version: 1.2.1
+version: 1.3.0
 last-reviewed: 2026-09-18
-blocked-reason: New "Driving path" tab (added 2026-09-17) documented from source, not yet screenshot-verified live. Note the activity list in this tray is intentionally flat (no WBS-depth colour/indent styling) as of the 2026-09-17/18 redesign, unlike Schedule Viewer mode's activity list.
+blocked-reason: New "Driving path" tab (added 2026-09-17) documented from source, not yet screenshot-verified live. Note the activity list in this tray is intentionally flat (no WBS-depth colour/indent styling) as of the 2026-09-17/18 redesign, unlike Schedule Viewer mode's activity list. Calendar toggle now has three modes (was two) and the flag set changed under LUSB-1171 — see traceback-engine.md's blocked-reason for the full flag rename; verified against `GanttDelayAnalysisPanel.tsx`/`GanttDelayAnalysisHeader.tsx`, not yet screenshot-verified live.
 ---
 
 ## About this mode
@@ -23,7 +23,7 @@ The Gantt chart highlights the traceback path – the chain of driving activitie
 
 Separate from the tray, a panel sits alongside the Gantt chart's activity list showing the delay attributed to each activity on the traceback path, row by row. Two buttons in the panel's corner control it:
 
-- **Calendar icon** – toggle between delay measured on each activity's own calendar and delay measured on the project's standard calendar.
+- **Calendar icon** – cycles through three ways of measuring the delay figures: **"Using calendar days"**, **"Using project calendar"** (the default), and **"Using task working calendars"**. In task-calendar mode, the Cumulative Delay column header shows an extra note: *"Cumulative allocation in mixed-calendar days; not date-based Δ PC."*
 - **Collapse/expand icon** – show or hide the panel.
 
 Each row shows:
@@ -32,9 +32,9 @@ Each row shows:
 |--------|-------------|
 | Cumulative Delay | Running total of assigned delay up to and including this activity |
 | Task Delay | Delay charged to this activity, with a coloured dot showing its share of the overall path delay (green = none, yellow = up to 5%, red = more than 5%) |
-| Flag columns | One column per reason the delay was charged – see [How delay gets charged to each activity](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for what each flag means |
+| Flag columns | One column per reason the delay was charged, shown as a signed number of days – see [How delay gets charged to each activity](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for what each flag means |
 
-Hover the small info icon on a row to see the full breakdown of every flag raised for that activity. A row belonging to a group of new (unbaselined) activities is marked with an icon and tooltip explaining that the group shares one delay figure – see [New activities](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for why every activity in that group shows the same number rather than a split.
+Hover the small info icon on a row to see the full breakdown of every flag raised for that activity. A row belonging to a group of new (unbaselined) activities carries its own icon, tooltip **"Task group added to traceback (no baseline)"** – see [New activities](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for why every activity in that group shows the same number rather than a split.
 
 ## Delay Analysis tray
 

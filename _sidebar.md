@@ -96,6 +96,7 @@
   * [Uploading schedules](pages/schedule-manager?id=uploading-schedules)
   * [Schedule status](pages/schedule-manager?id=schedule-status)
   * [Editing a schedule](pages/schedule-manager?id=editing-a-schedule)
+  * [Custom fields](pages/schedule-manager?id=custom-fields)
   * [Other actions](pages/schedule-manager?id=other-actions)
 
 ---

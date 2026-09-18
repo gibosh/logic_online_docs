@@ -4,9 +4,9 @@ route: /schedule-viewer
 title: Gantt Viewer – Schedule Viewer mode
 audience: external
 status: draft
-version: 1.3.0
+version: 1.3.1
 last-reviewed: 2026-09-18
-blocked-reason: Updated following the LUSB-1231 Schedule Viewer redesign (2026-09-17/18) – "Jump to" relabel, default active tab change, merged zoom behaviour, toolbar button wording. Exact drag/resize feel (column drag-reorder, panel/column/tray resize handles) verified from component structure only, not tested live. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
+blocked-reason: Updated following the LUSB-1231 Schedule Viewer redesign (2026-09-17/18) – "Jump to" relabel, default active tab change, merged zoom behaviour, toolbar button wording. Further updated same day for feature/gantt-smooth-zoom (LUSB-1063) – zoom-in ceiling, Ctrl/Cmd+scroll smooth zoom, and the new synced scrollbar strip. Exact drag/resize feel (column drag-reorder, panel/column/tray resize handles) verified from component structure only, not tested live. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
 ---
 
 ## About this mode
@@ -18,7 +18,9 @@ blocked-reason: Updated following the LUSB-1231 Schedule Viewer redesign (2026-0
 The chart is split into two panels:
 
 - **Left panel** – the activity list with configurable columns. Drag the divider on the right edge of the panel to resize it, or drag the edge of an individual column header to resize just that column.
-- **Right panel** – the Gantt bars drawn against a timeline. Use the zoom controls (toolbar) to zoom in, or reset back to a 1x fit-to-width view. Zoom out is limited to that same 1x fit-to-width level – you can zoom in further than the default view, but not out past it.
+- **Right panel** – the Gantt bars drawn against a timeline. Use the zoom controls (toolbar) to zoom in, or reset back to a 1x fit-to-width view. Zoom out is limited to that same 1x fit-to-width level; zoom in is capped once the timeline reaches its finest detail level – both zoom buttons grey out once you hit their limit. Hold **Ctrl** (or **Cmd**) and scroll the mouse wheel over the chart to zoom smoothly, centred on your cursor, instead of using the toolbar buttons.
+
+A scrollbar strip below the chart keeps the activity list and timeline panels in sync – drag either half to scroll both, or use your keyboard once it's focused.
 
 WBS summary rows can be expanded or collapsed using the arrow next to the WBS code. Activities are shown with their start and finish dates as horizontal bars. Milestones are shown as diamonds.
 

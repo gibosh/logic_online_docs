@@ -3,12 +3,14 @@ page-id: delay-attribution-2
 title: Delay Attribution 2.0
 audience: external
 status: draft
-version: 0.5.0
-last-reviewed: 2026-09-03
-blocked-reason: This is a preview of an upcoming release, adapted from the Delay Attribution Scenarios spec (draft v0.5, "for alignment" — not yet finalised). Scenario numbering, wording and treatments may still change before this ships. Do not treat this as documentation of current behaviour.
+version: 0.6.0
+last-reviewed: 2026-09-18
+blocked-reason: PARTIALLY SHIPPED as of 2026-09-18 (LUSB-1171) – confirm before treating any of this page as fully current. The eight category names below now match the live Delay Attribution panel's flags exactly (Duration, Relationship, Constraint, Progress, Implied Logic, "New fragnet", Calendar all confirmed shipped; Resource Levelling explicitly deferred, matching this page's own description of it as correlation-based and lowest-priority). The live flag table now lives in traceback-engine.md. What is NOT yet independently verified: whether each individual numbered scenario below (S01 onward) produces exactly the worked treatment/diagram shown here against the current engine – only the category-level taxonomy has been checked against source, not scenario-by-scenario behaviour. Treat the categories as current; treat the specific scenario walkthroughs as unverified until checked individually. See workspace/GAPS.md.
 ---
 
 ## Delay Attribution 2.0 – Overview
+
+**Update, 2026-09-18: the category taxonomy below has shipped.** The eight categories in the table just below are now the real flags shown in Logic+'s Delay Attribution panel (see [How Traceback and Delay Attribution Work](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity)), except Resource Levelling, which remains unimplemented – delay it would explain currently falls to whichever other flag best fits the date movement. The individual numbered scenarios further down this page (S01 onward) have not yet been individually re-checked against the shipped engine – read this page's category descriptions as current, and its scenario-by-scenario detail as still provisional.
 
 Right now, when Logic+ tells you a chain of activities caused a delay, it's harder than it should be to see exactly *why* — which rule fired, which activity actually carries the charge, and whether the number would survive being challenged in a real delay claim.
 
