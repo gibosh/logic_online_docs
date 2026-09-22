@@ -4,9 +4,9 @@ route: /module/9/project/:projectId
 title: Float Burn-down
 audience: external
 status: draft
-version: 1.2.1
-last-reviewed: 2026-09-08
-blocked-reason: Re-verified 2026-09-08 against current source (frontend/src/analytics/ProjectFloatCheck/earnedSchedule.ts, floatBurnDown.ts, theilSen.ts; frontend/src/components/ProjectFloatCheck/floatProjectionCone.ts re-read fresh after a same-day upstream pull touched its chart-rendering neighbours) — calculation logic unchanged, formulas added below match the current code. Still not checked against the running app. Confirm chart interaction/hover behaviour before promoting to complete.
+version: 1.3.0
+last-reviewed: 2026-09-22
+blocked-reason: Corrected 2026-09-22 – the float-implied finish formula was documented as a fixed 1.4x (7/5) weekend conversion; commit 0f34cc92 (2026-09-10, "project through imported working calendars") replaced that with walking the projected negative float forward through the project's own imported calendar, so the old formula gives a materially wrong date on any 6- or 7-day construction calendar. Also added a previously-undocumented caveat: earned schedule matches by activity_id against the baseline set, so scope added after baseline is invisible to SPI(t) in either direction. Two stale code comments describing the old "business days Mon–Fri" assumption (README.md and earnedSchedule.ts's docblock in frontend/src/analytics/ProjectFloatCheck/) were also fixed in the app repo, separately from this docs change. Still not checked against the running app. Confirm chart interaction/hover behaviour before promoting to complete.
 ---
 
 ## Float Burn-down
@@ -49,9 +49,9 @@ Three summary cards, then two charts.
 > Trend slope = median of (float at update *j* − float at update *i*) ÷ (months between update *j* and update *i*), across every pair of updates *i* < *j*
 > Projected float at schedule finish = trend slope × months from the first update to the current schedule finish + trend intercept
 
-The range around that projected float comes from a statistical prediction interval, not a fixed percentage: it uses the **Student's t-distribution** critical value for an 80% interval (P10–P90), scaled by how much the residuals scatter around the trend line and widened further the more the finish date sits beyond the observed update history – so a projection that extrapolates a long way past the last update is shown as more uncertain than one close to it. The projected float (and its range) is then converted into a calendar lateness past the current schedule finish, treating each working day of negative float as 1.4 calendar days (7 ÷ 5, to cover weekends):
+The range around that projected float comes from a statistical prediction interval, not a fixed percentage: it uses the **Student's t-distribution** critical value for an 80% interval (P10–P90), scaled by how much the residuals scatter around the trend line and widened further the more the finish date sits beyond the observed update history – so a projection that extrapolates a long way past the last update is shown as more uncertain than one close to it. The projected float (and its range) is then converted into a calendar lateness past the current schedule finish by walking that many working days forward through the **project's own imported working calendar** – so a 6-day or 7-day construction calendar lands on a different date than a standard 5-day week would, rather than a fixed weekend conversion:
 
-> Implied finish = schedule finish + (working days of negative float × 7⁄5), rounded to the nearest day
+> Implied finish = schedule finish, walked forward the projected working days of negative float, through the project's own calendar
 
 **S-curve finish (optimistic bound):** the Earned Schedule method. The baseline upload's own activities are turned into a planned-completion curve – the percentage of baseline activities scheduled to be complete by each working day from project start. "Earned schedule" is the point on that same curve where the planned percentage-complete matches how much is *actually* complete today – in effect, asking "at what point in the original plan does today's real progress belong?":
 
@@ -63,5 +63,7 @@ An SPI(t) of 1.0 means progress is exactly on the baseline's own pace; below 1.0
 
 > S-curve finish = current data date + (remaining baseline working days ÷ SPI(t)), converted to a calendar date
 > Early/late bounds use the same formula with SPI(t) + 0.08 and SPI(t) − 0.08 in place of SPI(t)
+
+**A second, separate way this side can read optimistically, on top of "delay hides in unstarted work":** because actual progress is matched back to the baseline by activity ID, and the baseline's own activity count is the denominator throughout, any activity added to the schedule after the baseline was set is invisible to earned schedule entirely – not counted as remaining work, not counted once it's done. Scope growth added since baseline does not move SPI(t) in either direction.
 
 Both are shown as separate cards and charts, deliberately labelled optimistic and pessimistic bounds rather than combined into a single figure – so a gap between them is visible as itself the finding, not averaged away.
