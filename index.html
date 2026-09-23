@@ -59,25 +59,13 @@
       padding: 0;
     }
     .h-toggle:hover { color: #fff; background: rgba(255,255,255,0.08); }
-    /* Hamburger bars */
-    .h-toggle span,
-    .h-toggle span::before,
-    .h-toggle span::after {
-      display: block;
-      width: 16px; height: 2px;
-      background: currentColor;
-      border-radius: 1px;
-      position: relative;
-      transition: background 0.15s;
-    }
-    .h-toggle span::before,
-    .h-toggle span::after {
-      content: '';
-      position: absolute;
-      left: 0;
-    }
-    .h-toggle span::before { top: -5px; }
-    .h-toggle span::after  { top:  5px; }
+    /* Icon swap matches production's TopMenu exactly: X (Radix Cross2Icon)
+       when the sidebar is open, burger (production's own Burger.tsx) when
+       closed — toggled by the .close class on <body>, set in the mounted hook. */
+    .h-toggle svg { width: 15px; height: 15px; }
+    .h-toggle .h-toggle-burger { display: none; }
+    body.close .h-toggle .h-toggle-x { display: none; }
+    body.close .h-toggle .h-toggle-burger { display: block; }
     .h-logo {
       display: flex; align-items: center;
       text-decoration: none;
@@ -397,7 +385,8 @@
   <header id="top-header">
     <div class="h-left">
       <button class="h-toggle" id="h-toggle-btn" title="Toggle sidebar" aria-label="Toggle sidebar">
-        <span></span>
+        <svg class="h-toggle-x" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.9688 3.21871C11.1933 2.99416 11.5567 2.99416 11.7813 3.21871C12.0056 3.44328 12.0057 3.80673 11.7813 4.03121L8.31251 7.49996L11.7813 10.9687L11.8555 11.0586C12.0026 11.2817 11.9777 11.5848 11.7813 11.7812C11.5849 11.9776 11.2818 12.0026 11.0586 11.8554L10.9688 11.7812L7.50001 8.31246L4.03126 11.7812C3.80677 12.0057 3.44332 12.0056 3.21876 11.7812C2.99421 11.5567 2.99421 11.1933 3.21876 10.9687L6.68751 7.49996L3.21876 4.03121L3.14454 3.94137C2.99723 3.71819 3.0223 3.41517 3.21876 3.21871C3.41522 3.02225 3.71823 2.99719 3.94141 3.14449L4.03126 3.21871L7.50001 6.68746L10.9688 3.21871Z" fill="currentColor"/></svg>
+        <svg class="h-toggle-burger" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.667 9.91699C11.989 9.91717 12.25 10.1779 12.25 10.5C12.25 10.8221 11.989 11.0828 11.667 11.083H2.33301C2.01099 11.0828 1.75 10.8221 1.75 10.5C1.75 10.1779 2.01099 9.91717 2.33301 9.91699H11.667ZM11.667 6.41699C11.989 6.41717 12.25 6.67795 12.25 7C12.25 7.32206 11.989 7.58283 11.667 7.58301H2.33301C2.01099 7.58283 1.75 7.32206 1.75 7C1.75 6.67795 2.01099 6.41717 2.33301 6.41699H11.667ZM11.667 2.91699C11.989 2.91717 12.25 3.17795 12.25 3.5C12.25 3.82206 11.989 4.08283 11.667 4.08301H2.33301C2.01099 4.08283 1.75 3.82206 1.75 3.5C1.75 3.17795 2.01099 2.91717 2.33301 2.91699H11.667Z" fill="currentColor"/></svg>
       </button>
       <a href="#/" class="h-logo">
         <img src="logo-landscape-rev.png" alt="LWARE Logic+">
