@@ -69,11 +69,10 @@
     .h-toggle span::before { top: -5px; }
     .h-toggle span::after  { top:  5px; }
     .h-logo {
-      display: flex; align-items: center; gap: 8px;
+      display: flex; align-items: center;
       text-decoration: none;
     }
-    .h-logo img { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; }
-    .h-logo-name { color: #fff; font-size: 15px; font-weight: 700; white-space: nowrap; }
+    .h-logo img { height: 20px; width: auto; flex-shrink: 0; }
     .h-nav {
       position: absolute;
       left: 0; right: 0;
@@ -133,10 +132,13 @@
       transition: background 0.15s;
     }
     .h-signin:hover { background: #009990 !important; color: #fff !important; }
-    .h-teams {
-      background: #6264A7;
+    /* PROVISIONAL colour — ghost/outline style chosen only to avoid the old
+       Teams purple. Swap background/border/hover once Figma dark-theme
+       button colours are confirmed. */
+    .h-support {
+      background: transparent;
       color: #fff !important;
-      border: none;
+      border: 1px solid rgba(255,255,255,0.35);
       border-radius: 4px;
       padding: 0 14px;
       height: 32px;
@@ -146,9 +148,9 @@
       text-decoration: none !important;
       display: flex; align-items: center;
       white-space: nowrap;
-      transition: background 0.15s;
+      transition: background 0.15s, border-color 0.15s;
     }
-    .h-teams:hover { background: #464775 !important; color: #fff !important; }
+    .h-support:hover { background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.6); color: #fff !important; }
 
     /* ── SEARCH (moved into #search-slot in the header) ── */
     #search-slot .search { padding: 0; margin: 0; background: transparent; display: flex; align-items: center; }
@@ -374,8 +376,7 @@
         <span></span>
       </button>
       <a href="#/" class="h-logo">
-        <img src="logo.png" alt="Logic+">
-        <span class="h-logo-name">Logic+</span>
+        <img src="logo-landscape-rev.png" alt="LWARE Logic+">
       </a>
     </div>
     <nav class="h-nav" id="h-nav">
@@ -388,7 +389,7 @@
     <div class="h-right">
       <div id="search-slot"></div>
       <a href="https://logicplus.smartcoro.com/login" target="_blank" rel="noopener" class="h-signin">Sign in to Logic+</a>
-      <a href="https://teams.microsoft.com/l/channel/19%3Affd8343669c54eda995d94abdeae6086%40thread.tacv2/LogicPlus%20Beta%20Testing?groupId=6a35c0d7-ae22-4f8f-b79c-0440c152026e&amp;tenantId=89fda39f-c73b-41dc-bac7-a96915ff09fc" target="_blank" rel="noopener" class="h-teams">Beta Testing Channel</a>
+      <a href="mailto:support@lware.com" class="h-support">Contact Support</a>
     </div>
   </header>
 
