@@ -1,14 +1,15 @@
 ---
 page-id: schedule-quality
 route: /module/3/project/:projectId
-title: DCMA 14-Point Check
+title: Schedule Quality
 audience: external
 status: complete
-version: 1.3.1
-last-reviewed: 2026-09-08
+version: 1.4.0
+last-reviewed: 2026-09-23
+blocked-reason: Renamed page title/H1 from "DCMA 14-Point Check" to "Schedule Quality" 2026-09-23, matching the module tile and sidebar parent link naming everywhere else on the site – the page has covered four quality profiles (DCMA plus two CIOB PP21 variants plus Best Practice) since at least 2026-09-08's review, and the old title no longer reflected that scope. Also fixed the CIOB PP21 Standard threshold wording, which contradicted the page's own later explanation of which checks it omits.
 ---
 
-## DCMA 14-Point Check
+## Schedule Quality
 
 Before any forecast or delay analysis from a schedule can be trusted, the schedule itself needs to be well-built enough to produce reliable results. Schedule Quality runs an automated health check against every schedule you have uploaded for a project and tells you, in plain pass/fail terms, whether each one meets an industry-standard quality threshold.
 
@@ -23,7 +24,7 @@ Select a profile from the dropdown to apply a different standard to the check. T
 | Profile (dropdown label) | Standard | Pass threshold |
 |---------|----------|----------------|
 | DCMA 14-Point Assessment | DCMA-PAM-200-1 section 4 | All 14 checks must pass |
-| CIOB PP21 – Standard Projects | CIOB Planning Protocol 2021 | 12 of 15 checks must pass |
+| CIOB PP21 – Standard Projects | CIOB Planning Protocol 2021 | 12 checks run (3 of the 15 are omitted for this profile), all 12 must pass |
 | CIOB PP21 – Major Projects | CIOB Planning Protocol 2021 | All 15 checks must pass |
 | Additional Industry Best Practise Checks | Supplementary checks | Both checks must pass |
 

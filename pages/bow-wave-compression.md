@@ -32,7 +32,7 @@ A **Criticality filter** (All / Critical) sits alongside the granularity selecto
 
 **Reading the shape:** a line that climbs steadily suggests work is spread evenly across the timeline. A line that stays flat early and rises steeply late is the bow wave – work has been deferred rather than resourced to run earlier. Logic+ shows you this shape; deciding whether a given steepness is a real problem is a planning judgement, not something the chart scores for you.
 
-**Project Progress note:** this curve is built from each activity's *planned* dates, not from what has actually been completed – it shows the planned delivery shape, not progress against it. For a completed-vs-planned comparison, use the S-curve on the [Float Burn-down and Earned Schedule](float-burndown-earned-schedule.md) module instead.
+**Project Progress note:** this curve is built from each activity's *planned* dates, not from what has actually been completed – it shows the planned delivery shape, not progress against it. For a completed-vs-planned comparison, use the S-curve on the [Float Burn-down & Earned Schedule](pages/float-burndown-earned-schedule.md) module instead.
 
 ---
 

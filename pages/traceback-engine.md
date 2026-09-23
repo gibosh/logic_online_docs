@@ -3,10 +3,10 @@ page-id: traceback-engine
 route: /delay-analysis
 title: How Traceback and Delay Attribution Work
 audience: external
-status: complete
-version: 1.2.0
-last-reviewed: 2026-09-18
-blocked-reason: New "Driving Task" section (added 2026-09-17) documents a real behaviour change (now traces through completed activities using imported dates) plus its use in the new Driving Task column/Driving path tab — documented from source, not yet screenshot-verified live. The "From chain to delay" flag table was fully rewritten 2026-09-18 (LUSB-1171, "Delay Attribution 2.0" categories now shipped) — Lag Change, Start Change, No Link and New are gone, replaced by a Constraint flag plus renamed/expanded Relationship, Progress, Implied Logic and New fragnet flags. Verified directly against `frontend/src/analytics/delay/delay.types.ts` and tooltip strings in `delayAnalysis.utils.ts`, not yet screenshot-verified live. Also corrected the Stage One confidence flag name from "Start Change" to "Low Confidence" (`activityColumns.tsx` column id `lowConfidence`) – "Start Change" no longer exists anywhere in the codebase; it's unrelated to the delay-attribution flag rename above, just a coincidentally-timed second correction. See workspace/GAPS.md for the open question on `pages/delay-attribution-2.md`'s status.
+status: draft
+version: 1.3.0
+last-reviewed: 2026-09-23
+blocked-reason: "Driving Task" section updated 2026-09-23 – it's no longer a selectable Algorithm Profile (removed from Traceback Setup's dropdown), only the calculation behind the Driving Task column/Driving path tab now. The "From chain to delay" flag table was fully rewritten 2026-09-18 (LUSB-1171, "Delay Attribution 2.0" categories now shipped) — Lag Change, Start Change, No Link and New are gone, replaced by a Constraint flag plus renamed/expanded Relationship, Progress, Implied Logic and New fragnet flags. Verified directly against `frontend/src/analytics/delay/delay.types.ts` and tooltip strings in `delayAnalysis.utils.ts`, not yet screenshot-verified live. Also corrected the Stage One confidence flag name from "Start Change" to "Low Confidence" (`activityColumns.tsx` column id `lowConfidence`) – "Start Change" no longer exists anywhere in the codebase; it's unrelated to the delay-attribution flag rename above, just a coincidentally-timed second correction. Added cross-reference notes 2026-09-23 reconciling this page's longer criterion names against Traceback Setup's shorter on-screen labels (Closest Link/Implied Link, Max Work/Max Float/Complexity) — same signals, different names, previously undocumented as the same thing. See workspace/GAPS.md for the open question on `pages/delay-attribution-2.md`'s status.
 ---
 
 ## About this page
@@ -25,13 +25,13 @@ Starting from the activity you select, Logic+ looks at every other activity that
 
 Nothing here is a guess. At every step Logic+ scores a shortlist of real candidates against a fixed set of criteria, and can show you exactly how each one scored – see [Activity Candidates](pages/gantt-delay-analysis.md#activity-candidates) for where to view that.
 
-Everything on this page describes the **Replica v2.1** and **Calibrated v1** algorithm profiles. There's also a **Driving Task** profile, covered separately below, that skips this scoring model entirely.
+Everything on this page describes the **Replica v2.1** and **Calibrated v1** algorithm profiles – the only two selectable in Traceback Setup's Algorithm Profile dropdown today. A separate **Driving Task** calculation, covered below, also exists in Logic+ but isn't reachable from that dropdown any more.
 
 ## Driving Task
 
-Driving Task is a different kind of algorithm profile to Replica v2.1 and Calibrated v1. Instead of scoring candidates against weighted criteria, it looks only at the schedule's own logic links and dates and follows whichever predecessor is actually driving the target activity's date – the same calculation Logic+ uses to work out critical path. There's nothing to tune: no weights, no exclusion criteria.
+Driving Task is not a traceback algorithm profile you can select – it used to be, but that option was removed from Traceback Setup's dropdown. It survives as its own calculation, used in two places, independent of any traceback run: the **Driving Task** column in [Activity relationships](pages/schedule-analysis.md#activity-relationships) (a flag on each predecessor row) and the **Driving path** tab (a standalone chart of the chain) – both available throughout the Schedule Viewer and Delay Analysis, whether or not a traceback has been run.
 
-This same driving-logic calculation also powers two other places in Logic+, independent of any traceback run: the **Driving Task** column in [Activity relationships](pages/schedule-analysis.md#activity-relationships) (a flag on each predecessor row) and the **Driving path** tab (a standalone chart of the chain) – both available throughout the Schedule Viewer and Delay Analysis, whether or not a traceback has been run. A red flag means an activity is directly driving the one you're looking at; an amber flag means it drives indirectly, further back along the chain.
+The calculation itself is unchanged: instead of scoring candidates against weighted criteria, it looks only at the schedule's own logic links and dates and follows whichever predecessor is actually driving the target activity's date – the same calculation Logic+ uses to work out critical path. There's nothing to tune: no weights, no exclusion criteria. A red flag means an activity is directly driving the one you're looking at; an amber flag means it drives indirectly, further back along the chain.
 
 Driving Task traces through completed activities as well as remaining work – it doesn't stop once it reaches an activity that's already finished – and uses each activity's imported dates (as they came from the schedule file) rather than dates Logic+ has recalculated.
 
@@ -58,6 +58,8 @@ A candidate has to earn its place on strong evidence before the finer-grained, c
 
 ## Stage one – the two priority signals
 
+*Shown in [Traceback Setup](pages/traceback-setup.md#step-3--adjust-settings-optional)'s Candidate Score Weights as "Closest Link" and "Implied Link" – same two signals, shorter on-screen names.*
+
 **Direct Evidence – Defined Link.** Does a formal logical relationship exist between the candidate and the current activity – a Finish-Start, Start-Start, Finish-Finish, or Start-Finish link, as entered in the schedule? This is the strongest evidence available: if the schedule says one activity must finish before another starts, and the dates support that, the dependency was deliberately planned. Not every link type carries equal weight, though – Finish-Start is treated as by far the strongest evidence, because it's how most real construction sequences naturally work.
 
 **Indirect Evidence – Date Proximity.** Even without a formal link, do the candidate's dates line up closely with the current activity's, in a way consistent with a driving relationship? Schedules are rarely fully linked in practice, so date proximity is the next-best evidence – an activity finishing right when the current one started is a strong hint of cause and effect, even with no formal link recording it. Logic+ measures this closeness in working days, not plain calendar days, so a completely ordinary Friday-finish-to-Monday-start transition isn't mistaken for lost time.
@@ -73,6 +75,8 @@ When neither Direct nor Indirect Evidence gives strong support for the candidate
 ## Stage two – full scoring
 
 Once the shortlist is built, every candidate on it is also scored on the criteria below, added to their Stage One score. The candidate with the highest total is selected as the driver, added to the chain, and becomes the new starting point for the next backward step.
+
+*The first three rows below appear in Traceback Setup's Candidate Score Weights under shorter names: "Max Work", "Max Float", and "Complexity."*
 
 | Criterion | What it measures | Why it matters |
 |---|---|---|

@@ -4,9 +4,9 @@ route: /traceback/log/:tracebackId
 title: Traceback Log
 audience: external
 status: draft
-version: 1.1.0
-last-reviewed: 2026-09-04
-blocked-reason: Verified against current component and handler source, but not yet checked against a live traceback run's actual output – confirm on-screen wording before promoting to complete.
+version: 1.2.0
+last-reviewed: 2026-09-23
+blocked-reason: Verified against current component and handler source, but not yet checked against a live traceback run's actual output – confirm on-screen wording before promoting to complete. New "Filter audit step" dropdown and "Error loading traceback log" state (both from the 2026-09-21 traceback-document versioning change, LUSB-1269) added from source. Separately worth flagging to engineering (not a docs issue): opening an old saved traceback from the Gantt page's own "Load Traceback" dropdown (as opposed to this Log page) currently fails silently with no on-screen message at all — see workspace/GAPS.md.
 ---
 
 ## Why this page exists
@@ -31,10 +31,12 @@ From **Delay Analysis mode** inside the Schedule Viewer (Gantt Viewer), once a t
 
 **Project-wide Filtered Tasks** – every task excluded from consideration across the whole run, with the reason it was filtered.
 
-**Filtered Tasks** – the same, but broken down per target/step, so you can see what was filtered out at each specific point in the path.
+**Filtered Tasks** – the same, but broken down per target/step, so you can see what was filtered out at each specific point in the path. If the traceback was restarted at any point, a **"Filter audit step"** dropdown appears above this section, letting you pick which restart step's filtered-tasks list to view.
 
 **View Raw JSON** – the complete underlying data for the run, expandable at the bottom of the page.
 
 ## Note
 
 This page opens in its own browser tab, separate from the main app – close the tab or switch back to return to your traceback.
+
+**If you see "Error loading traceback log"** instead of the page above, the saved traceback you're opening predates a 2026-09-21 change to how traceback results are stored – older saved results are no longer readable. Re-run the traceback to get a fresh, loadable result.

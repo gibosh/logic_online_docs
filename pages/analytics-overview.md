@@ -4,8 +4,9 @@ route: /module/:moduleId/project/:projectId
 title: Analytics
 audience: external
 status: draft
-version: 1.3.0
-last-reviewed: 2026-09-04
+version: 1.3.1
+last-reviewed: 2026-09-23
+blocked-reason: Fixed internal hyphenation drift 2026-09-23 – "Bow Wave Compression" and "Float Burn-down and Earned Schedule" corrected to match the canonical hyphenated names used everywhere else on the site.
 ---
 
 ## About Analytics
@@ -103,11 +104,11 @@ Shows which activity was driving the project finish date in each reporting perio
 
 [About Critical Path Evolution](pages/critical-path-evolution.md)
 
-### Bow Wave Compression
+### Bow-Wave Compression
 
 Shows planned work volume distributed across the project timeline and how that distribution has changed between schedule updates, via a Schedule Summary view and a Schedule Forensics view with a Criticality filter.
 
-[Open Bow Wave Compression](pages/bow-wave-compression.md)
+[Open Bow-Wave Compression](pages/bow-wave-compression.md)
 
 ### Causes of Change
 
@@ -131,8 +132,8 @@ Runs a Monte Carlo schedule-risk simulation against your uploaded schedule and a
 
 [About Schedule Risk Analysis (SRA)](pages/schedule-risk.md)
 
-### Float Burn-down and Earned Schedule
+### Float Burn-down & Earned Schedule
 
 Shows two independent estimates of the real finish date – one based on how fast schedule buffer (float) is being consumed, one based on how much work has been completed against plan. Shown deliberately as an optimistic and a pessimistic bound. When the two methods disagree, that gap is the finding.
 
-[About Float Burn-down and Earned Schedule](pages/float-burndown-earned-schedule.md)
+[About Float Burn-down & Earned Schedule](pages/float-burndown-earned-schedule.md)

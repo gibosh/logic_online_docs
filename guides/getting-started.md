@@ -10,7 +10,7 @@ blocked-reason: Rewritten from code (left-hand nav structure, status labels, hel
 
 ## What is Logic+ Online?
 
-Logic+ Online is a web-based schedule analysis tool. You upload construction project schedules exported from Primavera P6 and Logic+ runs a suite of analytics to help you understand schedule health, delay risk, and critical path behaviour.
+Logic+ Online is a web-based schedule analysis tool. You upload construction project schedule files (see [Supported file formats](#supported-file-formats) below) and Logic+ runs a suite of analytics to help you understand schedule health, delay risk, and critical path behaviour.
 
 ## The workflow
 

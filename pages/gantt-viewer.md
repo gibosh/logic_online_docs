@@ -79,7 +79,7 @@ Default visible columns: ID, Activity Name, Start, Finish, Baseline Start, Basel
 
 The **Predecessors** and **Successors** columns list every linked activity's ID, relationship type, and lag, comma-separated – e.g. `A100: SS (0 days), A200: FS (-0.5 days)`.
 
-The activity tray (see [Activity Detail](#activity-detail), [Schedule History](#schedule-history)) has its own, separate column picker per tab.
+The activity tray (see [Activity Detail](#activity-detail), [Changes over time](#changes-over-time)) has its own, separate column picker per tab.
 
 ---
 
@@ -129,7 +129,7 @@ Both buttons do the same thing; only the label and icon differ between the two t
 
 ---
 
-## Schedule History
+## Changes over time
 
 The **Changes over time** tab in the activity tray shows the selected activity's key values across every schedule upload for the project – by default Start, Finish, Total Float, and Duration – in a single table, one row per schedule version. Use its column picker to add other fields. Use it to see at a glance whether an activity has been delayed, accelerated, or had its float eroded between updates without opening multiple files.
 

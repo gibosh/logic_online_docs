@@ -4,8 +4,9 @@ route: /delay-analysis
 title: Delay Analysis
 audience: external
 status: complete
-version: 1.2.0
-last-reviewed: 2026-09-15
+version: 1.2.1
+last-reviewed: 2026-09-23
+blocked-reason: "Delay Attribute" flag list was still describing the pre-LUSB-1171 flag names (relationship/duration/start-date/lag/no-link/calendar/new) — corrected 2026-09-23 to match the shipped 7-flag set documented in traceback-engine.md.
 ---
 
 ## About Delay Analysis
@@ -77,7 +78,7 @@ The **Candidate Scoring** tab shows a simplified view of the ranked candidates f
 
 ## Delay Attribute
 
-A per-activity breakdown, shown in a dedicated panel next to the Gantt chart's activity list (separate from the tray below), of how much delay each activity on the traceback path contributed – separating delay that was inherited from earlier in the chain from delay the activity itself introduced, with a flag explaining the reason behind each charge (a relationship change, a duration change, a start-date shift, a lag change, a missing formal link, a calendar difference, or newly added scope).
+A per-activity breakdown, shown in a dedicated panel next to the Gantt chart's activity list (separate from the tray below), of how much delay each activity on the traceback path contributed – separating delay that was inherited from earlier in the chain from delay the activity itself introduced, with a flag explaining the reason behind each charge (a duration edit, a relationship change, a constraint change, a calendar difference, an implied/unproven driving link, unexplained real-world progress, or newly added scope).
 
 [Full detail – Delay Attribution panel](pages/gantt-delay-analysis.md#delay-attribution-panel) · [How the charge is calculated](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity)
 

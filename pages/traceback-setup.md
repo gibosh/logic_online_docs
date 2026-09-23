@@ -3,10 +3,10 @@ page-id: traceback-setup
 route: /delay-analysis/schedule-viewer
 title: Gantt Viewer – Traceback Setup
 audience: external
-status: complete
-version: 1.1.1
-last-reviewed: 2026-09-18
-blocked-reason: Algorithm Profile table is expected to change soon (Replica v2.1 → "Weighted Scoring", Calibrated v1 removed as a profile) — see workspace/GAPS.md "Upcoming release changes to watch for." Not yet updated ahead of that release; reconfirmed 2026-09-18 that this rename still hasn't shipped. New Calibrated v1 calibration status/retry UX and the Driving Task profile's behaviour change (now traces through completed activities) documented from source, not yet screenshot-verified live. Step 1's search box updated for the LUSB-1231 redesign (now the shared toolbar search box, not a mode-specific one).
+status: draft
+version: 1.2.0
+last-reviewed: 2026-09-23
+blocked-reason: Algorithm Profile table is expected to change soon (Replica v2.1 → "Weighted Scoring") — see workspace/GAPS.md "Upcoming release changes to watch for." Not yet updated ahead of that release; reconfirmed 2026-09-23 that this rename still hasn't shipped. "Driving Task" removed as a selectable profile 2026-09-23 (confirmed via `frontend/src/page/GanttViewerPage/GanttModeSelector/profiles.ts` — only Replica v2.1 and Calibrated v1 remain, and the runner now rejects the driving-task-v1 profile server-side) — the underlying calculation still exists and now only powers the Driving Task column/Driving path tab, documented at traceback-engine.md#driving-task. New Calibrated v1 calibration status/retry UX documented from source, not yet screenshot-verified live. Step 1's search box updated for the LUSB-1231 redesign (now the shared toolbar search box, not a mode-specific one).
 ---
 
 ## About this mode
@@ -35,13 +35,12 @@ The **Algorithm Profile** dropdown lets you choose how the traceback scores and 
 |---------|-------------|
 | Replica v2.1 | The validated, corrected rule set – see [How Traceback and Delay Attribution Work](pages/traceback-engine.md). **Default.** |
 | Calibrated v1 | The Replica v2.1 rule set, with scoring weights statistically recalibrated against real project data, plus an extra construction-sequence scoring factor (see note below). |
-| Driving Task | A different kind of profile – see note below. |
 
 Start with **Replica v2.1** (the default) unless you have a specific reason to use another profile.
 
 **Calibrated v1 needs to be "trained" on your project before you can use it.** Logic+ automatically calibrates it in the background once your project has at least two schedule updates with confirmed data dates – you don't need to start this yourself. Open the **Algorithm Profile** dropdown to see a status line under Calibrated v1 telling you where things stand, for example *"Calibration in progress…"*, *"Calibration ready"*, or a message explaining what's missing (like needing a second schedule update). While training is running you'll see a spinning icon, and the **Start Traceback** button stays disabled for Calibrated v1 until the status says ready. If calibration fails or falls out of date (for example, after you upload a newer schedule), a small refresh icon appears next to the status message – click it to calibrate again.
 
-**Driving Task** works differently to the other two profiles. Instead of scoring candidates against the 15 weighted criteria described in [How Traceback and Delay Attribution Work](pages/traceback-engine.md), it looks only at the schedule's own logic links and dates and picks whichever predecessor is actually driving the target activity's date – the same underlying logic Logic+ uses to work out critical path, and the same calculation behind the Driving Task column in [Activity relationships](pages/schedule-analysis.md#activity-relationships) and the [Driving path](pages/schedule-analysis.md#driving-path) tab. There is nothing to tune: the Candidate Score Weights settings below have no effect when this profile is selected. It's most useful as a ground-truth comparison against what the other two profiles pick. It traces through completed activities as well as remaining work, using each activity's imported (not recalculated) dates.
+**There is no longer a "Driving Task" option in this dropdown.** It was removed as a selectable Algorithm Profile on 2026-09-21 or shortly before. The same underlying driving-logic calculation is still very much alive elsewhere – it now powers only the **Driving Task** column in [Activity relationships](pages/schedule-analysis.md#activity-relationships) and the **[Driving path](pages/schedule-analysis.md#driving-path)** tab, both reachable throughout the Schedule Viewer without running a traceback at all. See [Driving Task](pages/traceback-engine.md#driving-task) for what that calculation does.
 
 ### Step 3 – Adjust settings (optional)
 

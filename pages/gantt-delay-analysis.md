@@ -3,7 +3,7 @@ page-id: gantt-delay-analysis
 route: /delay-analysis/schedule-viewer
 title: Gantt Viewer – Delay Analysis
 audience: external
-status: complete
+status: draft
 version: 1.3.0
 last-reviewed: 2026-09-18
 blocked-reason: New "Driving path" tab (added 2026-09-17) documented from source, not yet screenshot-verified live. Note the activity list in this tray is intentionally flat (no WBS-depth colour/indent styling) as of the 2026-09-17/18 redesign, unlike Schedule Viewer mode's activity list. Calendar toggle now has three modes (was two) and the flag set changed under LUSB-1171 — see traceback-engine.md's blocked-reason for the full flag rename; verified against `GanttDelayAnalysisPanel.tsx`/`GanttDelayAnalysisHeader.tsx`, not yet screenshot-verified live.

@@ -3,14 +3,14 @@ page-id: delay-attribution-2
 title: Delay Attribution 2.0
 audience: external
 status: draft
-version: 0.6.0
-last-reviewed: 2026-09-18
-blocked-reason: PARTIALLY SHIPPED as of 2026-09-18 (LUSB-1171) – confirm before treating any of this page as fully current. The eight category names below now match the live Delay Attribution panel's flags exactly (Duration, Relationship, Constraint, Progress, Implied Logic, "New fragnet", Calendar all confirmed shipped; Resource Levelling explicitly deferred, matching this page's own description of it as correlation-based and lowest-priority). The live flag table now lives in traceback-engine.md. What is NOT yet independently verified: whether each individual numbered scenario below (S01 onward) produces exactly the worked treatment/diagram shown here against the current engine – only the category-level taxonomy has been checked against source, not scenario-by-scenario behaviour. Treat the categories as current; treat the specific scenario walkthroughs as unverified until checked individually. See workspace/GAPS.md.
+version: 0.6.1
+last-reviewed: 2026-09-23
+blocked-reason: PARTIALLY SHIPPED as of 2026-09-18 (LUSB-1171) – confirm before treating any of this page as fully current. The eight category names below now correspond to the live Delay Attribution panel's flags, shown on screen under shorter labels (Duration, Relationship, Constraint, Progress, Implied Logic, "New fragnet", Calendar all confirmed shipped; Resource Levelling explicitly deferred, matching this page's own description of it as correlation-based and lowest-priority) – see the "Shown on screen as" column added 2026-09-23. The live flag table now lives in traceback-engine.md. What is NOT yet independently verified: whether each individual numbered scenario below (S01 onward) produces exactly the worked treatment/diagram shown here against the current engine – only the category-level taxonomy has been checked against source, not scenario-by-scenario behaviour. Treat the categories as current; treat the specific scenario walkthroughs as unverified until checked individually. See workspace/GAPS.md.
 ---
 
 ## Delay Attribution 2.0 – Overview
 
-**Update, 2026-09-18: the category taxonomy below has shipped.** The eight categories in the table just below are now the real flags shown in Logic+'s Delay Attribution panel (see [How Traceback and Delay Attribution Work](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity)), except Resource Levelling, which remains unimplemented – delay it would explain currently falls to whichever other flag best fits the date movement. The individual numbered scenarios further down this page (S01 onward) have not yet been individually re-checked against the shipped engine – read this page's category descriptions as current, and its scenario-by-scenario detail as still provisional.
+**Update, 2026-09-18: the category taxonomy below has shipped.** The eight categories in the table just below correspond to the real flags shown in Logic+'s Delay Attribution panel (see [How Traceback and Delay Attribution Work](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity)) – shown on screen under shorter labels, e.g. "Duration Change" here is just "Duration" in the app – except Resource Levelling, which remains unimplemented – delay it would explain currently falls to whichever other flag best fits the date movement. The individual numbered scenarios further down this page (S01 onward) have not yet been individually re-checked against the shipped engine – read this page's category descriptions as current, and its scenario-by-scenario detail as still provisional.
 
 Right now, when Logic+ tells you a chain of activities caused a delay, it's harder than it should be to see exactly *why* — which rule fired, which activity actually carries the charge, and whether the number would survive being challenged in a real delay claim.
 
@@ -26,16 +26,16 @@ It works scenario by scenario. Instead of one general rule trying to cover every
 
 Every day of movement at Practical Completion gets charged to exactly one of eight categories (or, for a handful of genuinely tied cases, to more than one at once — see [Concurrent drivers](#s13-concurrent-drivers) below).
 
-| Category | What it means |
-|---|---|
-| **Duration Change** | The planned duration of an activity — original or remaining — was edited in the schedule. |
-| **Relationship Change** | A logic link was added, deleted, or had its lag or type changed. |
-| **Constraint Change** | A date constraint was added, removed, or moved. |
-| **Progress Change** | Actual dates moved the activity and nothing else explains it — a late start against logic that was otherwise satisfied, or work that simply ran slower than planned. This is the catch-all for real-world performance, used only when nothing else accounts for the movement. |
-| **Implied Logic** | Logic+ spots an activity tracking another one's dates with no formal link behind it. Flagged as a candidate explanation — never reported as a proven cause. |
-| **Fragnet / New Activity** | New scope was added to the schedule, whether a single activity or a whole chain. Charged by the actual effect on the finish date, never by how long the new work itself is. |
-| **Resource Levelling** | Delay produced by the resource-levelling engine. Only ever attributed once every other category has been ruled out *and* a genuine resource conflict backs it up. |
-| **Calendar Change** | An activity's calendar was swapped, or the calendar itself was edited (holidays, working days). Moves dates without touching duration, logic, constraints, or progress. |
+| Category (spec name) | Shown on screen as | What it means |
+|---|---|---|
+| **Duration Change** | Duration | The planned duration of an activity — original or remaining — was edited in the schedule. |
+| **Relationship Change** | Relationship | A logic link was added, deleted, or had its lag or type changed. |
+| **Constraint Change** | Constraint | A date constraint was added, removed, or moved. |
+| **Progress Change** | Progress | Actual dates moved the activity and nothing else explains it — a late start against logic that was otherwise satisfied, or work that simply ran slower than planned. This is the catch-all for real-world performance, used only when nothing else accounts for the movement. |
+| **Implied Logic** | Implied Logic | Logic+ spots an activity tracking another one's dates with no formal link behind it. Flagged as a candidate explanation — never reported as a proven cause. |
+| **Fragnet / New Activity** | New fragnet | New scope was added to the schedule, whether a single activity or a whole chain. Charged by the actual effect on the finish date, never by how long the new work itself is. |
+| **Resource Levelling** | *(not shown – not yet implemented)* | Delay produced by the resource-levelling engine. Only ever attributed once every other category has been ruled out *and* a genuine resource conflict backs it up. |
+| **Calendar Change** | Calendar | An activity's calendar was swapped, or the calendar itself was edited (holidays, working days). Moves dates without touching duration, logic, constraints, or progress. |
 
 ---
 
@@ -372,7 +372,7 @@ Fragnets, new activities, implied links, and resource levelling — the cases wh
 
 ## The complete catalogue: 58 situations, five families
 
-The 20 scenarios above are the foundation — every later scenario in the full catalogue is one of these seven core ideas, made more specific. The complete specification covers **58 discrete situations** in total, grouped into five families. Twenty-one are already covered above; the rest are set out here for reference, each with the same diagram-plus-explanation treatment, organised by family so you can go as deep as you need to.
+The 20 scenarios above are the foundation — every later scenario in the full catalogue is one of these seven core ideas, made more specific. The complete specification covers **58 discrete situations** in total, grouped into five families. Twenty are already covered above; the rest are set out here for reference, each with the same diagram-plus-explanation treatment, organised by family so you can go as deep as you need to.
 
 Each section below is collapsed by default — expand the ones you need.
 

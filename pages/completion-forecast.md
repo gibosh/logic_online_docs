@@ -4,9 +4,9 @@ route: /module/7/project/:projectId
 title: Completion Forecast
 audience: external
 status: draft
-version: 2.0.0
-last-reviewed: 2026-09-17
-blocked-reason: Full rewrite following a ground-up engine change (LUSB-1249, 2026-09-16) – this page now shares its calculation engine with Forecast Confidence rather than running its own. The previously-documented "What's driving the programme" section (driving-path activities grouped by category) could not be found anywhere in the current source and appears to have been removed in this rewrite – flagged in workspace/GAPS.md for PM confirmation before this note is cleared. Content verified against source, not yet screenshot-verified live.
+version: 2.0.1
+last-reviewed: 2026-09-23
+blocked-reason: Full rewrite following a ground-up engine change (LUSB-1249, 2026-09-16) – this page now shares its calculation engine with Forecast Confidence rather than running its own. The previously-documented "What's driving the programme" section (driving-path activities grouped by category) could not be found anywhere in the current source and appears to have been removed in this rewrite – flagged in workspace/GAPS.md for PM confirmation before this note is cleared. Content verified against source, not yet screenshot-verified live. Fixed five internal cross-links to Forecast Confidence that were missing the `pages/` prefix every other link on the site uses.
 ---
 
 ## Completion Forecast
@@ -17,7 +17,7 @@ Completion Forecast puts both figures side by side. You see what has been report
 
 The forecast is produced from the schedule's update history using a rules-adjusted projection, not a Monte Carlo simulation. The same inputs always produce the same output – there is no random element. This makes the result defensible in a meeting: it is a reasoned, documented projection, not a black-box estimate.
 
-**Completion Forecast now shares its calculation engine with [Forecast Confidence](forecast-confidence.md)** – both pages read the same slip-pace, finish-window, and confidence-percentage calculation, described in full on that page. This page focuses on how the projection builds up in three steps, plus an independent legacy comparison and a float/earned-schedule cross-check.
+**Completion Forecast now shares its calculation engine with [Forecast Confidence](pages/forecast-confidence.md)** – both pages read the same slip-pace, finish-window, and confidence-percentage calculation, described in full on that page. This page focuses on how the projection builds up in three steps, plus an independent legacy comparison and a float/earned-schedule cross-check.
 
 ## Report details
 
@@ -31,7 +31,7 @@ Three explanatory steps walk through how the projection is built:
 | Step 2 | The width — Uncertainty, honestly sized | How the earliest–latest range's width is calculated |
 | Step 3 | The bounds — Early and late finish | How the width is applied evenly either side of the central date |
 
-A **data quality** disclosure ("*N* schedule update(s) excluded") lists any uploaded schedules left out of the analysis and why – the same coherence check described in [Forecast Confidence](forecast-confidence.md#calculation-and-other-logic).
+A **data quality** disclosure ("*N* schedule update(s) excluded") lists any uploaded schedules left out of the analysis and why – the same coherence check described in [Forecast Confidence](pages/forecast-confidence.md#calculation-and-other-logic).
 
 A collapsed **Legacy v1 comparison** shows an older calculation for reference, and a collapsed **Independent second opinions** section cross-checks the forecast against Float Burn-down & Earned Schedule.
 
@@ -39,13 +39,13 @@ A methodology note: *"Reasoned projection, not Monte Carlo. The model constants 
 
 ## Calculation and other logic
 
-**Data used:** every schedule update file uploaded for the project, tracked over time – the same engine as [Forecast Confidence](forecast-confidence.md), applied here with its own explanatory breakdown rather than a standalone confidence score.
+**Data used:** every schedule update file uploaded for the project, tracked over time – the same engine as [Forecast Confidence](pages/forecast-confidence.md), applied here with its own explanatory breakdown rather than a standalone confidence score.
 
-**Which files count:** identical to Forecast Confidence – updates scoring below 0.5 **Jaccard similarity** against the largest uploaded file are excluded as a different schedule's scope; same-dated duplicates keep whichever has more activities. See [Forecast Confidence's "Which files count"](forecast-confidence.md#calculation-and-other-logic) for the exact rule and disclosure wording.
+**Which files count:** identical to Forecast Confidence – updates scoring below 0.5 **Jaccard similarity** against the largest uploaded file are excluded as a different schedule's scope; same-dated duplicates keep whichever has more activities. See [Forecast Confidence's "Which files count"](pages/forecast-confidence.md#calculation-and-other-logic) for the exact rule and disclosure wording.
 
 ### Step 1 – The centre: pace × time remaining
 
-The central forecast date is the reported finish date shifted forward by **slip pace** – the same weighted, pairwise drift-rate calculation described in [Forecast Confidence](forecast-confidence.md#calculation-and-other-logic) – multiplied by months remaining, capped at 1.5× months remaining:
+The central forecast date is the reported finish date shifted forward by **slip pace** – the same weighted, pairwise drift-rate calculation described in [Forecast Confidence](pages/forecast-confidence.md#calculation-and-other-logic) – multiplied by months remaining, capped at 1.5× months remaining:
 
 > Central shift = slip pace × months remaining, capped at 1.5 × months remaining
 > Central finish = reported finish + central shift

@@ -3,8 +3,9 @@ page-id: glossary
 title: Glossary
 audience: external
 status: draft
-version: 1.2.0
-last-reviewed: 2026-09-04
+version: 1.3.0
+last-reviewed: 2026-09-23
+blocked-reason: Schedule/XER entries updated 2026-09-23 – were XER-only, now reflect the four accepted schedule formats (shipped 2026-09-17).
 ---
 
 ## Glossary
@@ -41,7 +42,7 @@ An activity type representing work that runs across a span of time rather than p
 A named container in Logic+ that groups one or more schedule files. A Logic+ project typically corresponds to a single construction project or programme.
 
 **Schedule**
-An uploaded `.xer` file containing a point-in-time snapshot of a project programme.
+An uploaded schedule file (`.xer`, `.mpp`, `.pp`, or `.xml`) containing a point-in-time snapshot of a project programme.
 
 **Traceback**
 An algorithm that identifies the chain of activities most responsible for project delay, by scoring candidate predecessor activities at each step back from the completion milestone and picking the strongest chain. Logic+ offers a choice of scoring profile (Replica v2.1 is the default) that weights the scoring criteria differently – see [Traceback Setup](pages/traceback-setup.md) and [How Traceback and Delay Attribution Work](pages/traceback-engine.md).
@@ -50,4 +51,4 @@ An algorithm that identifies the chain of activities most responsible for projec
 A hierarchical grouping of activities used to organise and summarise schedule data. WBS codes appear as summary rows in the Gantt viewer.
 
 **XER**
-The native export format of Primavera P6. Logic+ uses XER files as its primary input format.
+The native export format of Primavera P6, one of four schedule formats Logic+ accepts (alongside `.mpp`, `.pp`, and `.xml` – see [Schedule Manager](pages/schedule-manager.md)).
