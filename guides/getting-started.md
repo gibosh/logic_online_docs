@@ -1,50 +1,59 @@
-﻿---
+---
 page-id: getting-started
 title: Getting Started with Logic+ Online
 audience: external
 status: draft
-version: 1.6.0
-last-reviewed: 2026-09-18
-blocked-reason: Rewritten from code (left-hand nav structure, status labels, help-panel claim removed as unbuilt) but not yet walked through live — confirm before promoting to complete. Delay Analysis is now its own nav item with Traceback and Time-Impact Analysis as methods under it. All projects and Schedule Manager now open genuinely different screens (split shipped 2026-09-17) — see workspace/GAPS.md.
+version: 2.5.0
+last-reviewed: 2026-09-30
+blocked-reason: 2026-09-30 – Added "Choosing a workspace" after users created projects in their organisation's workspace by mistake. Verified against v1.2.17: TopMenu.tsx/TenantSelector.tsx (selector next to the logo, aria-label "Select workspace"), tenantSlice.ts ("My Workspace" is the personal tenant and listed first; reopens the last-used workspace per user per browser via localStorage, else an invited workspace, else the first; switching navigates to /projects). No per-project permissions today – `updated_project_permission` event type exists (backend/types/events.ts, since 2026-03) but nothing uses it, and project remove has no role check – PM confirmed permissions work is in progress; remove the note when it ships. Also corrected Logging in: self-service sign-up has been live since 2026-09-25 (pages/signing-up.md), so "no self-service sign-up" was wrong. "Prefer to watch?" video (added under Quick Start 2026-09-25) now embeds an unlisted YouTube video (https://youtu.be/Q-hTNdksTDs, channel @LWARELogicPlus) as of 2026-09-26 – tried SharePoint external-share hosting first (rejected: visible re-encoding quality loss), then self-hosted the file directly in this repo (rejected: ~53MB permanently bloating git history, plus slow load with no adaptive streaming), now YouTube (unlisted, so it's excluded from search but viewable/embeddable by anyone with the link – same privacy model as the site itself). The self-hosted file and its faststart fix are gone from this repo; kept below as a historical note in case another video ever gets self-hosted here and hits the same two bugs. Historical, for the self-hosted attempt: (1) the exported MP4 had its moov atom after the video data instead of before it, so browsers couldn't read duration/seek info – fixed with a lossless faststart remux (moov moved to front, stco/co64 chunk-offset tables patched by hand, no ffmpeg available). (2) A relative <source src="video/..."> inside a raw HTML <video> tag doesn't get path-rewritten by Docsify the way markdown images/links do – Docsify only rewrites its own markdown-syntax links, not literal embedded HTML – so the browser resolved it against the page's own location instead of the markdown file's folder, and 404'd. Also, this site is reverse-proxied under /docs/ on the production domain, so even a root-relative path would only work on one of the two hosting URLs. Fixed by hardcoding the full production URL (https://logicplus.smartcoro.com/docs/guides/video/...) – if this ever needs a relative path instead, remember raw HTML tags need it root-relative to wherever docsify's own index.html actually lives, not folder-relative like <img> is. Restructured 2026-09-25 as the single source of copy for beta-tester onboarding (this page + a PDF export of it, no separate fork) – added a "Logging in" section (previously missing entirely), refreshed and expanded the module overview against current app state, renamed "The workflow" to "Quick Start," and removed "Uploading multiple schedules"/"Supported file formats" as standalone sections – both were fully duplicated on pages/schedule-manager.md (Key Concepts, Uploading schedules) already, so they're now just a short parenthetical in Quick Start's upload step instead. The "Logging in" section is drafted from Auth0/infra source (__infra/tofu/prod/*.tf, LoginPage.tsx, GuardedRoute.tsx) – confirmed: login URL, no self-service sign-up, org-based access. NOT yet confirmed by the tech lead: the exact account-creation experience (does Auth0 send an automatic set-password email, or is that a manual step?) – deliberately kept out of this page rather than guessed, since getting that wrong would actively lock testers out. Also flag for engineering, not stated in this page: a user with no organisation membership sees no error at all after logging in (TenantSelector renders nothing) – covered here only by a blanket "contact support" line, per the PM's direction to keep this simple.
 ---
 
 ## What is Logic+ Online?
 
-Logic+ Online is a web-based schedule analysis tool. You upload construction project schedule files (see [Supported file formats](#supported-file-formats) below) and Logic+ runs a suite of analytics to help you understand schedule health, delay risk, and critical path behaviour.
+Logic+ Online is a web-based schedule analysis tool. You upload construction project schedule files and Logic+ runs a suite of analytics to help you understand schedule health, delay risk, and critical path behaviour.
 
-## The workflow
+## Logging in
 
-1. **Create a project** – in [All projects](pages/all-projects), add a project to group your schedule files (optionally organised into a group)
-2. **Upload a schedule** – select the project, open [Schedule Manager](pages/schedule-manager), and drag in a schedule file (up to 100 MB)
+Go to **https://logicplus.smartcoro.com/login** and click **Sign In**.
+
+New to Logic+? You can start a trial yourself – see [Signing Up](pages/signing-up.md). If your organisation has invited you, use the link in your invitation email. If you have trouble logging in, contact **support@lware.com**.
+
+## Choosing a workspace
+
+Your projects live in a **workspace**. The workspace selector at the top of the screen, next to the Logic+ logo, shows which one you're in:
+
+- **My Workspace** – your own personal space. Only you can see projects here.
+- **Your organisation's workspace** – shown under your organisation's name, if you're part of a Team or Enterprise licence. Projects here are shared with everyone in your organisation.
+
+Each project belongs to the workspace it was created in, and workspaces are kept completely separate – a project in My Workspace doesn't appear in your organisation's workspace, and vice versa. **Check the selector before you create a project.** Logic+ reopens the last workspace you used on that browser, and switching workspace takes you back to All Projects.
+
+> **Note:** Project-level permissions aren't available yet. Everyone in your organisation's workspace can currently see, change and delete every project in it. If you're trying things out, or a project is just for you, create it in **My Workspace**. Finer-grained project and schedule permissions are on the way.
+
+## Quick Start
+
+1. **Create a project** – check you're in the right **workspace** (see above), then in [All projects](pages/all-projects), add a project to group your schedule files (optionally organised into a group)
+2. **Upload a schedule** – select the project, open [Schedule Manager](pages/schedule-manager), and drag in a schedule file (`.xer`, `.mpp`, `.pp`, or `.xml`) – upload more than one to enable comparison between updates
 3. **Wait for processing** – the status shows "Processing…" while Logic+ works through the file, then "Ready for analysis" once it's ready
 4. **Explore the views** – once processed, use the left-hand navigation to move between modules
 
-## Uploading multiple schedules
+**Prefer to watch?** A short video walkthrough covers the same steps:
 
-Upload more than one schedule to the same project to enable comparison views. For example, upload a baseline schedule and a current schedule to see how the project has shifted over time.
+<iframe width="100%" style="max-width:640px;aspect-ratio:16/9" src="https://www.youtube.com/embed/Q-hTNdksTDs" title="Logic+ Online Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-## Supported file formats
+## The modules
 
-| Format | Source |
-|--------|--------|
-| `.xer` | Primavera P6 |
-| `.mpp` | Microsoft Project |
-| `.pp` | Asta Powerproject |
-| `.xml` | MSPDI |
+Logic+'s left-hand navigation gives access to:
 
-
-## Navigating the app
-
-The left-hand navigation gives access to:
-
-- **[Schedule Viewer](pages/gantt-viewer)** – Gantt chart, schedule comparison, and activity relationships
-- **[Delay Analysis](pages/delay-analysis)** – choose a delay-analysis method: **Traceback** (trace which activities are driving project delay) or **[Time-Impact Analysis](pages/time-impact-analysis)** (build a hypothetical delay event and test its impact on Practical Completion)
-- **[Analytics](pages/analytics-overview)** – schedule quality checks, bow wave compression, completion forecast, and more
-- **[Schedule Manager](pages/schedule-manager)** – upload and manage the current project's schedule files
-- **[All projects](pages/all-projects)** (below a divider) – create projects, organise them into groups, and choose which one you're working in
+- **[All Projects](pages/all-projects)** – create projects, organise them into groups, and choose which one you're currently working in. This is your starting point every time you come back.
+- **[Schedule Manager](pages/schedule-manager)** – upload schedule files for the selected project and track their processing status. Also where you exclude a schedule from analysis, or add custom fields to help identify specific uploads.
+- **[Schedule Viewer](pages/gantt-viewer)** – explore and compare schedules in the Gantt chart: activity relationships, driving logic, and how dates have shifted between updates.
+- **[Analytics](pages/analytics-overview)** – nine automated checks covering schedule quality (DCMA, CIOB, and other standards), forecasting (confidence, variance, completion date, float burn-down), and delay/risk insight (critical path evolution, bow wave compression, causes of change, Monte Carlo risk simulation).
+- **[Delay Analysis](pages/delay-analysis)** – choose a method to analyse delay: **Traceback** traces which activities are actually driving project delay and attributes it day by day; **[Time-Impact Analysis](pages/time-impact-analysis)** builds a hypothetical delay event and tests its impact on Practical Completion.
 
 Not all views will show meaningful data unless a project with processed schedules is selected.
 
 ## Getting help
 
-This documentation site is the current source of contextual help – there is no in-app help panel or "Learn about this page" link inside Logic+ itself yet. Use the navigation on the left, or the search box, to find the page for the view you're on.
+Open **Documentation** from the user menu (top right, next to Sign Out) to reach this site from inside Logic+, then use the navigation on the left or the search box to find what you need.
+
+For anything this doesn't answer, or to share feedback, contact **support@lware.com**.

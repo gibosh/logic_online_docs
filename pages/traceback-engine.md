@@ -1,21 +1,21 @@
 ---
 page-id: traceback-engine
 route: /delay-analysis
-title: How Traceback and Delay Attribution Work
+title: How the Traceback Method Works
 audience: external
 status: draft
-version: 1.3.0
-last-reviewed: 2026-09-23
-blocked-reason: "Driving Task" section updated 2026-09-23 – it's no longer a selectable Algorithm Profile (removed from Traceback Setup's dropdown), only the calculation behind the Driving Task column/Driving path tab now. The "From chain to delay" flag table was fully rewritten 2026-09-18 (LUSB-1171, "Delay Attribution 2.0" categories now shipped) — Lag Change, Start Change, No Link and New are gone, replaced by a Constraint flag plus renamed/expanded Relationship, Progress, Implied Logic and New fragnet flags. Verified directly against `frontend/src/analytics/delay/delay.types.ts` and tooltip strings in `delayAnalysis.utils.ts`, not yet screenshot-verified live. Also corrected the Stage One confidence flag name from "Start Change" to "Low Confidence" (`activityColumns.tsx` column id `lowConfidence`) – "Start Change" no longer exists anywhere in the codebase; it's unrelated to the delay-attribution flag rename above, just a coincidentally-timed second correction. Added cross-reference notes 2026-09-23 reconciling this page's longer criterion names against Traceback Setup's shorter on-screen labels (Closest Link/Implied Link, Max Work/Max Float/Complexity) — same signals, different names, previously undocumented as the same thing. See workspace/GAPS.md for the open question on `pages/delay-attribution-2.md`'s status.
+version: 1.7.0
+last-reviewed: 2026-10-13
+blocked-reason: 2026-10-13 – "Driving Task" section renamed "Driving Path" and rewritten: it is a selectable Algorithm Profile again (LUSB-1299, v1.2.18+), as well as powering the Driving Task column / Driving path tab. Anchor changed #driving-task → #driving-path; sidebar and inbound links updated. 2026-09-30 – Stage two table rewritten and reordered to match the app's own order (Traceback Settings modal and Activity Scoring tab), with on-screen names used directly instead of a separate name-mapping note; descriptions verified against `@lware/traceback/src/measure/` and `profiles/` and aligned word-for-word with traceback-setup.md. Corrected: Author (creator only, not last editor), Same File (nearby updates score partially), Max Float (candidate's own total float under Default/Calibrated, not a path total), Sequence Number (internal ID). Stage one Indirect Evidence now mentions the LUSB-1288 adjustments. Removed the Calibrated "16th factor" paragraph – `sequenceDictionary: false` in both profiles (commit 27babf324). Added a line on secondary scores being relative (rank-normalised). Max Work/Complexity worded neutrally pending engineering – see workspace/GAPS.md 2026-09-30. LUSB-1288 (merged 2026-09-25, "implied link experiment" despite the branch name – it's a real, live, unflagged change) rewrote the candidate-scoring logic behind the Implied Logic flag to weigh recency, task-completion status, and historical linkage patterns across prior schedule updates, on top of date proximity. Flag definition unchanged; candidate selection results can differ from before this date. Fixed two dangling anchors to gantt-delay-analysis.md's now-renamed "Activity Scoring" tab (was "Activity Candidates," merged with the former "Candidate Scoring" tab same day, LUSB-1234). Restructured 2026-09-24 as part of the Delay Analysis consolidation – retitled from "How Traceback and Delay Attribution Work" and reframed as documentation for the Traceback method specifically (Delay Analysis now supports multiple methods; this page has never covered Time-Impact Analysis and was previously mistitled as if it were the whole module). Added worked examples to the "From chain to delay" flag table, adapted from the shipped-category scenarios in pages/delay-attribution-2.md (S01–S19) – Calendar has no equivalent base scenario in that set, so its example here is written fresh rather than adapted, and isn't independently diagrammed yet. "Driving Task" section updated 2026-09-23 – it's no longer a selectable Algorithm Profile (removed from Traceback Setup's dropdown), only the calculation behind the Driving Task column/Driving path tab now. The flag table itself was fully rewritten 2026-09-18 (LUSB-1171, "Delay Attribution 2.0" categories now shipped) — Lag Change, Start Change, No Link and New are gone, replaced by a Constraint flag plus renamed/expanded Relationship, Progress, Implied Logic and New fragnet flags. Verified directly against `frontend/src/analytics/delay/delay.types.ts` and tooltip strings in `delayAnalysis.utils.ts`, not yet screenshot-verified live. Also corrected the Stage One confidence flag name from "Start Change" to "Low Confidence" (`activityColumns.tsx` column id `lowConfidence`) – "Start Change" no longer exists anywhere in the codebase; it's unrelated to the delay-attribution flag rename above, just a coincidentally-timed second correction. Added cross-reference notes 2026-09-23 reconciling this page's longer criterion names against Traceback Setup's shorter on-screen labels (Closest Link/Implied Link, Max Work/Max Float/Complexity) — same signals, different names, previously undocumented as the same thing.
 ---
 
 ## About this page
 
-This page explains *why* traceback picks the activities it does, and *how* a completed traceback path turns into a day-by-day delay figure for each activity. It's a companion to two other pages:
+Delay Analysis supports more than one method – this page is about **Traceback** specifically: *why* it picks the activities it does, and *how* a completed traceback path turns into a day-by-day delay figure for each activity. It's a companion to two other Traceback-method pages:
 
 - For the mechanics of running a traceback and adjusting its settings, see [Traceback Setup](pages/traceback-setup.md).
-- For the tray, the audit log, and restarting a traceback, see [Gantt Viewer – Delay Analysis](pages/gantt-delay-analysis.md).
-- For how this behaves differently depending on your chosen Algorithm Profile, see [Key Changes – Delay Analysis](pages/key-changes-delay-analysis.md).
+- For the tray, the audit log, and restarting a traceback, see [Traceback Results](pages/gantt-delay-analysis.md).
+- For Delay Analysis's other method, see [Time-Impact Analysis](pages/time-impact-analysis.md) – it doesn't use anything on this page.
 
 ## What traceback is actually doing
 
@@ -23,17 +23,17 @@ Traceback works backwards through your schedule, one step at a time, asking the 
 
 Starting from the activity you select, Logic+ looks at every other activity that could plausibly have caused it to move, scores each one, and picks the strongest candidate. That candidate becomes the new starting point, and the question repeats. Run all the way back towards the start of the project, this builds a **chain** – the sequence of activities that, step by step, drove your selected activity to where it now sits.
 
-Nothing here is a guess. At every step Logic+ scores a shortlist of real candidates against a fixed set of criteria, and can show you exactly how each one scored – see [Activity Candidates](pages/gantt-delay-analysis.md#activity-candidates) for where to view that.
+Nothing here is a guess. At every step Logic+ scores a shortlist of real candidates against a fixed set of criteria, and can show you exactly how each one scored – see [Activity Scoring](pages/gantt-delay-analysis.md#activity-scoring) for where to view that.
 
-Everything on this page describes the **Replica v2.1** and **Calibrated v1** algorithm profiles – the only two selectable in Traceback Setup's Algorithm Profile dropdown today. A separate **Driving Task** calculation, covered below, also exists in Logic+ but isn't reachable from that dropdown any more.
+Most of this page describes the **Default** and **Calibrated** algorithm profiles (renamed from "Replica v2.1"/"Calibrated v1" – same rule sets), which score candidates. The third profile, **Driving Path**, doesn't score at all – it's covered in the next section.
 
-## Driving Task
+## Driving Path
 
-Driving Task is not a traceback algorithm profile you can select – it used to be, but that option was removed from Traceback Setup's dropdown. It survives as its own calculation, used in two places, independent of any traceback run: the **Driving Task** column in [Activity relationships](pages/schedule-analysis.md#activity-relationships) (a flag on each predecessor row) and the **Driving path** tab (a standalone chart of the chain) – both available throughout the Schedule Viewer and Delay Analysis, whether or not a traceback has been run.
+**Driving Path** is a selectable algorithm profile in Traceback Setup. It's also the calculation behind two features that work without running a traceback at all: the **Driving Task** column in [Activity relationships](pages/schedule-analysis.md#activity-relationships) (a flag on each predecessor row) and the **Driving path** tab (a standalone chart of the chain) – both available throughout the Schedule Viewer and Delay Analysis.
 
-The calculation itself is unchanged: instead of scoring candidates against weighted criteria, it looks only at the schedule's own logic links and dates and follows whichever predecessor is actually driving the target activity's date – the same calculation Logic+ uses to work out critical path. There's nothing to tune: no weights, no exclusion criteria. A red flag means an activity is directly driving the one you're looking at; an amber flag means it drives indirectly, further back along the chain.
+Instead of scoring candidates against weighted criteria, it looks only at the schedule's own logic links and dates and follows whichever predecessor is actually driving the target activity's date – the same calculation Logic+ uses to work out critical path. There's nothing to tune: no weights, no exclusion criteria. In the Driving Task column, a red flag means an activity is directly driving the one you're looking at; an amber flag means it drives indirectly, further back along the chain.
 
-Driving Task traces through completed activities as well as remaining work – it doesn't stop once it reaches an activity that's already finished – and uses each activity's imported dates (as they came from the schedule file) rather than dates Logic+ has recalculated.
+Driving Path traces through completed activities as well as remaining work – it doesn't stop once it reaches an activity that's already finished – and uses each activity's imported dates (as they came from the schedule file) rather than dates Logic+ has recalculated.
 
 ## How the candidate field gets narrowed down
 
@@ -62,7 +62,7 @@ A candidate has to earn its place on strong evidence before the finer-grained, c
 
 **Direct Evidence – Defined Link.** Does a formal logical relationship exist between the candidate and the current activity – a Finish-Start, Start-Start, Finish-Finish, or Start-Finish link, as entered in the schedule? This is the strongest evidence available: if the schedule says one activity must finish before another starts, and the dates support that, the dependency was deliberately planned. Not every link type carries equal weight, though – Finish-Start is treated as by far the strongest evidence, because it's how most real construction sequences naturally work.
 
-**Indirect Evidence – Date Proximity.** Even without a formal link, do the candidate's dates line up closely with the current activity's, in a way consistent with a driving relationship? Schedules are rarely fully linked in practice, so date proximity is the next-best evidence – an activity finishing right when the current one started is a strong hint of cause and effect, even with no formal link recording it. Logic+ measures this closeness in working days, not plain calendar days, so a completely ordinary Friday-finish-to-Monday-start transition isn't mistaken for lost time.
+**Indirect Evidence – Date Proximity.** Even without a formal link, do the candidate's dates line up closely with the current activity's, in a way consistent with a driving relationship? Schedules are rarely fully linked in practice, so date proximity is the next-best evidence – an activity finishing right when the current one started is a strong hint of cause and effect, even with no formal link recording it. Logic+ measures this closeness in working days, not plain calendar days, so a completely ordinary Friday-finish-to-Monday-start transition isn't mistaken for lost time. The score is then adjusted for how recent the candidate's schedule update is, whether the candidate had actually finished by its data date, and whether the two activities were linked in earlier schedule updates.
 
 ### Why these two come first – and what happens when neither is strong
 
@@ -70,33 +70,33 @@ Direct Evidence is as close to proof as schedule data gets, and Indirect Evidenc
 
 When neither Direct nor Indirect Evidence gives strong support for the candidate Logic+ had to pick at a step, that step is flagged **Low Confidence** rather than reported the same way as a genuine scheduling defect. The chain still continues through that step – it just means the pick should be read as the best available answer given weak evidence, not a confirmed cause. This flag is about how much evidence backed the selection, not about how many working days separate the two activities' dates – a wide separation in time doesn't automatically produce a Low Confidence flag, and a Low Confidence flag doesn't necessarily mean the two activities' dates were far apart.
 
-*This confidence flagging is part of the Replica v2.1 and Calibrated v1 algorithm profiles – see [Key Changes – Delay Analysis](pages/key-changes-delay-analysis.md) for which profile you're using.*
+*This confidence flagging is part of the Default and Calibrated algorithm profiles – see [Traceback Setup](pages/traceback-setup.md#step-2--select-an-algorithm-profile-optional) for which profile you're using.*
 
 ## Stage two – full scoring
 
 Once the shortlist is built, every candidate on it is also scored on the criteria below, added to their Stage One score. The candidate with the highest total is selected as the driver, added to the chain, and becomes the new starting point for the next backward step.
 
-*The first three rows below appear in Traceback Setup's Candidate Score Weights under shorter names: "Max Work", "Max Float", and "Complexity."*
+Unlike the two priority signals, these scores are **relative**: on each criterion, the best-matching shortlisted candidate gets the full weight and the others get stepped-down shares in rank order.
+
+The criteria are listed in the same order, and under the same names, as Traceback Setup's Candidate Score Weights and the Activity Scoring tab.
 
 | Criterion | What it measures | Why it matters |
 |---|---|---|
-| Cumulative Work Content | Total effort built up along the candidate's dependency path | Major work packages are more likely to be critical to the outcome than minor, low-effort activities |
-| Cumulative Float | How little spare time has built up along the candidate's path | Activities on a tightly constrained path are more likely to be genuinely driving the schedule |
-| Network Complexity | How many activities deep the candidate's dependency chain runs | Candidates embedded in a well-linked, deliberately planned sequence are more trustworthy |
-| WBS Structure | How closely the candidate's position in the Work Breakdown Structure matches the current activity's | Activities in the same WBS branch share scope, management, and resourcing |
-| Activity Coding | Whether the candidate shares the same activity code values | Shared coding is a strong, planner-defined indicator that two activities belong to the same work |
-| Primary Resource | Whether the candidate and current activity share resources doing similar amounts of work | Work performed by the same crew is naturally sequenced together |
-| Finish Variance | How similarly the candidate's dates have already drifted from plan | Activities that have drifted in a similar way were often affected by the same underlying cause |
-| Activity Name | How many meaningful words the two activity names have in common | Confirms two activities relate to the same physical scope of work |
-| Created Date | How close together the two activities were originally created in the schedule | Activities created around the same time often belong to the same planning session |
-| Author | Whether the candidate and current activity were created or last edited by the same person | Work planned by the same person or team is more likely to be logically related |
-| Same File | Whether the candidate and current activity come from the same schedule update | Relevant when comparing across multiple schedule files |
+| Finish Variance | Whether the candidate has slipped from its baseline finish by almost exactly the same amount as the current activity | Activities that have drifted in the same way were often affected by the same underlying cause |
+| WBS Structure | How many levels of the Work Breakdown Structure the two activities share, from the top down | Activities in the same WBS branch share scope, management, and resourcing |
+| Activity Name | Words the two activity names share, with distinctive words (an area, asset or system reference) counting far more than common ones | Confirms two activities relate to the same physical scope of work |
+| Primary Resource | How much of the current activity's resource work is done by resources also assigned to the candidate | Work performed by the same crew is naturally sequenced together |
+| Created Date | How close together the two activities were first added to the schedule | Activities created around the same time often belong to the same planning session |
+| Sequence Number | How close together the two activities' internal ID numbers are | A weak fallback signal – off by default, but useful if your schedule's build order is meaningful |
+| Same File | Whether the two activities come from the same schedule update, or how far apart their updates are | Relevant when a traceback spans multiple schedule updates |
 | Project ID | Whether the candidate and current activity belong to the same project | Prevents false connections between unrelated projects loaded together |
-| Sequence Number | How close together the two activities' internal line numbers are | A weak fallback signal – off by default, but useful if your schedule's build order is meaningful |
+| Author | Whether the same person created both activities | Work planned by the same person or team is more likely to be logically related |
+| Max Work | The total work built up along the candidate's chain of linked predecessors, compared with the current activity's | Gives a sense of how much work sits behind each activity |
+| Max Float | The candidate's own total float – the least float scores highest | Activities with little or no float are more likely to be genuinely driving the schedule |
+| Complexity | How many activities deep the candidate's chain of linked predecessors runs, compared with the current activity's | Gives a sense of how embedded each activity is in the schedule's logic |
+| Activity Coding | How many of the current activity's activity code values the candidate shares | Shared coding is a strong, planner-defined indicator that two activities belong to the same work |
 
 That's 13 secondary criteria plus the 2 priority signals from Stage One – 15 in total. See [Candidate Score Weights](pages/traceback-setup.md#step-3--adjust-settings-optional) to view or adjust how much each of these counts.
-
-The **Calibrated v1** profile scores a 16th factor on top of these – a match against a construction-sequence dictionary (e.g. "excavate before pour"). It isn't user-adjustable, so it doesn't appear in Candidate Score Weights, but it does show up in the [Traceback Log](pages/traceback-log.md) for a Calibrated v1 run.
 
 ## How calendars affect the result
 
@@ -124,4 +124,26 @@ Each charge also comes with a plain-language flag explaining why it was charged:
 
 **Resource Levelling is not yet a flag Logic+ can charge** – delay genuinely caused by resource-levelling conflicts currently gets attributed to whichever other flag above best fits the date movement, since Logic+ doesn't yet model levelling as its own cause. This is a known gap, not a bug.
 
-The end result is a running, activity-by-activity delay total, each one tagged with the reasoning behind it – shown in the [Delay Attribute](pages/delay-analysis.md#delay-attribute) summary and the [Cumulative Delay](pages/gantt-delay-analysis.md#cumulative-delay) chart.
+The end result is a running, activity-by-activity delay total, each one tagged with the reasoning behind it – shown in the [Delay Attribution panel](pages/gantt-delay-analysis.md#delay-attribution-panel) and the [Cumulative Delay](pages/gantt-delay-analysis.md#cumulative-delay) chart.
+
+## Worked examples
+
+Each flag below is the same shape in practice: something changed (or simply happened), and it's charged to the one category that actually explains it. All figures are in working days.
+
+**Duration.** Activity A's planned duration grows from 4 to 9 days. Its finish-to-start successor B is pushed the same 5 days, flowing straight through to Practical Completion. The whole 5 days is charged to **Duration**, against A – A's window of influence closes the moment it drives B's start, so B just carries the date forward unchanged. A duration cut works the same way in reverse, charged as a negative figure.
+
+**Relationship.** A new finish-to-start link is added from an existing activity C to B, and C finishes 4 days later than the logic B used to run on. **Relationship** is charged against the new C→B link, measured as the difference between B's date under the old logic and the new logic with everything else held constant – C itself is charged nothing, since C didn't move, the link did. A deleted or re-lagged link is charged the same way.
+
+**Constraint.** A Start-No-Earlier-Than constraint is applied to B, holding it 5 days beyond where its logic would otherwise place it. **Constraint** is charged against B – the test is to remove the constraint, recalculate, and charge the difference between the constrained and unconstrained date. A removed constraint is charged as a negative figure the same way.
+
+**Calendar.** B's calendar is swapped from a 5-day working week to a 7-day one, with no other change to its logic, duration, constraints, or progress. Purely as a result of counting more days per week, B's dates move earlier without the activity itself changing at all. **Calendar** is charged against B, isolated from every other flag precisely because nothing else about the activity changed.
+
+**Implied Logic.** B's start has moved 3 days and now tracks activity D's finish exactly – but no relationship between D and B exists in the baseline or the current schedule. Logic+ surfaces D as the apparent driver from the date pattern alone, and charges **Implied Logic** against B – explicitly a candidate explanation, not a proven cause. The date correlation is evidence of something real, but confirming it is a human step.
+
+*Updated 2026-09-25: candidate selection for this flag was enhanced to weigh more than date proximity alone – it now also considers how current the candidate's data is, whether the candidate task had actually finished by its own data date, and whether that same link has shown up historically across the schedule's own past updates. The flag's meaning is unchanged, but which candidate gets proposed – and therefore which activities get flagged as Implied Logic – can differ from a traceback run before this date on the same schedule.*
+
+**Progress.** A finishes exactly on its baseline date and its finish-to-start link to B is fully satisfied – yet B's actual start is 5 days later than planned anyway, with nothing in the logic, constraints, or durations explaining the gap. **Progress** is charged against B: the residual category for when actual dates move and nothing in the schedule mechanics explains it.
+
+**New fragnet.** A new, unbaselined 3-day activity is inserted into the A→B chain, pushing B 3 days. It's charged to **New fragnet** at the actual before/after effect on Practical Completion, not the new work's own length at face value – if there had been float downstream to absorb it, the charge would be smaller than 3 days, or zero.
+
+**Resource Levelling isn't in this list because it isn't a flag yet** – see the note above. See [Delay Attribution 2.0](pages/delay-attribution-2.md) for the full worked-scenario catalogue this method is expected to grow into, including Resource Levelling and a much wider range of situations than the seven flags above cover today.

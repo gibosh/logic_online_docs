@@ -45,7 +45,7 @@ A named container in Logic+ that groups one or more schedule files. A Logic+ pro
 An uploaded schedule file (`.xer`, `.mpp`, `.pp`, or `.xml`) containing a point-in-time snapshot of a project programme.
 
 **Traceback**
-An algorithm that identifies the chain of activities most responsible for project delay, by scoring candidate predecessor activities at each step back from the completion milestone and picking the strongest chain. Logic+ offers a choice of scoring profile (Replica v2.1 is the default) that weights the scoring criteria differently – see [Traceback Setup](pages/traceback-setup.md) and [How Traceback and Delay Attribution Work](pages/traceback-engine.md).
+An algorithm that identifies the chain of activities most responsible for project delay, by scoring candidate predecessor activities at each step back from the completion milestone and picking the strongest chain. It's the method behind Delay Analysis's Traceback method specifically – Logic+ offers a choice of scoring profile (**Default** is the default) that weights the scoring criteria differently – see [Traceback Setup](pages/traceback-setup.md) and [How the Traceback method works](pages/traceback-engine.md).
 
 **WBS (Work Breakdown Structure)**
 A hierarchical grouping of activities used to organise and summarise schedule data. WBS codes appear as summary rows in the Gantt viewer.

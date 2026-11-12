@@ -4,9 +4,9 @@ route: /schedule-manager
 title: Schedule Manager
 audience: external
 status: draft
-version: 2.2.0
-last-reviewed: 2026-09-23
-blocked-reason: Rewritten following a real split from All projects (feature/table-backed-projects, 2026-09-17) – the previous "transitional state, same screen" framing no longer applies. The "a few minutes" typical processing time wasn't independently re-timed for this review. Multi-format upload (MPP/Asta PP/MSPDI XML alongside XER) is confirmed accepted at upload, but parsing fidelity for the three newer formats wasn't independently verified against a live upload – see workspace/GAPS.md. New "Custom fields" section (added 2026-09-18, LUSB-1264) documented from source (fully wired to a real backend, not a prototype), not yet screenshot-verified live. New "Excluding a schedule from analysis" section added 2026-09-23 (feature/schedule-exclusion, first pass) – this is a project-wide toggle only; the per-analytics-module local-adjustment layer described in the PM's original spec (see workspace/GAPS.md) has not shipped.
+version: 2.3.1
+last-reviewed: 2026-09-25
+blocked-reason: Rewritten following a real split from All projects (feature/table-backed-projects, 2026-09-17) – the previous "transitional state, same screen" framing no longer applies. The "a few minutes" typical processing time wasn't independently re-timed for this review. Multi-format upload (MPP/Asta PP/MSPDI XML alongside XER) is confirmed accepted at upload, but parsing fidelity for the three newer formats wasn't independently verified against a live upload – see workspace/GAPS.md. New "Custom fields" section (added 2026-09-18, LUSB-1264) documented from source (fully wired to a real backend, not a prototype), not yet screenshot-verified live. New "Excluding a schedule from analysis" section added 2026-09-23 (feature/schedule-exclusion, first pass) – this is a project-wide toggle only; the per-analytics-module local-adjustment layer described in the PM's original spec (see workspace/GAPS.md) has not shipped. Bulk-select/delete and the confirmed table column order added 2026-09-24, verified directly against `ScheduleManagerPage.tsx`, not yet screenshot-verified live.
 ---
 
 ## About this page
@@ -20,6 +20,12 @@ Creating, renaming, deleting, or grouping projects themselves is done on the **[
 ## Key concepts
 
 **Schedule** – an uploaded schedule file representing a point-in-time snapshot of the project. Multiple schedules in the same project are used for comparison and trend analysis.
+
+## The schedule files table
+
+Each row is one uploaded schedule. Columns, left to right: a selection checkbox, **Filename**, any [custom fields](#custom-fields) your project has defined, **Data date**, **Exclude** (see [below](#excluding-a-schedule-from-analysis)), **Status**, and **Actions**. Double-click a row to open that schedule in the Schedule Viewer.
+
+**Selecting and deleting multiple schedules.** Tick individual row checkboxes, or the header checkbox to select every schedule at once (it shows as partially ticked if only some are selected). Once at least one is selected, a **Delete *N* schedules** button appears above the table (singular "Delete 1 schedule" for one). Confirm in the dialog that follows – *"This removes the selected schedule files from this project"* – to delete all selected schedules in one action; this can't be undone.
 
 ## Uploading schedules
 
@@ -44,7 +50,7 @@ If a schedule fails, the page doesn't currently explain why – you'll only see 
 
 ## Excluding a schedule from analysis
 
-Each schedule row has an **Exclude from analysis** checkbox. Ticking it removes that schedule from the project entirely for analysis purposes – it drops out of the Schedule Viewer's schedule selectors, it can't be picked as a traceback target, and it's left out of Calibrated v1's training data. The Status column shows **"Excluded"** in place of the normal status while it's ticked.
+Each schedule row has an **Exclude from analysis** checkbox. Ticking it removes that schedule from the project entirely for analysis purposes – it drops out of the Schedule Viewer's schedule selectors, it can't be picked as a traceback target, and it's left out of the Calibrated profile's training data. The Status column shows **"Excluded"** in place of the normal status while it's ticked.
 
 This is a project-wide switch – there's currently no way to exclude a schedule from one analytics module while keeping it available in another. Use it for a schedule you want to keep on record (so it isn't deleted) but don't want influencing any analysis – for example, a client-rejected upload you still want to be able to open and review individually.
 

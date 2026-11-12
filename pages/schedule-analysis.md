@@ -1,17 +1,17 @@
 ﻿---
 page-id: schedule-analysis
 route: /schedule-viewer
-title: Gantt Viewer – Schedule Viewer mode
+title: Schedule Viewer Detail
 audience: external
 status: draft
-version: 1.3.1
-last-reviewed: 2026-09-18
-blocked-reason: Updated following the LUSB-1231 Schedule Viewer redesign (2026-09-17/18) – "Jump to" relabel, default active tab change, merged zoom behaviour, toolbar button wording. Further updated same day for feature/gantt-smooth-zoom (LUSB-1063) – zoom-in ceiling, Ctrl/Cmd+scroll smooth zoom, and the new synced scrollbar strip. Exact drag/resize feel (column drag-reorder, panel/column/tray resize handles) verified from component structure only, not tested live. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
+version: 1.5.0
+last-reviewed: 2026-09-30
+blocked-reason: 2026-09-30 – Group Settings rewritten for LUSB-1125 (v1.2.15–1.2.17): dialog is now "Activity grouping and display settings" – Apply grouping / No grouping, unlimited ordered rules (Group by / Group using / Level / Units / Treat as, interval + custom ranges), activity codes, resources, UDFs groupable; old Mode radio (Group by WBS / custom / none), Outline Level 1–4 and Start Year/Month/Week are gone. Summary/LOE exclusions now default OFF (were On). Verified against GanttSettingsForm.tsx, GanttSettingsContent.tsx, GroupingEditor.tsx, groupingRules.ts, groupingFields.ts, settings.ts, useGroupingSettings.ts (localStorage, not per project). Not yet screenshot-verified. Retitled and reframed 2026-09-25 – was "Gantt Viewer – Schedule Viewer mode", describing Schedule Viewer as "the first of three mode tabs." That framing was corrected sitewide 2026-09-24 (Schedule Viewer and Delay Analysis are two separate modules with separate journeys, not shared modes of one workspace) but this page was missed in that pass despite being linked from 7+ other pages as the canonical Gantt/activity-tray reference – caught in the 2026-09-25 sitewide drift audit. Updated following the LUSB-1231 Schedule Viewer redesign (2026-09-17/18) – "Jump to" relabel, default active tab change, merged zoom behaviour, toolbar button wording. Further updated same day for feature/gantt-smooth-zoom (LUSB-1063) – zoom-in ceiling, Ctrl/Cmd+scroll smooth zoom, and the new synced scrollbar strip. Exact drag/resize feel (column drag-reorder, panel/column/tray resize handles) verified from component structure only, not tested live. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
 ---
 
-## About this mode
+## About this page
 
-**Schedule Viewer** is the default mode in the [Gantt Viewer](pages/gantt-viewer.md) — note it shares its name with the Gantt Viewer page itself; this refers specifically to the first of the three mode tabs. Use it to explore activities, inspect relationships, and compare how activities have changed across schedule versions.
+This page is the detailed reference for [Schedule Viewer](pages/gantt-viewer.md)'s Gantt chart and activity tray – how to read the chart, resize and configure it, and what each activity-tray tab shows. Delay Analysis reuses this same Gantt-viewing screen for its own results (see [Delay Analysis](pages/delay-analysis.md)), simply because it also needs to display schedule files visually – that's a shared building block, not a shared journey, so most of what's on this page applies whichever module you're using it from.
 
 ## The Gantt chart
 
@@ -30,7 +30,7 @@ When a **Baseline** schedule is selected, each activity shows a thinner bar with
 
 ## Activity tray
 
-The tray is collapsed by default. Click the **Expand** control in the tray's header to open it (it relabels to **Minimize** while open – this is the only open/close control for the tray). When an activity is selected, the tray shows four tabs – **Activity relationships** is the default active tab – each with its own column picker (top right of the tabs) so you can customise which fields that tab displays. The active activity ID is shown in the tray header. Drag the top edge of the open tray to resize its height.
+The tray is collapsed by default. Click the **Expand** control in the tray's header to open it (it relabels to **Minimize** while open – this is the only open/close control for the tray). When an activity is selected, the tray shows four tabs – **Activity relationships** is the default active tab – each with its own column picker (top right of the tabs) so you can customise which fields that tab displays. The active activity ID is shown in the tray header. Drag the top edge of the open tray to resize its height. Every table's column header stays fixed at the top as you scroll its rows.
 
 ### Activity relationships
 
@@ -42,8 +42,8 @@ Shows all predecessors and successors of the selected activity.
 | Activity Name | Name of the related activity |
 | Relationship Type | How the activities are linked – FS (Finish-to-Start), SS (Start-to-Start), FF (Finish-to-Finish), SF (Start-to-Finish) |
 | Critical | Whether the related activity sits on Logic+'s calculated critical path |
-| Driving Task | Predecessor rows only – whether the schedule's own logic and dates say this predecessor is actually driving the selected activity, independent of any traceback. A red flag means it's the direct driver; an amber flag means it drives indirectly further back along the chain (hover it to see the chain); no icon means it isn't on the driving path; an em-dash means the driving path couldn't be calculated. See [How Traceback and Delay Attribution Work](pages/traceback-engine.md#driving-task) for what "driving" means here. |
-| Jump to | Button – navigates the Gantt chart to the related activity. (This same action is labelled **Go To** in the Delay Analysis tray's Candidate Scoring tab – see [Gantt Viewer – Delay Analysis](pages/gantt-delay-analysis.md#candidate-scoring).) |
+| Driving Task | Predecessor rows only – whether the schedule's own logic and dates say this predecessor is actually driving the selected activity, independent of any traceback. A red flag means it's the direct driver; an amber flag means it drives indirectly further back along the chain (hover it to see the chain); no icon means it isn't on the driving path; an em-dash means the driving path couldn't be calculated. See [How the Traceback method works](pages/traceback-engine.md#driving-path) for what "driving" means here. |
+| Jump to | Button – navigates the Gantt chart to the related activity. (This same action is labelled **Go To** in the Delay Analysis tray's Activity Scoring tab – see [Traceback Results](pages/gantt-delay-analysis.md#activity-scoring).) |
 
 If no relationships are found for the selected activity, a message is shown.
 
@@ -71,30 +71,54 @@ Shows the selected activity's fields in a two-column key-value table. By default
 
 ## Group Settings
 
-The **Group Settings** dialog (**Chart settings** button, toolbar) controls how activities are grouped and filtered in the Gantt chart. It opens as a pop-up dialog with a **Mode** choice at the top:
+The **Chart settings** button in the toolbar opens **Activity grouping and display settings**. At the top, choose **Apply grouping** to group activities using the rules below, or **No grouping** for a flat activity list.
 
-| Mode | Effect |
+### Grouping Options
+
+Grouping is built from a list of rules. The first rule makes the top-level groups, the second groups activities within each of those, and so on. By default there's one rule: **WBS**, to **Level 3**.
+
+- **Add grouping** adds a rule. Drag a rule's handle to reorder it, or click its bin button to remove it.
+- The same field can be used more than once – for example, WBS to Level 1, then an activity code, then WBS again to a deeper level.
+
+For each rule, choose:
+
+**Group by** – the field to group on. The list is searchable and organised by column category:
+
+- Standard activity fields – dates, durations, float, status, activity type, calendar, critical, variances, costs and more
+- **WBS**, **WBS Name** and **WBS Path**
+- **Resources** – follows your schedule's resource hierarchy
+- **Coding** – every activity code type in the schedule, following each code's own hierarchy
+- **User Defined Fields** – your schedule's custom fields
+- Traceback fields (Score, Defined Link, Low Confidence, Traced Position) – these show as *Available in Traceback Setup* and can only be used there
+
+**Group using** – the options depend on the kind of field:
+
+| Field | Group using |
 |---|---|
-| Group by WBS (default) | Activities are grouped and folded under the schedule's own WBS hierarchy |
-| Use custom grouping | Enables the settings below |
-| Don't group activities | Flat, ungrouped activity list |
+| WBS, Resources, activity codes | **Hierarchy level** – then choose a **Level**. Levels deeper than the current schedule goes are marked *(not in this schedule)* |
+| Dates | **Day**, **Week**, **Month** (default), **Quarter**, **Year**, or **Custom ranges** |
+| Text and Yes / No fields | **Exact values** |
+| Numbers, costs, percentages and durations | **Exact values**, **Custom ranges** or **Equal intervals** – plus **Negative / zero / positive** for float and variance fields |
 
-The settings below are only editable when **Use custom grouping** is selected:
+- **Equal intervals** – set an **Interval width** and an **Origin** (where the first interval starts). Use **And above (optional)** to put everything from that value upwards into one final group.
+- **Custom ranges** – click **Add range** for each group and fill in **From** and **To**. Leave one end blank for an open-ended range.
+- **Units** – for durations, choose **Working hours**, **Working days** or **Working months**.
+- **Treat as** – for user defined fields, Logic+ detects the type of data automatically. If it guesses wrong, change it here (Text, Number, Cost, Percentage, Date, Duration, or Yes / No).
 
-| Setting | Options | Default |
-|---------|---------|---------|
-| Outline Level | 1 / 2 / 3 / 4 | 3 |
-| Start | Year / Month / Week | Month |
-| Exclude summary activities | On / Off | On |
-| Exclude level of effort activities | On / Off | On |
-| Group and sort by WBS | On / Off | On |
-| Show activity counts | On / Off | On |
+If a rule isn't complete, a message shows under it and **Apply settings** stays unavailable until it's fixed.
 
-**Outline Level** sets how many levels of WBS hierarchy are shown. Level 1 shows only the top-level groupings; Level 4 shows a deeper breakdown.
+### Display Options
 
-**Start** groups activities into a Year, Month, or Week bucket. Despite the name, this isn't about an activity's start date specifically – any activity shorter than the bucket size (a year, when grouping by year) lands in the same bucket regardless of which of its dates you'd use to place it. Use this to see work clustered by reporting period.
+| Setting | Default | What it does |
+|---|---|---|
+| Exclude summary activities | Off | Hides WBS summary activities |
+| Exclude level-of-effort activities | Off | Hides level-of-effort activities |
+| Collapse Groups | Off | Opens the chart with every group folded (only with **Apply grouping**) |
+| Show activity count in group bar | On | Shows how many activities are in each group |
 
-Click **Apply Settings** to apply your selection and close the dialog. Click **Use Default Settings** to reset all options to their defaults and close the dialog.
+Click **Apply settings** to apply your changes and close the dialog. **Reset to default** puts everything back to the defaults above – click **Apply settings** afterwards to use them. **Cancel** closes without changing anything.
+
+Your grouping settings are remembered in this browser and apply to every project you open. While a traceback is still running, its provisional results are always shown as a flat, ungrouped list.
 
 ---
 

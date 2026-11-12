@@ -4,9 +4,9 @@ route: /projects
 title: All Projects
 audience: external
 status: draft
-version: 1.0.0
-last-reviewed: 2026-09-18
-blocked-reason: New page – Schedule Manager and All projects split into two genuinely different screens this pull (feature/table-backed-projects). Content verified directly against ProjectsPage.tsx source, not yet screenshot-verified live.
+version: 1.1.0
+last-reviewed: 2026-09-24
+blocked-reason: New page – Schedule Manager and All projects split into two genuinely different screens this pull (feature/table-backed-projects). Content verified directly against ProjectsPage.tsx source, not yet screenshot-verified live. Drag-and-drop project reassignment (`ProjectDragRows.tsx`, `@dnd-kit/core`) added 2026-09-24, also verified directly against source, not yet screenshot-verified live.
 ---
 
 ## About this page
@@ -30,6 +30,8 @@ Projects are listed in a table, grouped under their group (if any); projects wit
 Use the **Search projects** box to filter by project name or code. Searching also expands any group containing a match, and shows only the groups/projects that match.
 
 Click the arrow next to a group's name to expand or collapse it.
+
+**Drag and drop to reassign a project's group.** Drag any project row and drop it onto a group's row to move it there – the target group expands automatically so you can see it land. Drop it onto **Unassigned projects** to remove it from its current group. Dropping it back where it already is does nothing. If the move fails (a network error, for example), a message explains what went wrong rather than silently reverting.
 
 ## Selecting a project
 

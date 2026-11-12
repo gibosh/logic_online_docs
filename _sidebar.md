@@ -3,10 +3,26 @@
 
 ---
 
-* [Key Changes](pages/key-changes-schedule-viewer)
-  * [Schedule Viewer](pages/key-changes-schedule-viewer)
-  * [Delay Analysis](pages/key-changes-delay-analysis)
-  * [Analytics](pages/key-changes-analytics)
+* [All Projects](pages/all-projects)
+  * [About this page](pages/all-projects?id=about-this-page)
+  * [Key concepts](pages/all-projects?id=key-concepts)
+  * [Browsing and searching](pages/all-projects?id=browsing-and-searching)
+  * [Selecting a project](pages/all-projects?id=selecting-a-project)
+  * [Creating a group](pages/all-projects?id=creating-a-group)
+  * [Creating a project](pages/all-projects?id=creating-a-project)
+
+---
+
+* [Schedule Manager](pages/schedule-manager)
+  * [About this page](pages/schedule-manager?id=about-this-page)
+  * [Key concepts](pages/schedule-manager?id=key-concepts)
+  * [The schedule files table](pages/schedule-manager?id=the-schedule-files-table)
+  * [Uploading schedules](pages/schedule-manager?id=uploading-schedules)
+  * [Schedule status](pages/schedule-manager?id=schedule-status)
+  * [Excluding a schedule from analysis](pages/schedule-manager?id=excluding-a-schedule-from-analysis)
+  * [Editing a schedule](pages/schedule-manager?id=editing-a-schedule)
+  * [Custom fields](pages/schedule-manager?id=custom-fields)
+  * [Other actions](pages/schedule-manager?id=other-actions)
 
 ---
 
@@ -15,51 +31,13 @@
   * [Selecting schedules](pages/gantt-viewer?id=selecting-schedules)
   * [Fullscreen](pages/gantt-viewer?id=fullscreen)
   * [Chart colour legend](pages/gantt-viewer?id=chart-colour-legend)
-  * [Three modes](pages/gantt-viewer?id=three-modes)
-    * [Schedule Viewer mode](pages/schedule-analysis)
-    * [Traceback Setup](pages/traceback-setup)
-    * [Delay Analysis mode](pages/gantt-delay-analysis)
   * [Column selector](pages/gantt-viewer?id=column-selector)
   * [Group and Sort](pages/gantt-viewer?id=group-and-sort)
   * [Jump to / Go To](pages/gantt-viewer?id=jump-to--go-to)
   * [Changes over time](pages/gantt-viewer?id=changes-over-time)
   * [Activity Detail](pages/gantt-viewer?id=activity-detail)
   * [Driving Path](pages/gantt-viewer?id=driving-path)
-
----
-
-* [Delay Analysis](pages/delay-analysis)
-  * [About Delay Analysis](pages/delay-analysis?id=about-delay-analysis)
-  * **Traceback method**
-    * [Traceback Setup](pages/delay-analysis?id=traceback-setup)
-    * [Run Traceback](pages/delay-analysis?id=run-traceback)
-    * [Delay Overlay](pages/delay-analysis?id=delay-overlay)
-    * [Candidate Scores](pages/delay-analysis?id=candidate-scores)
-    * [Candidate Details](pages/delay-analysis?id=candidate-details)
-    * [Delay Attribute](pages/delay-analysis?id=delay-attribute)
-    * [Traceback Log](pages/delay-analysis?id=traceback-log)
-    * [Traceback Restart](pages/delay-analysis?id=traceback-restart)
-    * [Save and Load Traceback](pages/delay-analysis?id=save-and-load-traceback)
-    * [Driving Path](pages/gantt-delay-analysis?id=driving-path)
-  * **Time-Impact Analysis method**
-    * [Time-Impact Analysis](pages/time-impact-analysis)
-    * [Setting up](pages/time-impact-analysis?id=setting-up)
-    * [Building a fragnet](pages/time-impact-analysis?id=building-a-fragnet)
-    * [Reading the result](pages/time-impact-analysis?id=reading-the-result)
-    * [Schedule impact views](pages/time-impact-analysis?id=schedule-impact-views)
-    * [Comparing fragnets](pages/time-impact-analysis?id=comparing-fragnets)
-
----
-
-* [How Traceback and Delay Attribution Work](pages/traceback-engine)
-  * [About this page](pages/traceback-engine?id=about-this-page)
-  * [What traceback is actually doing](pages/traceback-engine?id=what-traceback-is-actually-doing)
-  * [How the candidate field gets narrowed down](pages/traceback-engine?id=how-the-candidate-field-gets-narrowed-down)
-  * [The two-stage scoring process](pages/traceback-engine?id=the-two-stage-scoring-process)
-  * [Stage one – the two priority signals](pages/traceback-engine?id=stage-one--the-two-priority-signals)
-  * [Stage two – full scoring](pages/traceback-engine?id=stage-two--full-scoring)
-  * [How calendars affect the result](pages/traceback-engine?id=how-calendars-affect-the-result)
-  * [From chain to delay](pages/traceback-engine?id=from-chain-to-delay--how-days-get-charged-to-each-activity)
+  * [Schedule Viewer detail (Gantt, activity tray, group settings)](pages/schedule-analysis)
 
 ---
 
@@ -90,25 +68,30 @@
 
 ---
 
-* [Schedule Manager](pages/schedule-manager)
-  * [About this page](pages/schedule-manager?id=about-this-page)
-  * [Key concepts](pages/schedule-manager?id=key-concepts)
-  * [Uploading schedules](pages/schedule-manager?id=uploading-schedules)
-  * [Schedule status](pages/schedule-manager?id=schedule-status)
-  * [Excluding a schedule from analysis](pages/schedule-manager?id=excluding-a-schedule-from-analysis)
-  * [Editing a schedule](pages/schedule-manager?id=editing-a-schedule)
-  * [Custom fields](pages/schedule-manager?id=custom-fields)
-  * [Other actions](pages/schedule-manager?id=other-actions)
-
----
-
-* [All Projects](pages/all-projects)
-  * [About this page](pages/all-projects?id=about-this-page)
-  * [Key concepts](pages/all-projects?id=key-concepts)
-  * [Browsing and searching](pages/all-projects?id=browsing-and-searching)
-  * [Selecting a project](pages/all-projects?id=selecting-a-project)
-  * [Creating a group](pages/all-projects?id=creating-a-group)
-  * [Creating a project](pages/all-projects?id=creating-a-project)
+* [Delay Analysis](pages/delay-analysis)
+  * [About Delay Analysis](pages/delay-analysis?id=about-delay-analysis)
+  * **Traceback method**
+    * [Traceback Setup](pages/traceback-setup)
+    * [Traceback Results](pages/gantt-delay-analysis)
+    * [How the Traceback method works](pages/traceback-engine)
+      * [About this page](pages/traceback-engine?id=about-this-page)
+      * [What traceback is actually doing](pages/traceback-engine?id=what-traceback-is-actually-doing)
+      * [Driving Path](pages/traceback-engine?id=driving-path)
+      * [How the candidate field gets narrowed down](pages/traceback-engine?id=how-the-candidate-field-gets-narrowed-down)
+      * [The two-stage scoring process](pages/traceback-engine?id=the-two-stage-scoring-process)
+      * [Stage one – the two priority signals](pages/traceback-engine?id=stage-one--the-two-priority-signals)
+      * [Stage two – full scoring](pages/traceback-engine?id=stage-two--full-scoring)
+      * [How calendars affect the result](pages/traceback-engine?id=how-calendars-affect-the-result)
+      * [From chain to delay](pages/traceback-engine?id=from-chain-to-delay--how-days-get-charged-to-each-activity)
+      * [Worked examples](pages/traceback-engine?id=worked-examples)
+    * [Traceback Log](pages/traceback-log)
+  * **Time-Impact Analysis method**
+    * [Time-Impact Analysis](pages/time-impact-analysis)
+    * [Setting up](pages/time-impact-analysis?id=setting-up)
+    * [Building a fragnet](pages/time-impact-analysis?id=building-a-fragnet)
+    * [Reading the result](pages/time-impact-analysis?id=reading-the-result)
+    * [Schedule impact views](pages/time-impact-analysis?id=schedule-impact-views)
+    * [Comparing fragnets](pages/time-impact-analysis?id=comparing-fragnets)
 
 ---
 
@@ -118,3 +101,17 @@
 
 * [Next Release](pages/delay-attribution-2)
   * [Delay Attribution 2.0](pages/delay-attribution-2)
+
+---
+
+* [Licensing](pages/signing-up)
+  * [Signing Up](pages/signing-up)
+    * [Overview](pages/signing-up?id=overview)
+    * [Steps](pages/signing-up?id=steps)
+  * [Subscription & Billing](pages/subscription-billing)
+    * [About this page](pages/subscription-billing?id=about-this-page)
+    * [The licensing model](pages/subscription-billing?id=the-licensing-model)
+    * [Your licences](pages/subscription-billing?id=your-licences)
+    * [Managing billing](pages/subscription-billing?id=managing-billing)
+    * [Managing seats](pages/subscription-billing?id=managing-seats)
+    * [Messages you might see](pages/subscription-billing?id=messages-you-might-see)

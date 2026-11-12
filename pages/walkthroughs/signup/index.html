@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign-up walkthrough</title>
+<style>
+  :root { --bg: #f4f6f8; --bar: #ffffff; --ink: #1f2d3d; --muted: #6b7a89; --accent: #1f9e94; --line: #d9e0e6; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #11181f; --bar: #1a232c; --ink: #e6edf3; --muted: #93a1ae; --accent: #3cc2b6; --line: #2b3742; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 14px/1.4 system-ui, sans-serif; }
+  .show { display: flex; flex-direction: column; height: 100%; }
+  .stage { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .stage img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+  .bar { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: var(--bar); border-top: 1px solid var(--line); }
+  button { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 6px; height: 30px; min-width: 34px; font-size: 15px; cursor: pointer; }
+  button:hover, button:focus-visible { border-color: var(--accent); outline: none; }
+  .dots { flex: 1; display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; }
+  .dots button { min-width: 0; width: 10px; height: 10px; padding: 0; border-radius: 50%; background: var(--line); border: 0; }
+  .dots button[aria-current="true"] { background: var(--accent); }
+  .count { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 48px; text-align: right; }
+  @media (max-width: 480px) { .dots { display: none; } .bar { justify-content: space-between; } }
+</style>
+</head>
+<body>
+<div class="show" role="region" aria-roledescription="slideshow" aria-label="Sign up, subscription and user management walkthrough">
+  <div class="stage" id="stage" title="Click for the next step"><img id="img" alt=""></div>
+  <div class="bar">
+    <button id="prev" aria-label="Previous step">&#9664;</button>
+    <button id="play" aria-label="Pause">&#10074;&#10074;</button>
+    <button id="next" aria-label="Next step">&#9654;</button>
+    <div class="dots" id="dots"></div>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+</div>
+<script>
+  // One entry per slide: [image file, description for screen readers].
+  // To update a step, replace its image in slides/ (keep the same name).
+  const slides = [
+    ["01", "Administration guide: sign up, subscription and user management"],
+    ["02", "Go to logicplus.smartcoro.com/licensing and select a licence type"],
+    ["03", "Select Create account, or Sign in with Microsoft"],
+    ["04", "Microsoft account: enter your Microsoft email address"],
+    ["05", "Microsoft account: click Accept"],
+    ["06", "Create account: enter your email address and click Continue"],
+    ["07", "Create account: enter a password and click Continue"],
+    ["08", "Enter the verification code from your email, then click Accept"],
+    ["09", "Select your licence type"],
+    ["10", "Enter the number of seats, then organisation, tenant and billing details"],
+    ["11", "You're logged in to your Logic+ organisation as its Owner"],
+    ["12", "From your profile menu, select Subscription"],
+    ["13", "Select Manage seats"],
+    ["14", "Enter user emails and click Send invitation"],
+    ["15", "See pending invitations; click the x to cancel one"],
+    ["16", "The user receives an invitation email"],
+    ["17", "Once the user accepts, they can log in to your Logic+ workspace"],
+    ["18", "Optionally change licence type or roles. There is only one Owner per workspace"],
+    ["19", "Need help? support@lware.com or logicplus.smartcoro.com/docs"]
+  ];
+  const SECONDS = 3;
+  const $ = (id) => document.getElementById(id);
+  let i = 0, timer = null;
+
+  // Build the step dots and preload every slide so stepping is instant.
+  slides.forEach(([file, text], n) => {
+    const b = document.createElement("button");
+    b.setAttribute("aria-label", `Step ${n + 1}: ${text}`);
+    b.onclick = () => { stop(); show(n); };
+    $("dots").appendChild(b);
+    new Image().src = `slides/${file}.jpg`;
+  });
+
+  function show(n) {
+    i = (n + slides.length) % slides.length;
+    $("img").src = `slides/${slides[i][0]}.jpg`;
+    $("img").alt = slides[i][1];
+    $("count").textContent = `${i + 1} / ${slides.length}`;
+    [...$("dots").children].forEach((d, k) => d.setAttribute("aria-current", k === i));
+  }
+  function play() { timer = setInterval(() => show(i + 1), SECONDS * 1000); $("play").innerHTML = "&#10074;&#10074;"; $("play").setAttribute("aria-label", "Pause"); }
+  function stop() { clearInterval(timer); timer = null; $("play").innerHTML = "&#9654;&#xFE0E;"; $("play").setAttribute("aria-label", "Play"); }
+
+  // Any manual step pauses autoplay, so the reader stays on the step they chose.
+  $("prev").onclick = () => { stop(); show(i - 1); };
+  $("next").onclick = () => { stop(); show(i + 1); };
+  $("stage").onclick = () => { stop(); show(i + 1); };
+  $("play").onclick = () => (timer ? stop() : play());
+  document.onkeydown = (e) => {
+    if (e.key === "ArrowRight") { stop(); show(i + 1); }
+    if (e.key === "ArrowLeft") { stop(); show(i - 1); }
+    if (e.key === " ") { e.preventDefault(); timer ? stop() : play(); }
+  };
+
+  show(0);
+  // Autoplay like the GIF, unless the reader prefers reduced motion.
+  matchMedia("(prefers-reduced-motion: reduce)").matches ? stop() : play();
+</script>
+</body>
+</html>

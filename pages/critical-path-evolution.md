@@ -4,9 +4,9 @@ route: /module/4/project/:projectId
 title: Critical Path Evolution
 audience: external
 status: draft
-version: 1.2.0
-last-reviewed: 2026-09-08
-blocked-reason: Content below is written and corrected from direct code analysis (frontend/src/analytics/impactWindows/, frontend/src/components/modules/CriticalPathEvolutionModule/) but has not yet been checked against the running app. Confirm chart interaction, hover behaviour, and on-screen wording before promoting to complete.
+version: 1.2.1
+last-reviewed: 2026-09-25
+blocked-reason: Fixed three references to "Gantt Viewer's Delay Analysis mode" (Delay Analysis is its own module now, not a mode of the Gantt Viewer) caught in the 2026-09-25 sitewide drift audit – this page predated the 2026-09-24 module-framing correction and was missed by it since it's an Analytics page, not one of the Delay Analysis pages themselves. Content below is written and corrected from direct code analysis (frontend/src/analytics/impactWindows/, frontend/src/components/modules/CriticalPathEvolutionModule/) but has not yet been checked against the running app. Confirm chart interaction, hover behaviour, and on-screen wording before promoting to complete.
 ---
 
 ## Critical Path Evolution
@@ -17,7 +17,7 @@ Critical Path Evolution shows which activity was driving the project finish date
 
 In plain terms: who was in the driver's seat, and when did the wheel change hands.
 
-This shares its day-by-day delay math with the Gantt Viewer's Delay Analysis mode, but it does not call that mode's predecessor-based traceback. Instead, for each pair of schedule updates it builds its own driving chain from whichever activities are flagged critical in the newer update, then runs that chain through the same delay-attribution calculation. See "How it's calculated" below for what this means in practice.
+This shares its day-by-day delay math with [Delay Analysis](pages/delay-analysis.md), but it does not call that module's predecessor-based traceback. Instead, for each pair of schedule updates it builds its own driving chain from whichever activities are flagged critical in the newer update, then runs that chain through the same delay-attribution calculation. See "How it's calculated" below for what this means in practice.
 
 ## Report details
 
@@ -33,11 +33,11 @@ Two views, selected by tab:
 
 **How a window boundary is defined:** every uploaded schedule update is sorted into date order by its data date, and a "window" is the gap between one update and the very next one in that order. N uploaded updates therefore produce N−1 windows; a project with only one update produces none.
 
-**How the driving chain is built:** for each window, Logic+ takes every non-summary activity flagged critical in the newer schedule and sorts it chronologically by start date. "Critical" here means zero float for an activity that has already finished by that schedule's data date (using the same float resolver as the rest of the app), or P6's own critical flag for an activity that hasn't finished yet – P6 commonly stops reporting float once an activity completes, so the two checks are needed to cover the whole chain. This is a simpler method than the full predecessor-by-predecessor traceback the Gantt Viewer's Delay Analysis mode uses: it does not walk backward through logic links from a completion milestone, and if the schedule genuinely has more than one critical path, all of it is included as one time-ordered list rather than a single walked chain.
+**How the driving chain is built:** for each window, Logic+ takes every non-summary activity flagged critical in the newer schedule and sorts it chronologically by start date. "Critical" here means zero float for an activity that has already finished by that schedule's data date (using the same float resolver as the rest of the app), or P6's own critical flag for an activity that hasn't finished yet – P6 commonly stops reporting float once an activity completes, so the two checks are needed to cover the whole chain. This is a simpler method than the full predecessor-by-predecessor traceback Delay Analysis's Traceback method uses: it does not walk backward through logic links from a completion milestone, and if the schedule genuinely has more than one critical path, all of it is included as one time-ordered list rather than a single walked chain.
 
 The chain is then trimmed to just the portion that changed since the previous window's data date, so unaffected early activities aren't recomputed for every window. Logic+ walks the chain from its earliest activity and moves the trim point forward past every activity that had **both** already finished before the window opened **and** shown no finish-date movement (within one day) from the previous update; everything from the last such "settled" activity onward is kept for recalculation.
 
-**How the delay is attributed:** that trimmed chain is run through the same activity-by-activity delay-attribution calculation as Gantt Viewer's Delay Analysis mode: each activity's own contribution is its finish-date variance minus the previous chain activity's, so a pure pass-through activity contributes close to nothing and only the activity that actually added delay is charged for it:
+**How the delay is attributed:** that trimmed chain is run through the same activity-by-activity delay-attribution calculation as Delay Analysis: each activity's own contribution is its finish-date variance minus the previous chain activity's, so a pure pass-through activity contributes close to nothing and only the activity that actually added delay is charged for it:
 
 > An activity's own delay charge (working days) = round(its cumulative critical-path delay this window, including its own effect) − round(the previous chain activity's cumulative critical-path delay this window)
 

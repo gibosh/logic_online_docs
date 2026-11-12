@@ -4,16 +4,16 @@ route: /schedule-viewer
 title: Schedule Viewer
 audience: external
 status: draft
-version: 2.0.0
-last-reviewed: 2026-09-18
-blocked-reason: Rewritten following the LUSB-1231 Schedule Viewer redesign (2026-09-17/18) – single unified page now serves all three modes, combined schedule-selection popover, new fullscreen and colour-legend controls, conditional mode-tab visibility, merged zoom/reset behaviour. Default schedule/baseline selection on first load and exact drag/hover behaviour for column reordering are inferred from component code, not confirmed against the live app. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
+version: 2.2.0
+last-reviewed: 2026-09-30
+blocked-reason: 2026-09-30 – Group Settings rewritten for LUSB-1125 (v1.2.15–1.2.17): dialog is now "Activity grouping and display settings" – Apply grouping / No grouping, unlimited ordered rules (Group by / Group using / Level / Units / Treat as, interval + custom ranges), activity codes, resources, UDFs groupable; old Mode radio (Group by WBS / custom / none), Outline Level 1–4 and Start Year/Month/Week are gone. Summary/LOE exclusions now default OFF (were On). Verified against GanttSettingsForm.tsx, GanttSettingsContent.tsx, GroupingEditor.tsx, groupingRules.ts, groupingFields.ts, settings.ts, useGroupingSettings.ts (localStorage, not per project). Not yet screenshot-verified. Rewritten following the LUSB-1231 Schedule Viewer redesign (2026-09-17/18) – single underlying screen also renders Delay Analysis's setup/results tabs, combined schedule-selection popover, new fullscreen and colour-legend controls, conditional tab visibility, merged zoom/reset behaviour. Schedule Viewer and Delay Analysis are documented as two separate modules with their own journeys (2026-09-24 correction) – this page covers Schedule Viewer only; Delay Analysis's method-selection/setup/results journey lives on pages/delay-analysis.md and pages/traceback-setup.md. Default schedule/baseline selection on first load and exact drag/hover behaviour for column reordering are inferred from component code, not confirmed against the live app. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
 ---
 
 ## About the Schedule Viewer
 
-The Schedule Viewer is the central workspace for exploring and comparing construction project schedules. One page, and one underlying screen, serves all three of its modes (see "Three modes," below) – open it from **Schedule Viewer** in the left-hand navigation, or reach its Traceback Setup / Delay Analysis modes directly via **[Delay Analysis](pages/delay-analysis.md)** in the navigation. Both paths land on the same page.
+Schedule Viewer is the module for exploring and comparing construction project schedules – open it from **Schedule Viewer** in the left-hand navigation. Use it to look at individual schedules, compare changes between updates, and understand the logic connecting activities.
 
-Use the Schedule Viewer to look at individual schedules, compare changes between updates, understand the logic connecting activities, and run delay analysis.
+**[Delay Analysis](pages/delay-analysis.md)** is a separate module, with its own journey – pick a method, work through that method's setup, then review results. It reuses this same schedule-viewing screen (the Gantt chart, activity tray, column selector, and Group Settings all described below) simply because it also needs to display schedule files – that's a shared building block, not a shared journey. Nothing about how you use Schedule Viewer depends on Delay Analysis, or vice versa.
 
 ---
 
@@ -27,9 +27,9 @@ Click the **schedule selector** at the top of the page – it shows the currentl
 
 Click **Apply** in the popover to confirm your selection. Changing either schedule resets any active traceback.
 
-**Default selections.** The first time you open a project with no schedule already chosen, the Comparison selector defaults to the most recent schedule uploaded and the Baseline selector defaults to the earliest one available. If you've visited before, your last selection for this project is restored from the page URL instead.
+**Default selections.** The first time you open a project with no schedule already chosen, the Comparison selector defaults to the schedule with the latest data date and the Baseline selector defaults to the one with the earliest data date – not upload order, which can differ if schedules are uploaded out of sequence. If you've visited before, your last selection for this project is restored from the page URL instead.
 
-**Sharing a view.** The browser address bar updates automatically as you work – it reflects the selected project, Comparison schedule, Baseline schedule, and (in Delay Analysis mode) the current traceback. Copy the URL at any point and send it to someone else with access to the same project; opening it restores that exact view, including re-loading the same traceback result. There's no separate "copy link" button – the address bar itself is always the shareable link.
+**Sharing a view.** The browser address bar updates automatically as you work – it reflects the selected project, Comparison schedule, Baseline schedule, and (if you're working within Delay Analysis) the current traceback. Copy the URL at any point and send it to someone else with access to the same project; opening it restores that exact view, including re-loading the same traceback result. There's no separate "copy link" button – the address bar itself is always the shareable link.
 
 ---
 
@@ -42,27 +42,6 @@ The **fullscreen** button (top right of the toolbar) expands the Schedule Viewer
 ## Chart colour legend
 
 An info button in the toolbar opens a popover explaining what each Gantt bar colour means – Comparison schedule activities (complete, incomplete, or spanning the data date), the Baseline schedule's bars, Critical activities (complete or incomplete), Milestones (shown in red when critical), and Summary/WBS bars.
-
----
-
-## Three modes
-
-The Schedule Viewer operates in one of three modes:
-
-| Mode | Use it to |
-|------|-----------|
-| **Schedule Viewer** | View the Gantt chart, explore activity relationships, and compare activity dates across schedule versions |
-| **Traceback Setup** | Select a start activity, configure the algorithm, and run a traceback analysis |
-| **Delay Analysis** | Review traceback results, understand delay attribution, save and load tracebacks |
-
-> **Note:** the first mode tab is labelled "Schedule Viewer," the same name as this page. Where this page says "Schedule Viewer" without qualification it means the whole three-mode workspace; "Schedule Viewer mode" refers specifically to the first tab.
-
-**The mode tab strip isn't always shown.** In plain Schedule Viewer mode with no traceback loaded, there's nothing to switch to yet, so the tabs are hidden – they appear once you have a traceback in progress or completed, once you're in Traceback Setup or Delay Analysis mode, or if you arrived via the **Delay Analysis** navigation entry point (which opens straight into Traceback Setup). The mode also advances automatically to Delay Analysis when a traceback completes.
-
-For full detail on each mode see:
-- [Schedule Viewer mode](pages/schedule-analysis.md) – Gantt chart, activity tray, group settings
-- [Traceback Setup mode](pages/traceback-setup.md) – start activity, profile, weights, exclusion criteria
-- [Delay Analysis mode](pages/gantt-delay-analysis.md) – traceback results, save/load, restart options
 
 ---
 
@@ -85,32 +64,14 @@ The activity tray (see [Activity Detail](#activity-detail), [Changes over time](
 
 ## Group and Sort
 
-The **Group Settings** dialog (**Chart settings** button, toolbar) controls how activities are grouped and filtered in the Gantt chart. It opens as a pop-up dialog, not an inline panel.
+The **Chart settings** button in the toolbar opens **Activity grouping and display settings**, where you control how activities are grouped and filtered in the Gantt chart.
 
-**Mode** (top-level choice):
+- **Apply grouping** groups activities using a list of rules – each rule is one level of grouping, and you can add as many as you need. By default there's one rule: **WBS**, to **Level 3**.
+- Group by almost any field: WBS, **activity codes**, resources, dates, durations, float, variances, user defined fields and more. Hierarchies (WBS, activity codes, resources) group to a chosen level; dates by day, week, month, quarter, year or custom ranges; numbers by exact value, equal intervals or custom ranges.
+- **No grouping** shows a flat activity list.
+- **Display Options** let you exclude summary or level-of-effort activities, open with groups collapsed, and show activity counts in group bars.
 
-| Option | Effect |
-|---|---|
-| Group by WBS (default) | Activities are grouped and folded under their WBS hierarchy, using the schedule's own outline |
-| Use custom grouping | Enables the options below (outline level, time period, filtering, display) |
-| Don't group activities | Shows a flat, ungrouped activity list |
-
-When **Use custom grouping** is selected, these become available:
-
-| Setting | Options | Default |
-|---------|---------|---------|
-| Outline Level | 1 / 2 / 3 / 4 | 3 |
-| Start | Year / Month / Week | Month |
-| Exclude summary activities | On / Off | On |
-| Exclude level of effort activities | On / Off | On |
-| Group and sort by WBS | On / Off | On |
-| Show activity counts | On / Off | On |
-
-**Outline Level** controls how many levels of WBS hierarchy are shown – Level 1 shows only the top-level groupings, Level 4 shows a deeper breakdown.
-
-**Start** groups activities into a Year, Month, or Week bucket. Despite the name, this isn't about an activity's start date specifically – any activity shorter than the bucket size (a year, when grouping by year) lands in the same bucket regardless of which of its dates you'd use to place it.
-
-Click **Apply Settings** to apply your selection and close the dialog. Click **Use Default Settings** to reset to the defaults above and close the dialog.
+Your settings are remembered in this browser across projects.
 
 [Full detail – Group Settings](pages/schedule-analysis.md#group-settings)
 
@@ -120,8 +81,8 @@ Click **Apply Settings** to apply your selection and close the dialog. Click **U
 
 A button next to related activities in the activity tray scrolls and highlights the Gantt chart to that activity, without losing your current selection. It's labelled differently depending on where you are:
 
-- **Jump to** – in the **Activity relationships** tab, in Schedule Viewer and Traceback Setup modes
-- **Go To** – in the **Candidate Scoring** tab, in Delay Analysis mode
+- **Jump to** – in the **Activity relationships** tab, in Schedule Viewer and while setting up a traceback
+- **Go To** – in the **Activity Scoring** tab, while reviewing Delay Analysis results
 
 Both buttons do the same thing; only the label and icon differ between the two trays.
 

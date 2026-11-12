@@ -1,30 +1,26 @@
 ---
 page-id: delay-attribution-2
-title: Delay Attribution 2.0
+title: Delay Attribution 2.0 – Next Release
 audience: external
 status: draft
-version: 0.6.1
-last-reviewed: 2026-09-23
-blocked-reason: PARTIALLY SHIPPED as of 2026-09-18 (LUSB-1171) – confirm before treating any of this page as fully current. The eight category names below now correspond to the live Delay Attribution panel's flags, shown on screen under shorter labels (Duration, Relationship, Constraint, Progress, Implied Logic, "New fragnet", Calendar all confirmed shipped; Resource Levelling explicitly deferred, matching this page's own description of it as correlation-based and lowest-priority) – see the "Shown on screen as" column added 2026-09-23. The live flag table now lives in traceback-engine.md. What is NOT yet independently verified: whether each individual numbered scenario below (S01 onward) produces exactly the worked treatment/diagram shown here against the current engine – only the category-level taxonomy has been checked against source, not scenario-by-scenario behaviour. Treat the categories as current; treat the specific scenario walkthroughs as unverified until checked individually. See workspace/GAPS.md.
+version: 0.8.0
+last-reviewed: 2026-10-02
+blocked-reason: 2026-10-02 – RESTORED the S01–S19 walkthroughs (three groups, diagram + What happens + How it's charged + charge table each), verbatim from 01f36ff. The 2026-09-24 trim (6630d4d) removed them on the basis that they "now live" on traceback-engine.md, but only seven short text-only examples were added there – no diagrams or charge tables, and 12 scenarios had no write-up anywhere. The diagrams aren't in the app yet and the PM needs them for the designer, so this page is their home until they are. Don't trim again without moving the diagrams somewhere first. Earlier note: Trimmed 2026-09-24 – S01–S19 and the "eight categories" walkthrough shipped with LUSB-1171 (2026-09-18) and are now documented as the Traceback method's live flag table and worked examples on traceback-engine.md, so they've been removed from here to stop duplicating that page. This page now covers only what's genuinely still preview/next-release content: S20 (Resource Levelling, not yet a working flag) and the full 58-situation extended catalogue. The category table below is kept as background context for the extended catalogue's "Treatment" columns, which use these spec names. What is NOT yet independently verified: whether each individual scenario in the extended catalogue below produces exactly the worked treatment/diagram shown here against a future engine – this was drafted from the underlying specification, not checked against any shipped code (most of it describes behaviour that doesn't exist yet). See workspace/GAPS.md.
 ---
 
 ## Delay Attribution 2.0 – Overview
 
-**Update, 2026-09-18: the category taxonomy below has shipped.** The eight categories in the table just below correspond to the real flags shown in Logic+'s Delay Attribution panel (see [How Traceback and Delay Attribution Work](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity)) – shown on screen under shorter labels, e.g. "Duration Change" here is just "Duration" in the app – except Resource Levelling, which remains unimplemented – delay it would explain currently falls to whichever other flag best fits the date movement. The individual numbered scenarios further down this page (S01 onward) have not yet been individually re-checked against the shipped engine – read this page's category descriptions as current, and its scenario-by-scenario detail as still provisional.
+**Update, 2026-09-18: the base taxonomy and 19 of the 20 core scenarios have shipped**, as the Traceback method's live Delay Attribution flags – see [How the Traceback method works](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for the flag table and [worked examples](pages/traceback-engine.md#worked-examples). This page walks through all 20 core scenarios with a diagram and charge table for each, then covers what hasn't shipped: **Resource Levelling** (S20, still not a working flag) and the **full 58-situation extended catalogue**, which goes well beyond what's shipped.
 
-Right now, when Logic+ tells you a chain of activities caused a delay, it's harder than it should be to see exactly *why* — which rule fired, which activity actually carries the charge, and whether the number would survive being challenged in a real delay claim.
+Right now, even with the shipped taxonomy, some situations Logic+ will eventually need to reason about aren't handled yet — a fragnet inserted alongside unrelated progress on the same activity, calendar changes that look identical to resource-levelling delay, several edits landing in the same reporting window. Delay Attribution 2.0's full specification works through all of them, scenario by scenario, so that for every day added to or saved from Practical Completion, Logic+ can eventually point to the one specific thing that caused it and defend the number.
 
-Delay Attribution 2.0 is a rebuild of that logic around one question: **for every day added to or saved from Practical Completion, can Logic+ point to the one specific thing that caused it, and defend the number?**
-
-It works scenario by scenario. Instead of one general rule trying to cover every situation, the new engine recognises a fixed catalogue of situations — a duration was edited, a constraint was added, an activity simply ran late with nothing else changing — and applies a specific, tested treatment to each one. This page walks through that catalogue the way the tool will apply it: what the situation looks like, what Logic+ decides, and why.
-
-**This is a preview, not a change you'll see in the app yet.** The content below is adapted from the underlying specification while it's still in draft — treat it as "this is the plan," not "this is what Logic+ does today."
+**S20 and the extended catalogue are a preview, not a change you'll see in the app yet** – S01 to S19 describe what Logic+ does today. The content is adapted from the underlying specification while it's still in draft — treat it as "this is the plan," not "this is what Logic+ does today."
 
 ---
 
 ## The eight attribution categories
 
-Every day of movement at Practical Completion gets charged to exactly one of eight categories (or, for a handful of genuinely tied cases, to more than one at once — see [Concurrent drivers](#s13-concurrent-drivers) below).
+Every day of movement at Practical Completion gets charged to exactly one of eight categories (or, for a handful of genuinely tied cases, to more than one at once — see [T-07, Concurrent drivers, exact tie](#family-t--how-delay-travels-to-completion-12-situations) below). Seven of the eight are already shipped, under the shorter on-screen names in the second column – see [How the Traceback method works](pages/traceback-engine.md#worked-examples) for what each looks like in practice.
 
 | Category (spec name) | Shown on screen as | What it means |
 |---|---|---|
@@ -82,6 +78,10 @@ Eight ideas govern every treatment decision in this catalogue. Once these make s
 **Everything has to add up.** Across any period, the signed charges across all eight categories sum exactly to the real movement of Practical Completion — with genuinely tied drivers counted once, not double-counted.
 
 ---
+
+## The 20 core scenarios
+
+**S01 to S19 are live** – they're the scenarios behind the Delay Attribution flags Logic+ shows today (see [How the Traceback method works](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for the flag table). **S20 (Resource Levelling)** is the one that isn't a working flag yet. The diagrams below aren't shown in the app itself yet.
 
 ## Group 1 – One clear cause, one simple chain
 
@@ -372,7 +372,7 @@ Fragnets, new activities, implied links, and resource levelling — the cases wh
 
 ## The complete catalogue: 58 situations, five families
 
-The 20 scenarios above are the foundation — every later scenario in the full catalogue is one of these seven core ideas, made more specific. The complete specification covers **58 discrete situations** in total, grouped into five families. Twenty are already covered above; the rest are set out here for reference, each with the same diagram-plus-explanation treatment, organised by family so you can go as deep as you need to.
+The 20 scenarios in the summary table above are the foundation — every scenario in the full catalogue is one of these, made more specific. The complete specification covers **58 discrete situations** in total, grouped into five families. Nineteen of the twenty base scenarios are already shipped and documented on [How the Traceback method works](pages/traceback-engine.md#worked-examples); the rest – Resource Levelling above, and everything below – are set out here for reference, each with the same diagram-plus-explanation treatment, organised by family so you can go as deep as you need to.
 
 Each section below is collapsed by default — expand the ones you need.
 
@@ -420,7 +420,7 @@ Every discrete way a schedule can actually differ from its baseline, in both dir
 | A-33 | Activity calendar reassigned (e.g. 5-day → 7-day) | Calendar Change at the recalculated delta | – |
 | A-34 | Calendar body edited (holidays, exceptions) | Calendar Change; affects every activity on that calendar, charged via the driving path | – |
 
-A-01, 02, 05, 07, 09, 12, 13, 18, 20, 24, 25, 26, 29 and 31 are exactly the base scenarios diagrammed above. The rest, below:
+A-01, 02, 05, 07, 09, 12, 13, 18, 20, 24, 25, 26, 29 and 31 are exactly the base scenarios in the summary table above (S01–S20) – see [How the Traceback method works](pages/traceback-engine.md#worked-examples) for the shipped ones' diagrams and worked treatment. The rest, below:
 
 **A-03 — Remaining duration increased.** B started on time and was actualised to the data date; its remaining duration was then edited from 2 to 7 days. The edit is a plan change, so it charges Duration — not Progress — even though the bar is already underway.
 
@@ -518,7 +518,7 @@ A cause and its journey to Practical Completion are two separate questions, answ
 | T-11 | Driving path switches mid-window | Sequential split — each cause charged for the sub-period it actually drove | S12 |
 | T-12 | Gain blocked by a secondary path | Mitigation charged only for the PC movement actually achieved | S02 |
 
-T-01 to T-07 are exactly the base scenarios above (S01, S10, S11, S15, S12, S14, S13). The rest, below:
+T-01 to T-07 are exactly the base scenarios in the summary table above (S01, S10, S11, S15, S12, S14, S13). The rest, below:
 
 **T-08 — Near-concurrency.** C finishes one day behind driver A. On the arithmetic, A drives — in practice, that's close enough to be a coin toss. The near-concurrency flag preserves how close it was, so a one-day recalculation difference can't silently flip the story.
 

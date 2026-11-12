@@ -4,9 +4,9 @@ route: /traceback/log/:tracebackId
 title: Traceback Log
 audience: external
 status: draft
-version: 1.2.0
-last-reviewed: 2026-09-23
-blocked-reason: Verified against current component and handler source, but not yet checked against a live traceback run's actual output – confirm on-screen wording before promoting to complete. New "Filter audit step" dropdown and "Error loading traceback log" state (both from the 2026-09-21 traceback-document versioning change, LUSB-1269) added from source. Separately worth flagging to engineering (not a docs issue): opening an old saved traceback from the Gantt page's own "Load Traceback" dropdown (as opposed to this Log page) currently fails silently with no on-screen message at all — see workspace/GAPS.md.
+version: 1.2.2
+last-reviewed: 2026-09-25
+blocked-reason: Fixed stale "Delay Analysis mode"/"mode bar"/"Gantt Viewer" language caught in the 2026-09-25 sitewide drift audit – this page was reviewed earlier the same day but the language slipped through that pass. Verified against current component and handler source, but not yet checked against a live traceback run's actual output – confirm on-screen wording before promoting to complete. New "Filter audit step" dropdown and "Error loading traceback log" state (both from the 2026-09-21 traceback-document versioning change, LUSB-1269) added from source. Separately worth flagging to engineering (not a docs issue): opening an old saved traceback from the Gantt page's own "Load Traceback" dropdown (as opposed to this Log page) currently fails silently with no on-screen message at all — see workspace/GAPS.md.
 ---
 
 ## Why this page exists
@@ -17,13 +17,13 @@ It shows the complete detail behind one traceback run: the schedule files used, 
 
 ## How you get here
 
-From **Delay Analysis mode** inside the Schedule Viewer (Gantt Viewer), once a traceback has completed, a **"View Traceback Log"** button becomes available in the mode bar. Clicking it opens this page in a new browser tab, scoped to that specific traceback run.
+From the **Delay Analysis** tab of the Traceback method, once a traceback has completed, a **"View Traceback Log"** button becomes available. Clicking it opens this page in a new browser tab, scoped to that specific traceback run.
 
 ## What you will see
 
 **Packets** – the schedule files (packet ID, project, filename, data date) that were part of this traceback run.
 
-**Weights** – the scoring weights used, one row per score type, e.g. `closest-link`, `implied-link`, `finish-variance`, `outline-number`, `sequence-number`. These are the raw internal score-type identifiers (kebab-case), not the friendly labels shown in the Traceback Setup settings modal ("Closest Link", "WBS Structure", and so on) – worth knowing if you're cross-checking a log against what a tester saw in Traceback Setup. For a Calibrated v1 run, an extra `sequence-dictionary` row appears here even though it has no corresponding weight field in the Traceback Setup modal (that factor's weight isn't user-adjustable).
+**Weights** – the scoring weights used, one row per score type, e.g. `closest-link`, `implied-link`, `finish-variance`, `outline-number`, `sequence-number`. These are the raw internal score-type identifiers (kebab-case), not the friendly labels shown in the Traceback Setup settings modal ("Closest Link", "WBS Structure", and so on) – worth knowing if you're cross-checking a log against what a tester saw in Traceback Setup. For a Calibrated run, an extra `sequence-dictionary` row appears here even though it has no corresponding weight field in the Traceback Setup modal (that factor's weight isn't user-adjustable).
 
 **Settings** – the exclusion criteria applied to this run (exclude newer/older than N days, exclude contained activities, exclude duplicate critical activities, exclude by duration or finish date, exclude LOE/WBS summary tasks). Exclude duplicate critical activities always shows here even though it isn't exposed as a toggle in the Traceback Setup settings modal – it's a fixed, always-on rule.
 
