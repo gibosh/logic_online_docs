@@ -4,9 +4,9 @@ route: /schedule-viewer
 title: Schedule Viewer
 audience: external
 status: draft
-version: 2.2.0
-last-reviewed: 2026-09-30
-blocked-reason: 2026-09-30 – Group Settings rewritten for LUSB-1125 (v1.2.15–1.2.17): dialog is now "Activity grouping and display settings" – Apply grouping / No grouping, unlimited ordered rules (Group by / Group using / Level / Units / Treat as, interval + custom ranges), activity codes, resources, UDFs groupable; old Mode radio (Group by WBS / custom / none), Outline Level 1–4 and Start Year/Month/Week are gone. Summary/LOE exclusions now default OFF (were On). Verified against GanttSettingsForm.tsx, GanttSettingsContent.tsx, GroupingEditor.tsx, groupingRules.ts, groupingFields.ts, settings.ts, useGroupingSettings.ts (localStorage, not per project). Not yet screenshot-verified. Rewritten following the LUSB-1231 Schedule Viewer redesign (2026-09-17/18) – single underlying screen also renders Delay Analysis's setup/results tabs, combined schedule-selection popover, new fullscreen and colour-legend controls, conditional tab visibility, merged zoom/reset behaviour. Schedule Viewer and Delay Analysis are documented as two separate modules with their own journeys (2026-09-24 correction) – this page covers Schedule Viewer only; Delay Analysis's method-selection/setup/results journey lives on pages/delay-analysis.md and pages/traceback-setup.md. Default schedule/baseline selection on first load and exact drag/hover behaviour for column reordering are inferred from component code, not confirmed against the live app. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
+version: 2.4.0
+last-reviewed: 2026-11-13
+blocked-reason: 2026-11-13 – Printing: added the Show baseline data date line option (PR #556 / LUSB-1369, v1.2.36), on by default, drawn only when a Baseline schedule is selected (GanttPrintView.tsx). Baseline column values (e.g. Baseline Start) also print when those columns are chosen. Not screenshot-verified. 2026-10-28 – 2026-10-28 – New Printing section (PRs #552 / LUSB-1184: print preview step, also in Time-Impact Analysis) and "What group rows show" (PR #534 / LUSB-1303, LUSB-1137: WBS grouping and summary rollup fixes, per frontend/ROLLUP_FIELDS.md). Verified against GanttPrintView.tsx, ViewerToolbar.tsx, ScheduleViewerPage.tsx; not screenshot-verified, and the print dialog itself is the browser's own so its look varies. 2026-09-30 – Group Settings rewritten for LUSB-1125 (v1.2.15–1.2.17): dialog is now "Activity grouping and display settings" – Apply grouping / No grouping, unlimited ordered rules (Group by / Group using / Level / Units / Treat as, interval + custom ranges), activity codes, resources, UDFs groupable; old Mode radio (Group by WBS / custom / none), Outline Level 1–4 and Start Year/Month/Week are gone. Summary/LOE exclusions now default OFF (were On). Verified against GanttSettingsForm.tsx, GanttSettingsContent.tsx, GroupingEditor.tsx, groupingRules.ts, groupingFields.ts, settings.ts, useGroupingSettings.ts (localStorage, not per project). Not yet screenshot-verified. Rewritten following the LUSB-1231 Schedule Viewer redesign (2026-09-17/18) – single underlying screen also renders Delay Analysis's setup/results tabs, combined schedule-selection popover, new fullscreen and colour-legend controls, conditional tab visibility, merged zoom/reset behaviour. Schedule Viewer and Delay Analysis are documented as two separate modules with their own journeys (2026-09-24 correction) – this page covers Schedule Viewer only; Delay Analysis's method-selection/setup/results journey lives on pages/delay-analysis.md and pages/traceback-setup.md. Default schedule/baseline selection on first load and exact drag/hover behaviour for column reordering are inferred from component code, not confirmed against the live app. Group Settings "Start"/"Outline Level" labels are a known dev ticket to relabel — see workspace/GAPS.md.
 ---
 
 ## About the Schedule Viewer
@@ -36,6 +36,23 @@ Click **Apply** in the popover to confirm your selection. Changing either schedu
 ## Fullscreen
 
 The **fullscreen** button (top right of the toolbar) expands the Schedule Viewer to fill the browser window, hiding the surrounding navigation. Click it again, or press **Escape**, to exit.
+
+---
+
+## Printing
+
+The **Print preview** button (the printer icon in the toolbar) opens a **Print Preview** of the chart. It's available once a schedule is loaded, and every role – including **View** – can print.
+
+In the preview you can set:
+
+- **Paper size** – **A3 landscape** or **A4 landscape**
+- **Columns** – which activity columns to include, and how wide each one is
+- **Show line numbers**
+- **Remove Activity ID indentation**
+- **Show data date line**, and the colour of that line
+- **Show baseline data date line** – on by default. When a **Baseline** schedule is selected, a second vertical line marks the baseline's data date, so you can see how far the programme has been updated since. It doesn't appear if no baseline is selected, or if the baseline's data date falls outside the printed timeline.
+
+Click **Continue to print dialog** to open your browser's print dialog (choose a printer, or **Save as PDF**), or **Return to chart** to go back without printing. Time-Impact Analysis has the same print preview in its toolbar.
 
 ---
 
@@ -70,6 +87,13 @@ The **Chart settings** button in the toolbar opens **Activity grouping and displ
 - Group by almost any field: WBS, **activity codes**, resources, dates, durations, float, variances, user defined fields and more. Hierarchies (WBS, activity codes, resources) group to a chosen level; dates by day, week, month, quarter, year or custom ranges; numbers by exact value, equal intervals or custom ranges.
 - **No grouping** shows a flat activity list.
 - **Display Options** let you exclude summary or level-of-effort activities, open with groups collapsed, and show activity counts in group bars.
+
+**What group rows show.** A group or WBS summary row's figures are calculated from the real activities inside it, not from the summary values stored in the schedule file:
+
+- **Dates** – the earliest start and latest finish of its activities.
+- **Durations** – the working time between those dates (so two parallel activities covering the same day count as one day, not two). Logic+ uses the activities' calendar when they all share one, otherwise the project's default calendar.
+- **Nested groups** combine the underlying activities, rather than averaging the percentages shown on the groups inside them.
+- **Baseline** figures only include baseline activities that match an activity currently in that group.
 
 Your settings are remembered in this browser across projects.
 

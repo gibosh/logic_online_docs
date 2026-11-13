@@ -7,9 +7,20 @@
   * [About this page](pages/all-projects?id=about-this-page)
   * [Key concepts](pages/all-projects?id=key-concepts)
   * [Browsing and searching](pages/all-projects?id=browsing-and-searching)
-  * [Selecting a project](pages/all-projects?id=selecting-a-project)
-  * [Creating a group](pages/all-projects?id=creating-a-group)
+  * [Opening a project](pages/all-projects?id=opening-a-project)
+  * [Creating a folder](pages/all-projects?id=creating-a-folder)
   * [Creating a project](pages/all-projects?id=creating-a-project)
+  * [Archiving and restoring](pages/all-projects?id=archiving-and-restoring)
+  * [Managing access](pages/all-projects?id=managing-access)
+  * [Logs](pages/all-projects?id=logs)
+
+---
+
+* [Permissions and Access](pages/permissions)
+  * [The roles](pages/permissions?id=the-roles)
+  * [How access flows down](pages/permissions?id=how-access-flows-down)
+  * [Giving someone access](pages/permissions?id=giving-someone-access)
+  * [For App Owners and User Admins](pages/permissions?id=for-app-owners-and-user-admins)
 
 ---
 
@@ -23,6 +34,8 @@
   * [Editing a schedule](pages/schedule-manager?id=editing-a-schedule)
   * [Custom fields](pages/schedule-manager?id=custom-fields)
   * [Other actions](pages/schedule-manager?id=other-actions)
+  * [Archived files](pages/schedule-manager?id=archived-files)
+  * [Schedule logs](pages/schedule-manager?id=schedule-logs)
 
 ---
 
@@ -30,6 +43,7 @@
   * [About the Schedule Viewer](pages/gantt-viewer?id=about-the-schedule-viewer)
   * [Selecting schedules](pages/gantt-viewer?id=selecting-schedules)
   * [Fullscreen](pages/gantt-viewer?id=fullscreen)
+  * [Printing](pages/gantt-viewer?id=printing)
   * [Chart colour legend](pages/gantt-viewer?id=chart-colour-legend)
   * [Column selector](pages/gantt-viewer?id=column-selector)
   * [Group and Sort](pages/gantt-viewer?id=group-and-sort)
@@ -92,6 +106,7 @@
     * [Reading the result](pages/time-impact-analysis?id=reading-the-result)
     * [Schedule impact views](pages/time-impact-analysis?id=schedule-impact-views)
     * [Comparing fragnets](pages/time-impact-analysis?id=comparing-fragnets)
+    * [Saving the impacted schedule](pages/time-impact-analysis?id=saving-the-impacted-schedule)
 
 ---
 

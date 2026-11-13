@@ -3,9 +3,9 @@ page-id: delay-attribution-2
 title: Delay Attribution 2.0 – Next Release
 audience: external
 status: draft
-version: 0.8.0
-last-reviewed: 2026-10-02
-blocked-reason: 2026-10-02 – RESTORED the S01–S19 walkthroughs (three groups, diagram + What happens + How it's charged + charge table each), verbatim from 01f36ff. The 2026-09-24 trim (6630d4d) removed them on the basis that they "now live" on traceback-engine.md, but only seven short text-only examples were added there – no diagrams or charge tables, and 12 scenarios had no write-up anywhere. The diagrams aren't in the app yet and the PM needs them for the designer, so this page is their home until they are. Don't trim again without moving the diagrams somewhere first. Earlier note: Trimmed 2026-09-24 – S01–S19 and the "eight categories" walkthrough shipped with LUSB-1171 (2026-09-18) and are now documented as the Traceback method's live flag table and worked examples on traceback-engine.md, so they've been removed from here to stop duplicating that page. This page now covers only what's genuinely still preview/next-release content: S20 (Resource Levelling, not yet a working flag) and the full 58-situation extended catalogue. The category table below is kept as background context for the extended catalogue's "Treatment" columns, which use these spec names. What is NOT yet independently verified: whether each individual scenario in the extended catalogue below produces exactly the worked treatment/diagram shown here against a future engine – this was drafted from the underlying specification, not checked against any shipped code (most of it describes behaviour that doesn't exist yet). See workspace/GAPS.md.
+version: 0.9.0
+last-reviewed: 2026-11-13
+blocked-reason: 2026-11-13 – v1.2.37 (LUSB-1374) put mini-Gantt explanations for S01–S19 and K-01 into the app, so the statement that the diagrams are not shown in the app is removed and the live-status note now points at the Delay explanation window. Checked against delayScenarios.ts and ReasonInfo.tsx. K-02 and K-03 are not in the app. 2026-10-02 – 2026-10-02 – RESTORED the S01–S19 walkthroughs (three groups, diagram + What happens + How it's charged + charge table each), verbatim from 01f36ff. The 2026-09-24 trim (6630d4d) removed them on the basis that they "now live" on traceback-engine.md, but only seven short text-only examples were added there – no diagrams or charge tables, and 12 scenarios had no write-up anywhere. The diagrams aren't in the app yet and the PM needs them for the designer, so this page is their home until they are. Don't trim again without moving the diagrams somewhere first. Earlier note: Trimmed 2026-09-24 – S01–S19 and the "eight categories" walkthrough shipped with LUSB-1171 (2026-09-18) and are now documented as the Traceback method's live flag table and worked examples on traceback-engine.md, so they've been removed from here to stop duplicating that page. This page now covers only what's genuinely still preview/next-release content: S20 (Resource Levelling, not yet a working flag) and the full 58-situation extended catalogue. The category table below is kept as background context for the extended catalogue's "Treatment" columns, which use these spec names. What is NOT yet independently verified: whether each individual scenario in the extended catalogue below produces exactly the worked treatment/diagram shown here against a future engine – this was drafted from the underlying specification, not checked against any shipped code (most of it describes behaviour that doesn't exist yet). See workspace/GAPS.md.
 ---
 
 ## Delay Attribution 2.0 – Overview
@@ -81,7 +81,7 @@ Eight ideas govern every treatment decision in this catalogue. Once these make s
 
 ## The 20 core scenarios
 
-**S01 to S19 are live** – they're the scenarios behind the Delay Attribution flags Logic+ shows today (see [How the Traceback method works](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for the flag table). **S20 (Resource Levelling)** is the one that isn't a working flag yet. The diagrams below aren't shown in the app itself yet.
+**S01 to S19 are live** – they're the scenarios behind the Delay Attribution flags Logic+ shows today (see [How the Traceback method works](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for the flag table). **S20 (Resource Levelling)** is the one that isn't a working flag yet. In the app, click the chart icon on a row in the [Delay Attribution panel](pages/gantt-delay-analysis.md#delay-attribution-panel) to open a **Delay explanation** window with a small diagram for each scenario applied to that row. The diagrams below are the fuller reference, with the worked charge tables.
 
 ## Group 1 – One clear cause, one simple chain
 
@@ -592,7 +592,7 @@ The same delay can be a different number on a different calendar — so before a
 | K-02 | PC milestone calendar | Movement at PC is always measured on the PC milestone's own calendar | – |
 | K-03 | Calendar vs. levelling — telling them apart | Both can move dates with every other category silent. The tiebreak: a calendar delta reproduces exactly from the calendar diff; levelling needs a corroborating resource conflict too | S20 |
 
-**K-01 — Cross-calendar translation.** A runs on a 5-day calendar, B on a 7-day one. A's slip is handed over at the link and counted in B's days from that point forward — the delta changes denomination right at the hand-over.
+**K-01 — Cross-calendar translation** *(live – shown in the Delay explanation window)*. A runs on a 5-day calendar, B on a 7-day one. A's slip is handed over at the link and counted in B's days from that point forward — the delta changes denomination right at the hand-over.
 
 ![K-01](images/delay-attribution-2/K-01.png)
 
