@@ -1,104 +1,17 @@
-/* Light mode (default) — "Daylight"
-   Light, airy and modern (in the spirit of Stripe / Linear docs): white
-   header with the full-colour logo, pale sidebar, soft teal and cyan washes,
-   tinted icon tiles. */
+/* Light mode (default).
+   The light design-system values live in shared.css; this file only holds
+   what is specific to the light chrome. */
 
-:root {
-  color-scheme: light;
-  --accent: #00b8af;
-  --accent-strong: #00807a;
-  --link: #00807a;
-  --panel-shadow: 0 1px 2px rgba(0, 32, 61, 0.04), 0 10px 30px rgba(0, 32, 61, 0.06);
-  --home-bg:
-    radial-gradient(760px 420px at 92% -6%, rgba(0, 187, 242, 0.16), transparent 62%),
-    radial-gradient(760px 460px at 4% -10%, rgba(0, 184, 175, 0.18), transparent 62%),
-    #ffffff;
-}
+:root { color-scheme: light; }
 
-/* ── Header: white, full-colour logo ── */
-#top-header { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid #e8ebf1; }
-.h-left { border-right: none; }
-.h-toggle { color: #596478; }
-.h-toggle:hover { color: #00203d; background: #f3f5f8; }
+/* White header carries the full-colour logo, as on the login page */
 .h-logo .logo-rev { display: none; }
-.h-logo .logo-dark { display: block !important; height: 22px; }
-#search-slot .search input[type="search"] {
-  width: 280px; border-radius: 999px;
-  background-color: #f3f5f8; border-color: #e2e8ea; color: #00203d;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23596478' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+.h-logo .logo-dark { display: block !important; height: 20px; }
+
+/* Home: soft brand wash behind the hero on the login page's off-white */
+body.is-home {
+  background:
+    radial-gradient(720px 360px at 88% -40px, rgba(25, 113, 194, 0.08), transparent 70%) no-repeat,
+    radial-gradient(640px 320px at 8% -60px, rgba(0, 184, 175, 0.08), transparent 70%) no-repeat,
+    var(--c-page-alt);
 }
-#search-slot .search input[type="search"]::placeholder { color: #808da9; }
-#search-slot .search input[type="search"]:focus { background-color: #fff; border-color: #00b8af; box-shadow: 0 0 0 3px rgba(0, 184, 175, 0.15); }
-.h-signin { background: #00203d; color: #fff !important; border-radius: 999px; text-transform: none; letter-spacing: 0; font-size: 13.5px; padding: 0 16px; }
-.h-signin:hover { background: #0a3a66 !important; color: #fff !important; }
-.h-support { color: #00203d !important; border-color: #d9dee7; border-radius: 999px; }
-.h-support:hover { background: #f3f5f8 !important; color: #00203d !important; border-color: #a7b4c3; }
-
-/* ── Sidebar: pale ── */
-.sidebar { background: #f8fafb; border-right: 1px solid #e8ebf1; }
-.sidebar-nav li > a { margin: 1px 10px; padding: 6px 12px; border-left: none; border-radius: 8px; color: #596478; }
-.sidebar-nav > ul > li > a { color: #00203d; font-weight: 500; padding: 7px 12px; }
-.sidebar-nav li > a:hover { color: #00203d !important; background: #eef1f5; }
-.sidebar-nav li.active > a { color: #00807a !important; background: rgba(0, 184, 175, 0.12); border-left: none; }
-.sidebar-nav > ul > li > ul { padding-left: 22px; }
-.sidebar-nav .arrow { color: #a7b4c3; }
-.sidebar hr { border-top-color: #e8ebf1; }
-.sidebar-icon { color: #00b8af; }
-
-/* ── Home ── */
-.hero { position: relative; }
-.hero::before {
-  content: ""; position: absolute; inset: 0 -40px; z-index: -1;
-  background-image: linear-gradient(#e8ebf1 1px, transparent 1px), linear-gradient(90deg, #e8ebf1 1px, transparent 1px);
-  background-size: 40px 40px;
-  -webkit-mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%);
-  mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%);
-  opacity: 0.7;
-}
-.hero-eyebrow { color: #00807a; }
-.hero-accent {
-  background: linear-gradient(90deg, #00a39b, #0098c7);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.markdown-section a.btn-primary, .markdown-section a.btn-primary:hover { color: #fff !important; }
-.btn-primary { border: none; color: #fff; background: #00203d; box-shadow: 0 6px 18px rgba(0, 32, 61, 0.18); }
-.btn-primary:hover { background: #0a3a66; }
-.btn-ghost { color: #00203d; background: #fff; border: 1px solid #d9dee7; }
-.btn-ghost:hover { border-color: #00b8af; }
-
-.hero-art svg { background: #fff; border-radius: 16px; box-shadow: 0 1px 2px rgba(0, 32, 61, 0.05), 0 24px 50px rgba(0, 32, 61, 0.12); border: 1px solid #e8ebf1; }
-.ha-grid line { stroke: #eef1f5; }
-.ha-base { fill: #d9dee7; }
-.ha-bar { fill: #00b8af; }
-.ha-delay { fill: #f59e0b; }
-.ha-link { stroke: #a7b4c3; stroke-width: 1.5; }
-.ha-pc path { fill: #00203d; }
-.ha-datadate { stroke: #00bbf2; stroke-width: 1.5; stroke-dasharray: 4 4; }
-
-.f-icon { color: var(--accent); background: color-mix(in srgb, var(--accent) 13%, white); }
-.feature:hover { background: #f5f8fa; }
-
-.wn-tag { background: rgba(0, 184, 175, 0.14); color: #00807a; }
-.whats-new { background: linear-gradient(90deg, #effaf9, #ffffff); border-color: #cdeeed; }
-.whats-new:hover { border-color: #00b8af; }
-
-.guide:hover { border-color: #b8e6e3; box-shadow: 0 2px 4px rgba(0, 32, 61, 0.05), 0 18px 40px rgba(0, 32, 61, 0.1); }
-.g-art { background: #eefaf9; border-bottom: 1px solid #eef1f5; }
-.guide:nth-child(2) .g-art { background: #eef6ff; }
-.guide:nth-child(3) .g-art { background: #f4f1ff; }
-.guide:nth-child(4) .g-art { background: #fff7ea; }
-.ga-soft { fill: #cbd5df; }
-.ga-hot { fill: #f59e0b; }
-.ga-line { stroke: #00a39b; stroke-width: 2.5; }
-.ga-dash { stroke: #00a39b; stroke-width: 2; stroke-dasharray: 5 5; }
-.ga-node { fill: #fff; stroke: #00a39b; stroke-width: 2.5; }
-.ga-hotnode { fill: #f59e0b; }
-.ga-card { fill: #fff; stroke: #d9dee7; }
-.ga-tick { stroke: #10b981; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.ga-cone { fill: rgba(0, 187, 242, 0.18); }
-
-.help-strip a:hover { border-color: #00b8af; }
-
-/* ── Reading pages ── */
-.markdown-section h1 { border-bottom: none; padding-bottom: 0; color: #00203d; }
-.markdown-section table th { background: #f8fafb; }

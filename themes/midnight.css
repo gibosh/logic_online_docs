@@ -1,162 +1,71 @@
-/* Dark mode — "Midnight"
-   Brand midnight blue throughout: glowing home page (in the spirit of the AWS
-   docs landing page), and dark reading pages with light text. */
+/* Dark mode — brand midnight blue.
+   The app has no dark theme yet, so this maps the same design-system roles
+   onto dark surfaces: solid buttons keep primary-500 (#1971c2) with white
+   text; links and active text use the lighter primary-400 (#228be6) so they
+   stay readable; teal stays the brand accent for eyebrows. */
 
 :root {
-  --accent: #00b8af;
-  --accent-strong: #5fe3db;
-  --link: #3fd0f5;
-  --link-content: #3fd0f5;
-  --ink: #ffffff;
-  --ink-muted: rgba(255, 255, 255, 0.64);
-  --line: rgba(255, 255, 255, 0.12);
-  --panel-bg: rgba(255, 255, 255, 0.045);
-  --panel-line: rgba(255, 255, 255, 0.12);
-  --panel-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 40px rgba(0, 0, 0, 0.18);
-  --hero-ink: #ffffff;
-  --hero-muted: rgba(255, 255, 255, 0.74);
-  --toggle-line: rgba(255, 255, 255, 0.28);
-  --toggle-ink: #ffd27a;
-  --toggle-hover: rgba(255, 255, 255, 0.1);
-  --page-bg: #021a31;
-  --home-bg:
-    radial-gradient(900px 520px at 12% -8%, rgba(0, 184, 175, 0.34), transparent 62%),
-    radial-gradient(760px 480px at 88% 4%, rgba(0, 187, 242, 0.26), transparent 60%),
-    radial-gradient(900px 600px at 50% 110%, rgba(79, 70, 229, 0.18), transparent 65%),
-    linear-gradient(180deg, #001a33 0%, #00203d 55%, #031a30 100%);
   color-scheme: dark;
+
+  /* Semantic tokens */
+  --c-page: #021a31;
+  --c-page-alt: #021a31;
+  --c-surface: #072642;
+  --c-border: rgba(255, 255, 255, 0.12);
+  --c-heading: #ffffff;
+  --c-text: rgba(255, 255, 255, 0.84);
+  --c-muted: rgba(255, 255, 255, 0.66);
+  --c-subtle: rgba(255, 255, 255, 0.52);
+  --c-eyebrow: var(--brand-logic-teal);
+  --c-primary: var(--palette-primary-400);
+  --c-primary-hover: var(--palette-primary-100);
+  --c-primary-tint: rgba(25, 113, 194, 0.24);
+  --c-link: var(--palette-primary-400);
+  --c-link-hover: var(--palette-primary-100);
+  --c-focus: #ffffff;
+  --c-table-head: rgba(255, 255, 255, 0.05);
+  --popover-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.45);
+
+  /* Neutral ramp, inverted for dark surfaces */
+  --palette-neutral-50: rgba(255, 255, 255, 0.05);
+  --palette-neutral-100: rgba(255, 255, 255, 0.09);
+  --palette-neutral-200: rgba(255, 255, 255, 0.2);
+  --palette-neutral-300: rgba(255, 255, 255, 0.28);
+  --palette-neutral-400: rgba(255, 255, 255, 0.45);
+  --palette-neutral-500: rgba(255, 255, 255, 0.66);
+  --palette-neutral-600: rgba(255, 255, 255, 0.8);
+  --palette-neutral-700: #ffffff;
+  --palette-neutral-900: #ffffff;
 }
+
+/* Chrome in brand midnight blue, reversed logo (the default image) */
+#top-header { background: var(--brand-midnight-blue); border-bottom-color: rgba(255, 255, 255, 0.1); }
+.sidebar { background: #001a33; border-right-color: rgba(255, 255, 255, 0.06); }
+.sidebar-nav ul:not(.app-sub-sidebar) > li:not(.file)::before { border-color: rgba(255, 255, 255, 0.45); }
+#search-slot .search input[type="search"] { background-color: rgba(255, 255, 255, 0.06); }
+
+/* Home: midnight canvas with a soft blue/teal glow */
+body.is-home {
+  background:
+    radial-gradient(900px 520px at 12% -8%, rgba(0, 184, 175, 0.22), transparent 62%),
+    radial-gradient(800px 500px at 88% 0%, rgba(25, 113, 194, 0.36), transparent 62%),
+    linear-gradient(180deg, #001a33 0%, #00203d 55%, #021a31 100%);
+}
+body.is-home .panel, body.is-home .whats-new, body.is-home .guide, body.is-home .help-strip a { background: rgba(255, 255, 255, 0.045); }
+.ha-pc path { fill: var(--brand-cyan); }
+.hero-art svg, .g-art { background: rgba(255, 255, 255, 0.03); }
+
+/* Reading pages */
 body {
   background:
-    radial-gradient(1000px 360px at 70% -120px, rgba(0, 184, 175, 0.14), transparent 70%) no-repeat,
-    var(--page-bg);
-  color: rgba(255, 255, 255, 0.82);
+    radial-gradient(1000px 360px at 70% -120px, rgba(25, 113, 194, 0.16), transparent 70%) no-repeat,
+    var(--c-page);
 }
-
-/* ── Header ── */
-#top-header {
-  background: rgba(0, 22, 42, 0.94);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-#top-header::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
-  background: linear-gradient(90deg, #00b8af, #00bbf2 50%, transparent);
-  opacity: 0.85;
-}
-.h-left { border-right: none; }
-#search-slot .search input[type="search"] { width: 280px; border-radius: 8px; }
-.h-signin { border-radius: 8px; text-transform: none; letter-spacing: 0; font-size: 13.5px; }
-.h-support { border-radius: 8px; }
-
-/* Search results */
-#search-slot .results-panel { background: #0b2643; border-color: rgba(255, 255, 255, 0.12); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45); }
-#search-slot .matching-post { border-bottom-color: rgba(255, 255, 255, 0.08); }
-#search-slot .matching-post h2 { color: #fff; }
-#search-slot .matching-post p { color: rgba(255, 255, 255, 0.62); }
-#search-slot .matching-post:hover { background: rgba(0, 187, 242, 0.08); }
-.search .search-keyword { color: #3fd0f5; }
-
-/* ── Sidebar ── */
-.sidebar { background: #001a33; border-right: 1px solid rgba(255, 255, 255, 0.05); }
-.sidebar-nav li > a { margin: 1px 10px; padding: 6px 12px; border-left: none; border-radius: 8px; }
-.sidebar-nav > ul > li > a { padding: 7px 12px; font-weight: 500; }
-.sidebar-nav li.active > a {
-  background: linear-gradient(90deg, rgba(0, 184, 175, 0.22), rgba(0, 187, 242, 0.08));
-  color: #5fe3db !important; border-left: none;
-}
-.sidebar-nav > ul > li > ul { padding-left: 22px; }
-.sidebar-icon { color: #5fe3db; }
-.sidebar-nav ul:not(.app-sub-sidebar) > li:not(.file)::before { border-color: rgba(255, 255, 255, 0.4); }
-.sidebar-nav li > p, .sidebar-nav li:not(.file) { color: rgba(255, 255, 255, 0.55); }
-
-/* ── Home ── */
-body.is-home .markdown-section { color: #fff; }
-.hero-eyebrow { color: #5fe3db; }
-.hero-accent {
-  background: linear-gradient(90deg, #00b8af, #00bbf2);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.markdown-section a.btn-primary, .markdown-section a.btn-primary:hover { color: #00203d !important; }
-.btn-primary { border: none; color: #00203d; background: linear-gradient(90deg, #00b8af, #00bbf2); box-shadow: 0 6px 22px rgba(0, 187, 242, 0.3); }
-.btn-primary:hover { box-shadow: 0 10px 30px rgba(0, 187, 242, 0.45); }
-.btn-ghost { color: #fff; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.28); }
-.btn-ghost:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.5); }
-
-.hero-art { filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3)); }
-.ha-grid line { stroke: rgba(255, 255, 255, 0.08); }
-.ha-base { fill: rgba(255, 255, 255, 0.16); }
-.ha-bar { fill: #00b8af; }
-.ha-delay { fill: #f59e0b; }
-.ha-link { stroke: rgba(255, 255, 255, 0.45); stroke-width: 1.5; }
-.ha-pc path { fill: #00bbf2; }
-.ha-datadate { stroke: #00bbf2; stroke-width: 1.5; stroke-dasharray: 4 4; }
-
-.panel { backdrop-filter: blur(6px); }
-.f-icon { background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 55%, #00203d)); box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent); }
-.feature:hover { background: rgba(255, 255, 255, 0.06); }
-.steps li::before { color: #5fe3db; border-color: rgba(95, 227, 219, 0.6); }
-
-.wn-tag { background: #00bbf2; color: #00203d; }
-.whats-new { background: linear-gradient(90deg, rgba(0, 187, 242, 0.14), rgba(255, 255, 255, 0.03)); }
-.whats-new:hover { border-color: rgba(0, 187, 242, 0.6); }
-
-.guide:hover { border-color: rgba(0, 187, 242, 0.6); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35); }
-.g-art { background: linear-gradient(135deg, #0b3d6b, #002a4f); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-.guide:nth-child(2) .g-art { background: linear-gradient(135deg, #10456d, #062b4a); }
-.guide:nth-child(3) .g-art { background: linear-gradient(135deg, #2a2a6e, #0b2147); }
-.guide:nth-child(4) .g-art { background: linear-gradient(135deg, #064a55, #04263f); }
-.ga-soft { fill: rgba(255, 255, 255, 0.24); }
-.ga-hot { fill: #f59e0b; }
-.ga-line { stroke: #3fd0f5; stroke-width: 2.5; }
-.ga-dash { stroke: #3fd0f5; stroke-width: 2; stroke-dasharray: 5 5; }
-.ga-node { fill: #002a4f; stroke: #3fd0f5; stroke-width: 2.5; }
-.ga-hotnode { fill: #f59e0b; }
-.ga-card { fill: rgba(255, 255, 255, 0.07); stroke: rgba(255, 255, 255, 0.28); }
-.ga-tick { stroke: #34d399; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.ga-cone { fill: rgba(0, 187, 242, 0.2); }
-
-.help-strip a:hover { border-color: rgba(0, 187, 242, 0.6); }
-.help-strip svg { color: #3fd0f5; }
-
-/* ── Reading pages ── */
-.markdown-section { color: rgba(255, 255, 255, 0.82); }
-.markdown-section h1, .markdown-section h2, .markdown-section h3,
-.markdown-section h4, .markdown-section h5, .markdown-section h6 { color: #fff; }
-.markdown-section h1 { border-bottom: none; padding-bottom: 0; }
-.markdown-section strong { color: #fff; }
-.markdown-section em { color: rgba(255, 255, 255, 0.72); }
-.markdown-section hr { border-color: rgba(255, 255, 255, 0.1); }
-.markdown-section a:hover { color: #9be8fb; }
-.markdown-section code { background: rgba(255, 255, 255, 0.08); color: #e2e8ea; }
-.markdown-section pre, .markdown-section pre > code { background: #0b2643; color: #e2e8ea; }
-.markdown-section blockquote { background: rgba(0, 184, 175, 0.1); color: rgba(255, 255, 255, 0.86); }
-.markdown-section table { border-color: rgba(255, 255, 255, 0.12); }
-.markdown-section table th { background: rgba(255, 255, 255, 0.06); color: #e2e8ea; }
-.markdown-section table td, .markdown-section table th { border-bottom-color: rgba(255, 255, 255, 0.1); }
-.markdown-section tr { border-top: none; }
-.markdown-section table tr:nth-child(2n) { background: rgba(255, 255, 255, 0.025); }
 /* Screenshots and diagrams all have solid light backgrounds — frame them */
 .markdown-section img { border: 1px solid rgba(255, 255, 255, 0.14); }
-.markdown-section iframe { border-color: rgba(255, 255, 255, 0.14) !important; border-radius: 8px; }
-
-/* Module tiles used on overview pages */
-.module-tile { border-color: rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.035); }
-.module-tile:hover { border-color: #3fd0f5; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); }
-.module-tile .tile-label { color: #5fe3db; }
-.module-tile h3 { color: #fff; }
-.module-tile p { color: rgba(255, 255, 255, 0.64); }
-.grid-group-label { color: #fff; }
-
-/* Page feedback */
-.page-feedback { border-top-color: rgba(255, 255, 255, 0.1); }
-.feedback-question { color: #fff; }
-.feedback-btn { background: transparent; color: rgba(255, 255, 255, 0.85); border-color: rgba(255, 255, 255, 0.25); }
-.feedback-btn:hover { background: rgba(0, 187, 242, 0.1); border-color: #3fd0f5; color: #fff; }
-.feedback-thanks { color: rgba(255, 255, 255, 0.64); }
-.feedback-link { color: #3fd0f5; }
-
-/* Docsify's own bits */
+.markdown-section iframe { border-color: rgba(255, 255, 255, 0.14) !important; border-radius: var(--container-radius); }
+.markdown-section em { color: rgba(255, 255, 255, 0.72); }
+.markdown-section hr { border-color: rgba(255, 255, 255, 0.1); }
+.markdown-section pre, .markdown-section pre > code { background: #0b2643; color: #e2e8ea; }
 #app { color: #fff; }
-.markdown-section .anchor:hover span { color: inherit; }
-.sidebar-nav li li > a { color: rgba(255, 255, 255, 0.7); }
+.sidebar-nav li li > a { color: rgba(255, 255, 255, 0.74); }
