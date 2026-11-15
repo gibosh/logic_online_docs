@@ -1,0 +1,102 @@
+/* Design A — "Midnight"
+   Dark, glowing home page in the brand midnight blue (in the spirit of the
+   AWS docs landing page), deep navy chrome, light reading pages. */
+
+:root {
+  --accent: #00b8af;
+  --accent-strong: #009990;
+  --link: #3fd0f5;
+  --home-bg:
+    radial-gradient(900px 520px at 12% -8%, rgba(0, 184, 175, 0.34), transparent 62%),
+    radial-gradient(760px 480px at 88% 4%, rgba(0, 187, 242, 0.26), transparent 60%),
+    radial-gradient(900px 600px at 50% 110%, rgba(79, 70, 229, 0.18), transparent 65%),
+    linear-gradient(180deg, #001a33 0%, #00203d 55%, #031a30 100%);
+}
+
+/* ── Header ── */
+#top-header {
+  background: rgba(0, 22, 42, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+#top-header::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  background: linear-gradient(90deg, #00b8af, #00bbf2 50%, transparent);
+  opacity: 0.85;
+}
+.h-left { border-right: none; }
+#search-slot .search input[type="search"] { width: 280px; border-radius: 8px; }
+.h-signin { border-radius: 8px; text-transform: none; letter-spacing: 0; font-size: 13.5px; }
+.h-support { border-radius: 8px; }
+
+/* ── Sidebar ── */
+.sidebar { background: #001a33; }
+.sidebar-nav li > a { margin: 1px 10px; padding: 6px 12px; border-left: none; border-radius: 8px; }
+.sidebar-nav > ul > li > a { padding: 7px 12px; font-weight: 500; }
+.sidebar-nav li.active > a {
+  background: linear-gradient(90deg, rgba(0, 184, 175, 0.22), rgba(0, 187, 242, 0.08));
+  color: #5fe3db !important; border-left: none;
+}
+.sidebar-nav > ul > li > ul { padding-left: 22px; }
+.sidebar-icon { color: #5fe3db; }
+
+/* ── Home: everything sits on the dark canvas ── */
+body.is-home {
+  --panel-bg: rgba(255, 255, 255, 0.045);
+  --panel-line: rgba(255, 255, 255, 0.12);
+  --panel-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 40px rgba(0, 0, 0, 0.18);
+  --hero-ink: #ffffff;
+  --hero-muted: rgba(255, 255, 255, 0.74);
+  --ink-muted: rgba(255, 255, 255, 0.66);
+}
+body.is-home .markdown-section { color: #fff; }
+.hero-eyebrow { color: #5fe3db; }
+.hero-accent {
+  background: linear-gradient(90deg, #00b8af, #00bbf2);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.markdown-section a.btn-primary, .markdown-section a.btn-primary:hover { color: #00203d !important; }
+.btn-primary { border: none; color: #00203d; background: linear-gradient(90deg, #00b8af, #00bbf2); box-shadow: 0 6px 22px rgba(0, 187, 242, 0.3); }
+.btn-primary:hover { box-shadow: 0 10px 30px rgba(0, 187, 242, 0.45); }
+.btn-ghost { color: #fff; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.28); }
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.5); }
+
+.hero-art { filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3)); }
+.ha-grid line { stroke: rgba(255, 255, 255, 0.08); }
+.ha-base { fill: rgba(255, 255, 255, 0.16); }
+.ha-bar { fill: #00b8af; }
+.ha-delay { fill: #f59e0b; }
+.ha-link { stroke: rgba(255, 255, 255, 0.45); stroke-width: 1.5; }
+.ha-pc path { fill: #00bbf2; }
+.ha-datadate { stroke: #00bbf2; stroke-width: 1.5; stroke-dasharray: 4 4; }
+
+.panel { backdrop-filter: blur(6px); }
+.f-icon { background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 55%, #00203d)); box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent); }
+.feature:hover { background: rgba(255, 255, 255, 0.06); }
+.steps li::before { color: #5fe3db; border-color: rgba(95, 227, 219, 0.6); }
+
+.wn-tag { background: #00bbf2; color: #00203d; }
+.whats-new { background: linear-gradient(90deg, rgba(0, 187, 242, 0.14), rgba(255, 255, 255, 0.03)); }
+.whats-new:hover { border-color: rgba(0, 187, 242, 0.6); }
+
+.guide:hover { border-color: rgba(0, 187, 242, 0.6); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35); }
+.g-art { background: linear-gradient(135deg, #0b3d6b, #002a4f); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.guide:nth-child(2) .g-art { background: linear-gradient(135deg, #10456d, #062b4a); }
+.guide:nth-child(3) .g-art { background: linear-gradient(135deg, #2a2a6e, #0b2147); }
+.guide:nth-child(4) .g-art { background: linear-gradient(135deg, #064a55, #04263f); }
+.ga-soft { fill: rgba(255, 255, 255, 0.24); }
+.ga-hot { fill: #f59e0b; }
+.ga-line { stroke: #3fd0f5; stroke-width: 2.5; }
+.ga-dash { stroke: #3fd0f5; stroke-width: 2; stroke-dasharray: 5 5; }
+.ga-node { fill: #002a4f; stroke: #3fd0f5; stroke-width: 2.5; }
+.ga-hotnode { fill: #f59e0b; }
+.ga-card { fill: rgba(255, 255, 255, 0.07); stroke: rgba(255, 255, 255, 0.28); }
+.ga-tick { stroke: #34d399; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.ga-cone { fill: rgba(0, 187, 242, 0.2); }
+
+.help-strip a:hover { border-color: rgba(0, 187, 242, 0.6); }
+.help-strip svg { color: #3fd0f5; }
+
+/* ── Reading pages ── */
+.markdown-section h1 { border-bottom: none; padding-bottom: 0; color: #00203d; }
+.markdown-section table th { background: #f3f5f8; }
