@@ -174,6 +174,8 @@ body.is-home .page-feedback { display: none; }
 .page-toc a.active { color: var(--accent-strong); border-left-color: var(--accent); font-weight: 600; }
 
 /* ── Content typography polish (both themes) ── */
+/* vue.css colours heading text through an inner span; let the heading colour show */
+.markdown-section a.anchor, .markdown-section a.anchor:hover, .markdown-section .anchor span { color: inherit !important; text-decoration: none; }
 .markdown-section a { color: var(--link-content, #00807a); }
 .markdown-section a:hover { color: var(--ink); }
 .markdown-section { font-size: 15.5px; line-height: 1.7; color: #2d3436; }
@@ -191,21 +193,18 @@ body.is-home .page-feedback { display: none; }
 .markdown-section table tr:last-child td { border-bottom: none; }
 .markdown-section img { border-radius: 8px; }
 
-/* ── Design switcher (sandbox only) ── */
-.design-switch {
-  position: fixed; right: 20px; bottom: 20px; z-index: 600;
-  display: flex; align-items: center; gap: 4px; padding: 5px;
-  background: #0b1220; color: #fff; border-radius: 999px;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
-  font: 500 12.5px/1 var(--main-font);
+/* ── Light/dark toggle (header) ── */
+.h-theme {
+  display: grid; place-items: center; flex: none;
+  width: 34px; height: 34px; padding: 0; border-radius: 999px; cursor: pointer;
+  background: transparent; border: 1px solid var(--toggle-line, #d9dee7); color: var(--toggle-ink, #596478);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
-.design-switch span { padding: 0 8px 0 10px; color: rgba(255, 255, 255, 0.6); }
-.design-switch button, .design-switch a {
-  border: none; background: transparent; color: rgba(255, 255, 255, 0.85);
-  padding: 8px 12px; border-radius: 999px; cursor: pointer; font: inherit; text-decoration: none;
-}
-.design-switch button:hover, .design-switch a:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
-.design-switch button[aria-pressed="true"] { background: #00b8af; color: #00203d; font-weight: 600; }
+.h-theme svg { width: 17px; height: 17px; }
+.h-theme:hover { background: var(--toggle-hover, #f3f5f8); }
+.h-theme:focus-visible { outline: 2px solid #00b8af; outline-offset: 2px; }
+html[data-theme="light"] .h-theme .icon-sun,
+html[data-theme="dark"] .h-theme .icon-moon { display: none; }
 
 /* ── Narrow screens: keep the header on one line (it overflows on the live site) ── */
 @media (max-width: 760px) {

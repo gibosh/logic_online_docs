@@ -351,21 +351,22 @@
       color: #00203D;
     }
   </style>
-  <!-- RESTYLE PROTOTYPE (sandbox only): shared layout + one of two designs.
-       ?design=midnight | ?design=daylight picks one and remembers it. -->
+  <!-- RESTYLE PROTOTYPE: shared layout + light (Daylight) or dark (Midnight) theme.
+       Light is the default; the header toggle switches and remembers the reader's
+       choice in this browser. ?theme=light|dark forces one (handy for sharing). -->
   <link rel="stylesheet" href="themes/shared.css">
   <script>
+    window.DOCS_THEME_FILES = { light: 'themes/daylight.css', dark: 'themes/midnight.css' };
     (function () {
-      var designs = ['midnight', 'daylight'];
-      var m = location.search.match(/[?&]design=([a-z]+)/);
-      var d = m && designs.indexOf(m[1]) > -1 ? m[1] : null;
+      var m = location.search.match(/[?&]theme=(light|dark)/);
+      var t = m ? m[1] : null;
       try {
-        if (d) localStorage.setItem('docs-design', d);
-        else d = localStorage.getItem('docs-design');
+        if (t) localStorage.setItem('docs-theme', t);
+        else t = localStorage.getItem('docs-theme');
       } catch (e) {}
-      if (designs.indexOf(d) < 0) d = 'midnight';
-      document.documentElement.setAttribute('data-design', d);
-      document.write('<link rel="stylesheet" href="themes/' + d + '.css">');
+      if (t !== 'dark') t = 'light';
+      document.documentElement.setAttribute('data-theme', t);
+      document.write('<link id="theme-css" rel="stylesheet" href="' + window.DOCS_THEME_FILES[t] + '">');
     })();
   </script>
 </head>
@@ -385,20 +386,16 @@
     </div>
     <div class="h-right">
       <div id="search-slot"></div>
+      <button class="h-theme" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      </button>
       <a href="https://logicplus.smartcoro.com/login" target="_blank" rel="noopener" class="h-signin">Logic+ Login</a>
       <a href="mailto:support@lware.com" class="h-support">Contact Support</a>
     </div>
   </header>
 
   <div id="app">Loading…</div>
-
-  <!-- Sandbox-only design switcher -->
-  <div class="design-switch" role="group" aria-label="Design preview">
-    <span>Design</span>
-    <button type="button" data-design="midnight">A · Midnight</button>
-    <button type="button" data-design="daylight">B · Daylight</button>
-    <a href="https://logicplus.smartcoro.com/docs/" target="_blank" rel="noopener">Live ↗</a>
-  </div>
 
   <script>
     // Sidebar module icons — Lucide icons, matching production's SideMenu.tsx exactly
@@ -509,13 +506,24 @@
 
           hook.mounted(function() {
             window.addEventListener('scroll', highlightToc, { passive: true });
-            var design = document.documentElement.getAttribute('data-design');
-            document.querySelectorAll('.design-switch button').forEach(function(b) {
-              b.setAttribute('aria-pressed', b.dataset.design === design ? 'true' : 'false');
-              b.addEventListener('click', function() {
-                location.href = location.pathname + '?design=' + b.dataset.design + location.hash;
+
+            // Light/dark toggle: swap the theme stylesheet in place and remember the choice
+            var btn = document.getElementById('theme-toggle');
+            function label() {
+              var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+              btn.setAttribute('aria-label', 'Switch to ' + next + ' mode');
+              btn.title = 'Switch to ' + next + ' mode';
+            }
+            if (btn) {
+              label();
+              btn.addEventListener('click', function() {
+                var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', t);
+                document.getElementById('theme-css').href = window.DOCS_THEME_FILES[t];
+                try { localStorage.setItem('docs-theme', t); } catch (e) {}
+                label();
               });
-            });
+            }
           });
 
           hook.doneEach(function() {

@@ -1,9 +1,10 @@
-/* Design B — "Daylight"
+/* Light mode (default) — "Daylight"
    Light, airy and modern (in the spirit of Stripe / Linear docs): white
    header with the full-colour logo, pale sidebar, soft teal and cyan washes,
    tinted icon tiles. */
 
 :root {
+  color-scheme: light;
   --accent: #00b8af;
   --accent-strong: #00807a;
   --link: #00807a;

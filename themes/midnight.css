@@ -1,16 +1,36 @@
-/* Design A — "Midnight"
-   Dark, glowing home page in the brand midnight blue (in the spirit of the
-   AWS docs landing page), deep navy chrome, light reading pages. */
+/* Dark mode — "Midnight"
+   Brand midnight blue throughout: glowing home page (in the spirit of the AWS
+   docs landing page), and dark reading pages with light text. */
 
 :root {
   --accent: #00b8af;
-  --accent-strong: #009990;
+  --accent-strong: #5fe3db;
   --link: #3fd0f5;
+  --link-content: #3fd0f5;
+  --ink: #ffffff;
+  --ink-muted: rgba(255, 255, 255, 0.64);
+  --line: rgba(255, 255, 255, 0.12);
+  --panel-bg: rgba(255, 255, 255, 0.045);
+  --panel-line: rgba(255, 255, 255, 0.12);
+  --panel-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 40px rgba(0, 0, 0, 0.18);
+  --hero-ink: #ffffff;
+  --hero-muted: rgba(255, 255, 255, 0.74);
+  --toggle-line: rgba(255, 255, 255, 0.28);
+  --toggle-ink: #ffd27a;
+  --toggle-hover: rgba(255, 255, 255, 0.1);
+  --page-bg: #021a31;
   --home-bg:
     radial-gradient(900px 520px at 12% -8%, rgba(0, 184, 175, 0.34), transparent 62%),
     radial-gradient(760px 480px at 88% 4%, rgba(0, 187, 242, 0.26), transparent 60%),
     radial-gradient(900px 600px at 50% 110%, rgba(79, 70, 229, 0.18), transparent 65%),
     linear-gradient(180deg, #001a33 0%, #00203d 55%, #031a30 100%);
+  color-scheme: dark;
+}
+body {
+  background:
+    radial-gradient(1000px 360px at 70% -120px, rgba(0, 184, 175, 0.14), transparent 70%) no-repeat,
+    var(--page-bg);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 /* ── Header ── */
@@ -29,8 +49,16 @@
 .h-signin { border-radius: 8px; text-transform: none; letter-spacing: 0; font-size: 13.5px; }
 .h-support { border-radius: 8px; }
 
+/* Search results */
+#search-slot .results-panel { background: #0b2643; border-color: rgba(255, 255, 255, 0.12); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45); }
+#search-slot .matching-post { border-bottom-color: rgba(255, 255, 255, 0.08); }
+#search-slot .matching-post h2 { color: #fff; }
+#search-slot .matching-post p { color: rgba(255, 255, 255, 0.62); }
+#search-slot .matching-post:hover { background: rgba(0, 187, 242, 0.08); }
+.search .search-keyword { color: #3fd0f5; }
+
 /* ── Sidebar ── */
-.sidebar { background: #001a33; }
+.sidebar { background: #001a33; border-right: 1px solid rgba(255, 255, 255, 0.05); }
 .sidebar-nav li > a { margin: 1px 10px; padding: 6px 12px; border-left: none; border-radius: 8px; }
 .sidebar-nav > ul > li > a { padding: 7px 12px; font-weight: 500; }
 .sidebar-nav li.active > a {
@@ -39,16 +67,10 @@
 }
 .sidebar-nav > ul > li > ul { padding-left: 22px; }
 .sidebar-icon { color: #5fe3db; }
+.sidebar-nav ul:not(.app-sub-sidebar) > li:not(.file)::before { border-color: rgba(255, 255, 255, 0.4); }
+.sidebar-nav li > p, .sidebar-nav li:not(.file) { color: rgba(255, 255, 255, 0.55); }
 
-/* ── Home: everything sits on the dark canvas ── */
-body.is-home {
-  --panel-bg: rgba(255, 255, 255, 0.045);
-  --panel-line: rgba(255, 255, 255, 0.12);
-  --panel-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 40px rgba(0, 0, 0, 0.18);
-  --hero-ink: #ffffff;
-  --hero-muted: rgba(255, 255, 255, 0.74);
-  --ink-muted: rgba(255, 255, 255, 0.66);
-}
+/* ── Home ── */
 body.is-home .markdown-section { color: #fff; }
 .hero-eyebrow { color: #5fe3db; }
 .hero-accent {
@@ -98,5 +120,43 @@ body.is-home .markdown-section { color: #fff; }
 .help-strip svg { color: #3fd0f5; }
 
 /* ── Reading pages ── */
-.markdown-section h1 { border-bottom: none; padding-bottom: 0; color: #00203d; }
-.markdown-section table th { background: #f3f5f8; }
+.markdown-section { color: rgba(255, 255, 255, 0.82); }
+.markdown-section h1, .markdown-section h2, .markdown-section h3,
+.markdown-section h4, .markdown-section h5, .markdown-section h6 { color: #fff; }
+.markdown-section h1 { border-bottom: none; padding-bottom: 0; }
+.markdown-section strong { color: #fff; }
+.markdown-section em { color: rgba(255, 255, 255, 0.72); }
+.markdown-section hr { border-color: rgba(255, 255, 255, 0.1); }
+.markdown-section a:hover { color: #9be8fb; }
+.markdown-section code { background: rgba(255, 255, 255, 0.08); color: #e2e8ea; }
+.markdown-section pre, .markdown-section pre > code { background: #0b2643; color: #e2e8ea; }
+.markdown-section blockquote { background: rgba(0, 184, 175, 0.1); color: rgba(255, 255, 255, 0.86); }
+.markdown-section table { border-color: rgba(255, 255, 255, 0.12); }
+.markdown-section table th { background: rgba(255, 255, 255, 0.06); color: #e2e8ea; }
+.markdown-section table td, .markdown-section table th { border-bottom-color: rgba(255, 255, 255, 0.1); }
+.markdown-section tr { border-top: none; }
+.markdown-section table tr:nth-child(2n) { background: rgba(255, 255, 255, 0.025); }
+/* Screenshots and diagrams all have solid light backgrounds — frame them */
+.markdown-section img { border: 1px solid rgba(255, 255, 255, 0.14); }
+.markdown-section iframe { border-color: rgba(255, 255, 255, 0.14) !important; border-radius: 8px; }
+
+/* Module tiles used on overview pages */
+.module-tile { border-color: rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.035); }
+.module-tile:hover { border-color: #3fd0f5; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); }
+.module-tile .tile-label { color: #5fe3db; }
+.module-tile h3 { color: #fff; }
+.module-tile p { color: rgba(255, 255, 255, 0.64); }
+.grid-group-label { color: #fff; }
+
+/* Page feedback */
+.page-feedback { border-top-color: rgba(255, 255, 255, 0.1); }
+.feedback-question { color: #fff; }
+.feedback-btn { background: transparent; color: rgba(255, 255, 255, 0.85); border-color: rgba(255, 255, 255, 0.25); }
+.feedback-btn:hover { background: rgba(0, 187, 242, 0.1); border-color: #3fd0f5; color: #fff; }
+.feedback-thanks { color: rgba(255, 255, 255, 0.64); }
+.feedback-link { color: #3fd0f5; }
+
+/* Docsify's own bits */
+#app { color: #fff; }
+.markdown-section .anchor:hover span { color: inherit; }
+.sidebar-nav li li > a { color: rgba(255, 255, 255, 0.7); }
