@@ -26,7 +26,7 @@
   --brand-cyan: #00bbf2;
   --brand-dark-teal: #009990;
   --palette-purple-500: #805ad5;
-  --palette-orange-500: #ee650a;
+  --schedule-accent-4: #f59e0b;
   --palette-pink-500: #d53f8c;
   --palette-green-500: #38a169;
   --radius-default: 4px;
@@ -246,9 +246,9 @@ body.is-home .page-feedback { display: none; }
 .ha-grid line { stroke: var(--palette-neutral-100); }
 .ha-base, .ga-soft { fill: var(--palette-neutral-200); }
 .ha-bar { fill: var(--c-primary); }
-.ha-delay, .ga-hot, .ga-hotnode { fill: #f59e0b; }
+.ha-delay, .ga-hot, .ga-hotnode { fill: var(--schedule-accent-4); }
 .ha-link { stroke: var(--palette-neutral-300); stroke-width: 1.5; }
-.ha-pc path { fill: var(--brand-midnight-blue); }
+.ha-pc path { fill: var(--c-eyebrow); }
 .ha-datadate { stroke: var(--brand-logic-teal); stroke-width: 1.5; stroke-dasharray: 4 4; }
 .ga-line { stroke: var(--c-primary); stroke-width: 2.5; }
 .ga-dash { stroke: var(--c-primary); stroke-width: 2; stroke-dasharray: 5 5; }
