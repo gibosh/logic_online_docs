@@ -79,6 +79,7 @@
   * **Traceback method**
     * [Traceback Setup](pages/traceback-setup)
     * [Traceback Results](pages/gantt-delay-analysis)
+    * [Delay Attribution Scenarios](pages/delay-attribution-2)
     * [How the Traceback method works](pages/traceback-engine)
       * [About this page](pages/traceback-engine?id=about-this-page)
       * [What traceback is actually doing](pages/traceback-engine?id=what-traceback-is-actually-doing)
@@ -103,11 +104,6 @@
 ---
 
 * [Glossary](guides/glossary)
-
----
-
-* [Next Release](pages/delay-attribution-2)
-  * [Delay Attribution 2.0](pages/delay-attribution-2)
 
 ---
 

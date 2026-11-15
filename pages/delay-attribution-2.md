@@ -1,36 +1,38 @@
 ---
 page-id: delay-attribution-2
-title: Delay Attribution 2.0 – Next Release
+title: Delay Attribution Scenarios
 audience: external
 status: draft
-version: 0.9.0
-last-reviewed: 2026-11-13
-blocked-reason: 2026-11-13 – v1.2.37 (LUSB-1374) put mini-Gantt explanations for S01–S19 and K-01 into the app, so the statement that the diagrams are not shown in the app is removed and the live-status note now points at the Delay explanation window. Checked against delayScenarios.ts and ReasonInfo.tsx. K-02 and K-03 are not in the app. 2026-10-02 – 2026-10-02 – RESTORED the S01–S19 walkthroughs (three groups, diagram + What happens + How it's charged + charge table each), verbatim from 01f36ff. The 2026-09-24 trim (6630d4d) removed them on the basis that they "now live" on traceback-engine.md, but only seven short text-only examples were added there – no diagrams or charge tables, and 12 scenarios had no write-up anywhere. The diagrams aren't in the app yet and the PM needs them for the designer, so this page is their home until they are. Don't trim again without moving the diagrams somewhere first. Earlier note: Trimmed 2026-09-24 – S01–S19 and the "eight categories" walkthrough shipped with LUSB-1171 (2026-09-18) and are now documented as the Traceback method's live flag table and worked examples on traceback-engine.md, so they've been removed from here to stop duplicating that page. This page now covers only what's genuinely still preview/next-release content: S20 (Resource Levelling, not yet a working flag) and the full 58-situation extended catalogue. The category table below is kept as background context for the extended catalogue's "Treatment" columns, which use these spec names. What is NOT yet independently verified: whether each individual scenario in the extended catalogue below produces exactly the worked treatment/diagram shown here against a future engine – this was drafted from the underlying specification, not checked against any shipped code (most of it describes behaviour that doesn't exist yet). See workspace/GAPS.md.
+version: 1.0.0
+last-reviewed: 2026-11-16
+blocked-reason: 2026-11-16 – No longer "Next Release": folded into Delay Analysis (sidebar: Delay Analysis > Traceback method, after Traceback Results; "Go to" from the Delay Attribution panel on Traceback Results). Retitled Delay Attribution Scenarios; overview rewritten. Live scope checked against @lware/contracts/src/delay.ts DelayScenarioCode at v1.2.40: S01–S19 and K-01 only. S20 (Resource Levelling) and the 58-situation catalogue are NOT in the app, so they are labelled "Not yet in Logic+" rather than claimed as live. On-screen column names corrected to the panel's labels (By Relation, CONSTRNT; delayAnalysis.utils.ts). File name kept (delay-attribution-2.md) so existing links keep working. 2026-11-13 – 2026-11-13 – v1.2.37 (LUSB-1374) put mini-Gantt explanations for S01–S19 and K-01 into the app, so the statement that the diagrams are not shown in the app is removed and the live-status note now points at the Delay explanation window. Checked against delayScenarios.ts and ReasonInfo.tsx. K-02 and K-03 are not in the app. 2026-10-02 – 2026-10-02 – RESTORED the S01–S19 walkthroughs (three groups, diagram + What happens + How it's charged + charge table each), verbatim from 01f36ff. The 2026-09-24 trim (6630d4d) removed them on the basis that they "now live" on traceback-engine.md, but only seven short text-only examples were added there – no diagrams or charge tables, and 12 scenarios had no write-up anywhere. The diagrams aren't in the app yet and the PM needs them for the designer, so this page is their home until they are. Don't trim again without moving the diagrams somewhere first. Earlier note: Trimmed 2026-09-24 – S01–S19 and the "eight categories" walkthrough shipped with LUSB-1171 (2026-09-18) and are now documented as the Traceback method's live flag table and worked examples on traceback-engine.md, so they've been removed from here to stop duplicating that page. This page now covers only what's genuinely still preview/next-release content: S20 (Resource Levelling, not yet a working flag) and the full 58-situation extended catalogue. The category table below is kept as background context for the extended catalogue's "Treatment" columns, which use these spec names. What is NOT yet independently verified: whether each individual scenario in the extended catalogue below produces exactly the worked treatment/diagram shown here against a future engine – this was drafted from the underlying specification, not checked against any shipped code (most of it describes behaviour that doesn't exist yet). See workspace/GAPS.md.
 ---
 
-## Delay Attribution 2.0 – Overview
+## Overview
 
-**Update, 2026-09-18: the base taxonomy and 19 of the 20 core scenarios have shipped**, as the Traceback method's live Delay Attribution flags – see [How the Traceback method works](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for the flag table and [worked examples](pages/traceback-engine.md#worked-examples). This page walks through all 20 core scenarios with a diagram and charge table for each, then covers what hasn't shipped: **Resource Levelling** (S20, still not a working flag) and the **full 58-situation extended catalogue**, which goes well beyond what's shipped.
+This page is the full reference for how Logic+ decides what caused each day of movement at Practical Completion. In the app you see the result in the [Delay Attribution panel](pages/gantt-delay-analysis.md#delay-attribution-panel) on the Traceback Results screen: each activity's delay is split across the attribution categories, and the chart icon on a row opens a **Delay explanation** window with a small diagram of each rule that was applied.
 
-Right now, even with the shipped taxonomy, some situations Logic+ will eventually need to reason about aren't handled yet — a fragnet inserted alongside unrelated progress on the same activity, calendar changes that look identical to resource-levelling delay, several edits landing in the same reporting window. Delay Attribution 2.0's full specification works through all of them, scenario by scenario, so that for every day added to or saved from Practical Completion, Logic+ can eventually point to the one specific thing that caused it and defend the number.
+**What Logic+ applies today:** the seven categories shown as columns in the panel, and scenarios **S01 to S19**, plus **K-01** (delay passing between activities on different calendars). Every one of these has a diagram in the Delay explanation window, and is explained below with a worked charge table.
 
-**S20 and the extended catalogue are a preview, not a change you'll see in the app yet** – S01 to S19 describe what Logic+ does today. The content is adapted from the underlying specification while it's still in draft — treat it as "this is the plan," not "this is what Logic+ does today."
+**Not yet in Logic+:** **Resource Levelling** (S20) and the wider catalogue of 58 situations further down. They're kept here as reference for how the method extends, and are marked *Not yet in Logic+* where they appear.
+
+For how the Traceback method builds the chain of activities in the first place, see [How the Traceback method works](pages/traceback-engine.md).
 
 ---
 
 ## The eight attribution categories
 
-Every day of movement at Practical Completion gets charged to exactly one of eight categories (or, for a handful of genuinely tied cases, to more than one at once — see [T-07, Concurrent drivers, exact tie](#family-t--how-delay-travels-to-completion-12-situations) below). Seven of the eight are already shipped, under the shorter on-screen names in the second column – see [How the Traceback method works](pages/traceback-engine.md#worked-examples) for what each looks like in practice.
+Every day of movement at Practical Completion gets charged to exactly one of eight categories (or, for a handful of genuinely tied cases, to more than one at once — see [T-07, Concurrent drivers, exact tie](#family-t--how-delay-travels-to-completion-12-situations) below). Seven of the eight are applied today, under the column names shown in the [Delay Attribution panel](pages/gantt-delay-analysis.md#delay-attribution-panel) (second column) – see [How the Traceback method works](pages/traceback-engine.md#worked-examples) for what each looks like in practice.
 
 | Category (spec name) | Shown on screen as | What it means |
 |---|---|---|
 | **Duration Change** | Duration | The planned duration of an activity — original or remaining — was edited in the schedule. |
-| **Relationship Change** | Relationship | A logic link was added, deleted, or had its lag or type changed. |
-| **Constraint Change** | Constraint | A date constraint was added, removed, or moved. |
+| **Relationship Change** | By Relation | A logic link was added, deleted, or had its lag or type changed. |
+| **Constraint Change** | CONSTRNT | A date constraint was added, removed, or moved. |
 | **Progress Change** | Progress | Actual dates moved the activity and nothing else explains it — a late start against logic that was otherwise satisfied, or work that simply ran slower than planned. This is the catch-all for real-world performance, used only when nothing else accounts for the movement. |
 | **Implied Logic** | Implied Logic | Logic+ spots an activity tracking another one's dates with no formal link behind it. Flagged as a candidate explanation — never reported as a proven cause. |
 | **Fragnet / New Activity** | New fragnet | New scope was added to the schedule, whether a single activity or a whole chain. Charged by the actual effect on the finish date, never by how long the new work itself is. |
-| **Resource Levelling** | *(not shown – not yet implemented)* | Delay produced by the resource-levelling engine. Only ever attributed once every other category has been ruled out *and* a genuine resource conflict backs it up. |
+| **Resource Levelling** | *(not yet in Logic+)* | Delay produced by the resource-levelling engine. Only ever attributed once every other category has been ruled out *and* a genuine resource conflict backs it up. |
 | **Calendar Change** | Calendar | An activity's calendar was swapped, or the calendar itself was edited (holidays, working days). Moves dates without touching duration, logic, constraints, or progress. |
 
 ---
@@ -81,7 +83,7 @@ Eight ideas govern every treatment decision in this catalogue. Once these make s
 
 ## The 20 core scenarios
 
-**S01 to S19 are live** – they're the scenarios behind the Delay Attribution flags Logic+ shows today (see [How the Traceback method works](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for the flag table). **S20 (Resource Levelling)** is the one that isn't a working flag yet. In the app, click the chart icon on a row in the [Delay Attribution panel](pages/gantt-delay-analysis.md#delay-attribution-panel) to open a **Delay explanation** window with a small diagram for each scenario applied to that row. The diagrams below are the fuller reference, with the worked charge tables.
+**S01 to S19 are applied today** – they're the scenarios behind the Delay Attribution flags Logic+ shows (see [How the Traceback method works](pages/traceback-engine.md#from-chain-to-delay--how-days-get-charged-to-each-activity) for the flag table). **S20 (Resource Levelling)** is not yet in Logic+. In the app, click the chart icon on a row in the [Delay Attribution panel](pages/gantt-delay-analysis.md#delay-attribution-panel) to open a **Delay explanation** window with a small diagram for each scenario applied to that row. The diagrams below are the fuller reference, with the worked charge tables.
 
 ## Group 1 – One clear cause, one simple chain
 
@@ -329,7 +331,7 @@ Fragnets, new activities, implied links, and resource levelling — the cases wh
 |---|---|---|---|---|---|---|---|---|
 | – | – | – | – | B +3 | – | – | – | **+3** |
 
-### S20 – Resource levelling
+### S20 – Resource levelling *(not yet in Logic+)*
 
 ![Resource levelling — the candidate column](images/delay-attribution-2/S20.png)
 
@@ -370,9 +372,9 @@ Fragnets, new activities, implied links, and resource levelling — the cases wh
 
 ---
 
-## The complete catalogue: 58 situations, five families
+## The complete catalogue: 58 situations, five families *(reference)*
 
-The 20 scenarios in the summary table above are the foundation — every scenario in the full catalogue is one of these, made more specific. The complete specification covers **58 discrete situations** in total, grouped into five families. Nineteen of the twenty base scenarios are already shipped and documented on [How the Traceback method works](pages/traceback-engine.md#worked-examples); the rest – Resource Levelling above, and everything below – are set out here for reference, each with the same diagram-plus-explanation treatment, organised by family so you can go as deep as you need to.
+The 20 scenarios in the summary table above are the foundation — every scenario in the full catalogue is one of these, made more specific. The complete specification covers **58 discrete situations** in total, grouped into five families. Logic+ applies S01–S19 and K-01 today (see [How the Traceback method works](pages/traceback-engine.md#worked-examples)); the rest – Resource Levelling above, and the situations below – are **not yet in Logic+** and are set out here for reference, each with the same diagram-plus-explanation treatment, organised by family so you can go as deep as you need to.
 
 Each section below is collapsed by default — expand the ones you need.
 
