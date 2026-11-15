@@ -16,14 +16,6 @@
 
 ---
 
-* [Permissions and Access](pages/permissions)
-  * [The roles](pages/permissions?id=the-roles)
-  * [How access flows down](pages/permissions?id=how-access-flows-down)
-  * [Giving someone access](pages/permissions?id=giving-someone-access)
-  * [For App Owners and User Admins](pages/permissions?id=for-app-owners-and-user-admins)
-
----
-
 * [Schedule Manager](pages/schedule-manager)
   * [About this page](pages/schedule-manager?id=about-this-page)
   * [Key concepts](pages/schedule-manager?id=key-concepts)
@@ -116,6 +108,14 @@
 
 * [Next Release](pages/delay-attribution-2)
   * [Delay Attribution 2.0](pages/delay-attribution-2)
+
+---
+
+* [Permissions and Access](pages/permissions)
+  * [The roles](pages/permissions?id=the-roles)
+  * [How access flows down](pages/permissions?id=how-access-flows-down)
+  * [Giving someone access](pages/permissions?id=giving-someone-access)
+  * [For App Owners and User Admins](pages/permissions?id=for-app-owners-and-user-admins)
 
 ---
 

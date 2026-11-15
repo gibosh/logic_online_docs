@@ -24,6 +24,11 @@
   --brand-midnight-blue: #00203d;
   --brand-logic-teal: #00b8af;
   --brand-cyan: #00bbf2;
+  --brand-dark-teal: #009990;
+  --palette-purple-500: #805ad5;
+  --palette-orange-500: #ee650a;
+  --palette-pink-500: #d53f8c;
+  --palette-green-500: #38a169;
   --radius-default: 4px;
   --container-radius: 8px;
   --popover-shadow: 0 0 24px 0 rgba(56, 83, 113, 0.16);
@@ -128,6 +133,27 @@ html[data-theme="dark"] .h-theme .icon-moon { display: none; }
 .sidebar hr { border-top-color: var(--c-border); margin: 6px 16px !important; }
 .sidebar-icon { color: inherit; margin-right: 8px; }
 
+/* Expandable items: docsify-sidebar-collapse pins its chevron 12px outside the
+   item, which breaks the left edge. Put it inside, on the right, instead. */
+.sidebar-nav li.folder { position: relative; }
+.sidebar-nav > ul > li::before { display: none !important; }      /* top level leads with its icon */
+.sidebar-nav ul:not(.app-sub-sidebar) > li:not(.file)::before {
+  left: auto; right: 20px; top: 14px; border-color: var(--palette-neutral-400); pointer-events: none;
+}
+.sidebar-nav li.folder > a { padding-right: 28px; }
+/* Long titles wrap instead of being cut off with an ellipsis */
+.sidebar .sidebar-nav li > a { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.4; }
+/* Group headings written as bold text in _sidebar.md (e.g. "Traceback method") */
+.sidebar-nav li.folder > strong {
+  display: block; margin: 10px 8px 2px; padding: 6px 28px 6px 8px; border-radius: var(--radius-default);
+  font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; line-height: 1.4;
+  color: var(--c-subtle); cursor: pointer;
+}
+.sidebar-nav li.folder > strong:hover { color: var(--palette-neutral-700); background: var(--palette-neutral-50); }
+.sidebar-nav li.folder:has(> strong)::before { top: 19px; }
+/* Third level and deeper sit one step in from their parent */
+.sidebar-nav ul ul ul { padding-left: 12px; }
+
 /* ── Home canvas ── */
 body.is-home { background: var(--home-bg); }
 body.is-home .content { max-width: none; }
@@ -167,7 +193,9 @@ body.is-home .page-feedback { display: none; }
 .f-icon {
   flex: 0 0 36px; height: 36px; border-radius: var(--container-radius);
   display: grid; place-items: center;
-  color: var(--c-primary); background: var(--c-primary-tint) !important;
+  --tile-accent: var(--accent, var(--palette-primary-500));
+  color: #fff; background: var(--tile-accent);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--tile-accent) 28%, transparent);
 }
 .f-icon svg { width: 18px; height: 18px; }
 .f-text { display: flex; flex-direction: column; gap: 4px; }
