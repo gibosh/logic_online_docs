@@ -3,9 +3,10 @@ page-id: schedule-risk
 route: /module/8/project/:projectId
 title: Schedule Risk Analysis (SRA)
 audience: external
-status: complete
-version: 1.2.1
-last-reviewed: 2026-09-08
+status: review
+version: 1.3.0
+last-reviewed: 2026-11-18
+blocked-reason: 2026-11-18 – Run section (step 3) rewritten in detail against TornadoModule/model.ts and packetModel.ts at v1.2.40: Analysis (what varies, which result cards show, empty-register and double-counting caveats), Detail (the app's own 'contrast, not a forecast' warning for Full), Iterations (default 2,000, new random seed per run), Plan baseline (exactly what it changes; Forward pass = recalculated from the earliest activity start with planned durations, constraints and progress left out; Schedule finish = latest finish of any activity in the imported file). Added 'Progress is not modelled' (packetModel uses task.duration, forwardPass starts every activity at day 0; actuals, remaining duration and data date unused). Not screenshot-verified. The approved v6 restyle (dropdowns, 'Plan finish taken from') is not built yet – update names when it ships.
 ---
 
 ## Schedule Risk Analysis (SRA)
@@ -29,14 +30,55 @@ Headline finish-date statistics at **P50, P80, and P90** (the 50th, 80th, and 90
 
 ## Options
 
+Steps 1 and 2 of the screen set up the risk model:
+
 | Setting | What it controls |
 |---|---|
-| Analysis mode | Uncertainty only, risk register only, or both combined |
-| Detail level | Summarised (WBS block level) or full (every activity) |
-| Iterations | 1,000 / 2,000 / 5,000 simulation runs |
-| Risk-model level | The WBS granularity risk ranges are applied at |
-| Preset | Conservative, Balanced + opportunity, or Opportunity-rich starting ranges |
-| Plan baseline | What the simulated finishes are compared against: the schedule's own forward-pass logic date, or P6's scheduled finish. Because constraints are neutralised for the simulation (see below), the two can legitimately differ — this setting only changes the reference line results are read against, not the simulation itself |
+| Risk-model level | The WBS level risk ranges are applied at (step 1) – each WBS area at that level becomes one risk block |
+| Preset | Conservative, Balanced + opportunity (the default) or Opportunity-rich starting ranges (step 2). You can also type your own optimistic / most likely / pessimistic percentages, or override them per block |
+
+## Running the simulation
+
+Step **3 · Run** has four settings, then **Run simulation**. The note under the button changes to describe the analysis you've picked.
+
+### Analysis
+
+Chooses what is allowed to vary from one simulated run to the next.
+
+| Option | What varies | What you'll see in the results | Use it to |
+|---|---|---|---|
+| **Uncertainty (tornado)** | Only the duration ranges from step 2. The risk register is ignored. | Forecast completion, Distribution of finish dates, Criticality index and **Duration sensitivity** (the tornado chart) | Find which parts of the schedule the finish date is most sensitive to |
+| **Risk register** | Only the risks and opportunities in your register. Every duration stays at plan. | Forecast completion, Distribution of finish dates, Criticality index and **Risk register impact**. There's no Duration sensitivity chart, because durations don't vary. | Assess the effect of your named risks on their own |
+| **Combined** *(default)* | Both: every block carries its duration range, and the register fires on top | Every card, including Duration sensitivity and Risk register impact | Run a standard quantitative schedule risk analysis (QSRA) |
+
+> **Two things to watch.** In **Combined**, set the duration ranges as if the listed risks *don't* happen – otherwise the same delay is counted twice, once in the range and again when the risk fires. In **Risk register**, you need at least one risk that matches the schedule: with an empty register, or none of its rows matched, every run is identical and P50, P80 and P90 all equal the plan finish.
+
+### Detail
+
+| Option | How it works | Use it for |
+|---|---|---|
+| **Summarised (block drivers)** *(default, recommended)* | Every activity in a WBS block shares the same random draw in each run, so the block moves together. Rankings are by WBS block. | Forecasting. It keeps realistic swings in the result, and it's the only setting that can show a genuine chance of finishing early. |
+| **Full (every activity)** | Every activity varies on its own. Across thousands of activities the ups and downs cancel out along each path, the spread collapses, and almost every run finishes late. | A contrast only – not a forecast |
+
+### Iterations
+
+How many times the schedule is simulated: **1,000**, **2,000** *(default)* or **5,000**. Each run starts from a new random seed, so the results shift slightly every time you run, even with the same settings. More iterations give smoother percentiles and smaller shifts between runs, but take longer.
+
+### Plan baseline
+
+The date the results are measured against. It **doesn't change the simulation** – the P50, P80 and P90 dates stay the same either way – but it changes:
+
+- the first tile in **Forecast completion**, labelled **Deterministic (logic)** or **Schedule finish**
+- the working days ahead of or behind plan shown under P50, P80 and P90
+- **Chance of finishing ≤ plan**
+- the green "beat plan" area in **Distribution of finish dates**
+
+| Option | The plan date is… | Use it when |
+|---|---|---|
+| **Forward pass (logic)** *(default)* | The schedule recalculated from its earliest activity start using its own logic and planned durations, with no uncertainty, constraints or progress – the same model the simulation uses | You want a like-for-like comparison: how far the ranges and risks alone move the finish |
+| **Schedule finish** | The latest finish date of any activity in the imported schedule – the finish your scheduling tool calculated, including progress and constraints | You want the chance of meeting the date in the programme itself. Because the simulation leaves out progress and constraints (see below), part of the gap is the difference between the two models, not risk. |
+
+The **Forecast completion** card also shows the imported schedule finish and explains any gap to the logic date.
 
 ## Calculation and other logic
 
@@ -65,6 +107,8 @@ An area can rank high on one measure and low on the other – for example, a nat
 
 Date constraints already in the schedule (Start On, Finish On, Finish On or After, Mandatory Start, Mandatory Finish, As Late As Possible, and others) are not applied during the simulation – every constraint type is uniformly set aside ("neutralised"), not selectively removed, so the simulation reflects the schedule's logic and durations alone. This is also why, under the "forward-pass logic" plan-baseline setting, the model's own deterministic (no-uncertainty) finish date can differ from P6's constrained finish date – it is the schedule's real logic, unclamped. Each run uses a fresh random seed taken from the current time – running the simulation again on unchanged inputs and settings produces a new random draw and a slightly different result, not a repeat of the previous run.
 
+**Progress is not modelled.** Every run starts the whole schedule from its earliest activity start and uses each activity's planned duration. Actual dates, remaining durations and the data date are not used, so work that is already complete is simulated too. On a schedule update, the results describe the plan as a whole rather than just the work still to do – bear this in mind when reading the P-dates.
+
 ## Note
 
-This model does not account for correlation between unrelated activities, cascading risk effects, or resource constraints – it is a schedule-logic and duration-uncertainty model, not a full project risk simulation. Treat the ranking as a guide to where to focus attention, not a complete risk assessment on its own.
+This model does not account for progress to date, correlation between unrelated activities, cascading risk effects, or resource constraints – it is a schedule-logic and duration-uncertainty model, not a full project risk simulation. Treat the ranking as a guide to where to focus attention, not a complete risk assessment on its own.

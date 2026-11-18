@@ -285,7 +285,8 @@ body { background: var(--c-page); color: var(--c-text); }
   margin: 1.4em 0; padding: 12px 16px; border-left: 3px solid var(--c-primary);
   border-radius: var(--radius-default); background: var(--c-primary-tint); color: var(--c-text);
 }
-.markdown-section blockquote p { margin: 0; }
+.markdown-section blockquote p { margin: 0; font-weight: 400; }  /* vue.css bolds whole notes, hiding their own bold words */
+.markdown-section blockquote p + p { margin-top: 0.6em; }
 /* Tables — misc.css .table */
 .markdown-section table { display: table; width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--c-border); border-radius: var(--container-radius); overflow: hidden; font-size: 14px; }
 .markdown-section table th { background: var(--c-table-head) !important; color: var(--palette-neutral-600); font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-align: left; padding: 8px; }
