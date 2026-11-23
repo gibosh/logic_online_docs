@@ -10,50 +10,50 @@ blocked-reason: 2026-11-13 – EPS Admin renamed Project Admin (v1.2.36). 2026-1
 
 ## What is Logic+ Online?
 
-Logic+ Online is a web-based schedule analysis tool. You upload construction project schedule files and Logic+ runs a suite of analytics to help you understand schedule health, delay risk, and critical path behaviour.
+Logic+ Online is a web-based tool for analysing construction schedules. You upload your project's schedule files, and Logic+ runs a set of analytics on them covering schedule health, delay risk and how the critical path behaves.
 
 ## Logging in
 
 Go to **https://logicplus.smartcoro.com/login** and click **Sign In**.
 
-New to Logic+? You can start a trial yourself – see [Signing Up](pages/signing-up.md). If your organisation has invited you, use the link in your invitation email. If you have trouble logging in, contact **support@lware.com**.
+New to Logic+? You can start a trial yourself: see [Signing Up](pages/signing-up.md). If your organisation has invited you, use the link in your invitation email. If you can't log in, contact **support@lware.com**.
 
 ## Choosing a workspace
 
 Your projects live in a **workspace**. The workspace selector at the top of the screen, next to the Logic+ logo, shows which one you're in:
 
-- **My Workspace** – your own personal space. Only you can see projects here.
-- **Your organisation's workspace** – shown under your organisation's name, if you're part of a Team or Enterprise licence. Projects here are shared according to the access your organisation gives you – you only see the folders and projects you've been given access to.
+- **My Workspace**: your personal space. Only you can see projects here.
+- **Your organisation's workspace**: shown under your organisation's name if you're on a Team or Enterprise licence. You see only the folders and projects your organisation has given you access to.
 
-Each project belongs to the workspace it was created in, and workspaces are kept completely separate – a project in My Workspace doesn't appear in your organisation's workspace, and vice versa. **Check the selector before you create a project.** Logic+ reopens the last workspace you used on that browser, and switching workspace takes you back to All Projects.
+A project belongs to the workspace it was created in, and the two never mix: a project in My Workspace doesn't appear in your organisation's workspace, and the reverse is also true. **Check the selector before you create a project.** Logic+ reopens the last workspace you used in that browser, and switching workspace takes you back to All Projects.
 
-> **Note:** In your organisation's workspace, what you can see and do depends on the **role** you've been given on each folder and project – **View**, **Edit** or **Owner**. If you've just joined and see *"Nothing has been shared with you yet"*, ask one of the **Project Admins** listed on that page to give you access. See [Permissions and Access](pages/permissions.md). If a project is just for you, create it in **My Workspace**, which only you can see.
+> **Note:** In your organisation's workspace, your **role** on each folder and project (**View**, **Edit** or **Owner**) decides what you can see and do. If you've just joined and see *"Nothing has been shared with you yet"*, ask one of the **Project Admins** listed on that page to give you access. See [Permissions and Access](pages/permissions.md). For a project that's just for you, create it in **My Workspace**.
 
 ## Quick Start
 
-1. **Create a project** – check you're in the right **workspace** (see above), then in [All projects](pages/all-projects), add a project to group your schedule files (optionally organised into a folder)
-2. **Upload a schedule** – select the project, open [Schedule Manager](pages/schedule-manager), and drag in a schedule file (`.xer`, `.mpp`, `.pp`, or `.xml`) – upload more than one to enable comparison between updates
-3. **Wait for processing** – the status shows "Processing…" while Logic+ works through the file, then "Ready for analysis" once it's ready
-4. **Explore the views** – once processed, use the left-hand navigation to move between modules
+1. **Create a project.** Check you're in the right **workspace** (see above), then add a project in [All projects](pages/all-projects) to hold your schedule files. You can put it in a folder.
+2. **Upload a schedule.** Select the project, open [Schedule Manager](pages/schedule-manager) and drag in a schedule file (`.xer`, `.mpp`, `.pp` or `.xml`). Upload more than one to compare updates.
+3. **Wait for processing.** The status shows "Processing…" while Logic+ reads the file, then "Ready for analysis".
+4. **Explore the views.** Use the left-hand navigation to move between modules.
 
-**Prefer to watch?** A short video walkthrough covers the same steps:
+**Prefer to watch?** A short video covers the same steps:
 
 <iframe width="100%" style="max-width:640px;aspect-ratio:16/9" src="https://www.youtube.com/embed/Q-hTNdksTDs" title="Logic+ Online Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## The modules
 
-Logic+'s left-hand navigation gives access to:
+The left-hand navigation has five modules:
 
-- **[All Projects](pages/all-projects)** – create projects, organise them into folders, and open the one you want to work in. Also where you see who has access to each folder and project. This is your starting point every time you come back.
-- **[Schedule Manager](pages/schedule-manager)** – upload schedule files for the selected project and track their processing status. Also where you exclude a schedule from analysis, archive and restore schedules, or add custom fields to help identify specific uploads.
-- **[Schedule Viewer](pages/gantt-viewer)** – explore and compare schedules in the Gantt chart: activity relationships, driving logic, and how dates have shifted between updates.
-- **[Analytics](pages/analytics-overview)** – nine automated checks covering schedule quality (DCMA, CIOB, and other standards), forecasting (confidence, variance, completion date, float burn-down), and delay/risk insight (critical path evolution, bow wave compression, causes of change, Monte Carlo risk simulation).
-- **[Delay Analysis](pages/delay-analysis)** – choose a method to analyse delay: **Traceback** traces which activities are actually driving project delay and attributes it day by day; **[Time-Impact Analysis](pages/time-impact-analysis)** builds a hypothetical delay event and tests its impact on Practical Completion.
+- **[All Projects](pages/all-projects)**: create projects, organise them into folders and open the one you want to work in. It also shows who has access to each folder and project, and it's where you start each time you come back.
+- **[Schedule Manager](pages/schedule-manager)**: upload schedule files for the selected project and track their processing. You also exclude schedules from analysis, archive and restore them, and add custom fields to tell uploads apart here.
+- **[Schedule Viewer](pages/gantt-viewer)**: explore and compare schedules in the Gantt chart, including activity relationships, driving logic and how dates moved between updates.
+- **[Analytics](pages/analytics-overview)**: nine automated checks covering schedule quality (DCMA, CIOB and other standards), forecasting (confidence, variance, completion date, float burn-down), and delay and risk (critical path evolution, bow wave compression, causes of change, and a Monte Carlo risk simulation).
+- **[Delay Analysis](pages/delay-analysis)**: two methods. **Traceback** finds the activities driving project delay and attributes the delay day by day. **[Time-Impact Analysis](pages/time-impact-analysis)** models a hypothetical delay event and tests how it affects Practical Completion.
 
-Not all views will show meaningful data unless a project with processed schedules is selected.
+Most views only show useful data once you've selected a project with processed schedules.
 
 ## Getting help
 
-Open **Documentation** from the user menu (top right, next to Sign Out) to reach this site from inside Logic+, then use the navigation on the left or the search box to find what you need.
+Open **Documentation** from the user menu (top right, next to Sign Out) to reach this site from inside Logic+, then use the navigation on the left or the search box.
 
-For anything this doesn't answer, or to share feedback, contact **support@lware.com**.
+For anything this site doesn't answer, or to send feedback, contact **support@lware.com**.
