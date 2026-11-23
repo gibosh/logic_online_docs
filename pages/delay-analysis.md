@@ -9,8 +9,6 @@ last-reviewed: 2026-11-23
 blocked-reason: 2026-11-23 – LUSB-1392: No data date notice for undated schedules; added the Delay Attribution Scenarios link; removed 'more methods may be added' (style guide: no coming-soon). Humanizer rewrite of the prose. Consolidated 2026-09-24 – this page previously covered "Delay Analysis" but its body was almost entirely Traceback-specific content duplicated from traceback-setup.md/gantt-delay-analysis.md/traceback-engine.md. Trimmed to a thin, method-neutral hub (matching how pages/analytics-overview.md links out to module pages rather than embedding them) with a single Traceback method section. "Delay Attribute" flag list correction from 2026-09-23 carried forward (now lives on traceback-engine.md, not duplicated here).
 ---
 
-## About Delay Analysis
-
 Delay Analysis is the module for analysing schedule delay. Open it from **Delay Analysis** in the left-hand navigation, then choose a method. Each method has its own steps: pick it, work through its setup, then review its results.
 
 | Method | Use it to |

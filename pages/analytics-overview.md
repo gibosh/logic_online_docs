@@ -9,8 +9,6 @@ last-reviewed: 2026-11-23
 blocked-reason: 2026-11-23 – LUSB-1392: analytics leave out undated schedules and show a No data date notice when none has one (ModulePage.tsx, ProjectPreparation.ts). Corrected 'no random element' - SRA is a random simulation. Humanizer rewrite of the prose. Fixed internal hyphenation drift 2026-09-23 – "Bow Wave Compression" and "Float Burn-down and Earned Schedule" corrected to match the canonical hyphenated names used everywhere else on the site.
 ---
 
-## About Analytics
-
 Logic+ Analytics runs a fixed set of calculations on your uploaded schedule files. Apart from Schedule Risk Analysis, which is a random simulation, there's no random element, so the same schedules always produce the same result and you can explain exactly how each number was calculated.
 
 The analytics are in three groups: **Schedule Quality** (is the schedule built well enough to trust?), **Schedule Insights** (what is the current state of delay and risk?) and **Schedule Predictions** (where is the project likely to end up?).

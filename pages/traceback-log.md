@@ -9,8 +9,6 @@ last-reviewed: 2026-09-25
 blocked-reason: Fixed stale "Delay Analysis mode"/"mode bar"/"Gantt Viewer" language caught in the 2026-09-25 sitewide drift audit – this page was reviewed earlier the same day but the language slipped through that pass. Verified against current component and handler source, but not yet checked against a live traceback run's actual output – confirm on-screen wording before promoting to complete. New "Filter audit step" dropdown and "Error loading traceback log" state (both from the 2026-09-21 traceback-document versioning change, LUSB-1269) added from source. Separately worth flagging to engineering (not a docs issue): opening an old saved traceback from the Gantt page's own "Load Traceback" dropdown (as opposed to this Log page) currently fails silently with no on-screen message at all — see workspace/GAPS.md.
 ---
 
-## Overview
-
 At each step, traceback picks a "driving task" by scoring candidate predecessor activities against a set of weighted criteria, after excluding some tasks before scoring starts. The Traceback Setup view doesn't show that working, so when you need to know *why* traceback chose one activity over another, or why an activity never appeared as a candidate, use the Traceback Log.
 
 The log shows the full detail behind one traceback run: the schedule files used, the scoring weights and exclusion settings applied, every candidate's score at every step, and every task filtered out along the way, with the reason.

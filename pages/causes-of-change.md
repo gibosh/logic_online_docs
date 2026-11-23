@@ -9,8 +9,6 @@ last-reviewed: 2026-09-08
 blocked-reason: Module 6 is now built (confirmed against current codebase — frontend/src/components/modules/CausesOfChangeModule/, frontend/src/analytics/causesOfChange.ts, with an in-repo README documenting the same calculation). Content below is written from that code and README, but has not yet been checked against the running app — confirm on-screen wording, Gantt rendering, and CSV export before promoting to complete.
 ---
 
-## Overview
-
 When a group of activities moves later together between schedule updates, something upstream pushed them. A planner often has a hunch about the cause, such as a permit delay, a subcontractor issue or a late decision, but no systematic way to test it or to tell a real trigger event apart from routine monthly re-baselining.
 
 Causes of Change does that search. For every pair of consecutive schedule updates, it finds groups of logically connected activities whose dates moved later by the same number of days, and identifies the upstream activity in that group's schedule logic as the candidate root cause. It also compares the group's movement with the update's typical (background) movement, so a distinctive shift stands out from routine changes.

@@ -9,8 +9,6 @@ last-reviewed: 2026-11-18
 blocked-reason: 2026-11-18 – Run section (step 3) rewritten in detail against TornadoModule/model.ts and packetModel.ts at v1.2.40: Analysis (what varies, which result cards show, empty-register and double-counting caveats), Detail (the app's own 'contrast, not a forecast' warning for Full), Iterations (default 2,000, new random seed per run), Plan baseline (exactly what it changes; Forward pass = recalculated from the earliest activity start with planned durations, constraints and progress left out; Schedule finish = latest finish of any activity in the imported file). Added 'Progress is not modelled' (packetModel uses task.duration, forwardPass starts every activity at day 0; actuals, remaining duration and data date unused). Not screenshot-verified. The approved v6 restyle (dropdowns, 'Plan finish taken from') is not built yet – update names when it ships.
 ---
 
-## Overview
-
 Schedule Risk runs a quantitative schedule risk analysis on your uploaded schedule. This is the Monte Carlo simulation planners usually run in a separate risk tool. It estimates how much uncertainty sits behind the finish date and ranks the risk drivers by how far they move it. Because it works on the same schedule data as the rest of Logic+, you don't need to keep a separate risk spreadsheet in step with the programme.
 
 **Note:** the simulation runs entirely in your browser. The schedule and risk register aren't sent anywhere to compute the result, and saved risk models are kept only in your browser's local storage.

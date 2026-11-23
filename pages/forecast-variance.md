@@ -8,8 +8,6 @@ version: 1.1.1
 last-reviewed: 2026-09-08
 ---
 
-## Overview
-
 A finish date can move for two different reasons, and they point to different people and different next steps:
 
 - **Duration growth**: an activity's own duration grew, so its finish moved but its start didn't. This is a productivity signal: the work took longer than planned.

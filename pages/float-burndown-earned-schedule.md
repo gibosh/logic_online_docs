@@ -9,8 +9,6 @@ last-reviewed: 2026-09-22
 blocked-reason: Corrected 2026-09-22 – the float-implied finish formula was documented as a fixed 1.4x (7/5) weekend conversion; commit 0f34cc92 (2026-09-10, "project through imported working calendars") replaced that with walking the projected negative float forward through the project's own imported calendar, so the old formula gives a materially wrong date on any 6- or 7-day construction calendar. Also added a previously-undocumented caveat: earned schedule matches by activity_id against the baseline set, so scope added after baseline is invisible to SPI(t) in either direction. Two stale code comments describing the old "business days Mon–Fri" assumption (README.md and earnedSchedule.ts's docblock in frontend/src/analytics/ProjectFloatCheck/) were also fixed in the app repo, separately from this docs change. Still not checked against the running app. Confirm chart interaction/hover behaviour before promoting to complete.
 ---
 
-## Overview
-
 There are two established ways to estimate when a project will really finish, and each can mislead on its own:
 
 - **Float burn-down** tracks how much of the schedule's buffer (float) is being used up over time. It can look healthy when a planner re-sequences activities to protect float on paper without recovering any progress.

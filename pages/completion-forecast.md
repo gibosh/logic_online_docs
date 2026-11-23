@@ -9,8 +9,6 @@ last-reviewed: 2026-09-23
 blocked-reason: Full rewrite following a ground-up engine change (LUSB-1249, 2026-09-16) – this page now shares its calculation engine with Forecast Confidence rather than running its own. The previously-documented "What's driving the programme" section (driving-path activities grouped by category) could not be found anywhere in the current source and appears to have been removed in this rewrite – flagged in workspace/GAPS.md for PM confirmation before this note is cleared. Content verified against source, not yet screenshot-verified live. Fixed five internal cross-links to Forecast Confidence that were missing the `pages/` prefix every other link on the site uses.
 ---
 
-## Overview
-
 A project's reported finish date and a projection based on the schedule's own track record often disagree, sometimes by many months. Showing only the reported date hides that gap.
 
 Completion Forecast puts the two side by side. You see the reported finish date over time, the date the projection gives instead, and the size of the gap between them, so when a project is reported as "on track" you can check that claim against the schedule's own history.

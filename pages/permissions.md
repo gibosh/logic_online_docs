@@ -9,8 +9,6 @@ last-reviewed: 2026-11-13
 blocked-reason: 2026-11-13 – Renamed per v1.2.36 (PR #555/#557): EPS Admin is now "Project Admin" and the organisation-level Owner is now "App Owner" (the earlier note below that the "Project admin" name did not ship is superseded – it did ship, as "Project Admin"). Added archiving (PR #551/#555): folders and projects are archived, not deleted, and Project Admins restore or permanently delete them from Archived items. Removed "Only empty folders can be deleted" (archiving a folder now takes its contents with it). Who can set Project Admin changed: App Owners and Project Admins, no longer User Admins. Verified against RoleBadge.tsx, NoAccess.tsx, AdminRoleHelp.tsx, SeatManagement.tsx, ProjectsPage.tsx, ArchivedProjects.tsx at v1.2.40. Not screenshot-verified. Original 2026-10-28 note follows. New page, written 2026-10-28 from the shipped permissions release (PR #529, LUSB-1159, plus PR #545 / LUSB-1353) – verified against AccessDialog.tsx, RoleBadge.tsx, NoAccess.tsx, EpsAdminControl.tsx, SeatHandoverDialog.tsx, ProjectsPage.tsx, ScheduleManagerPage.tsx, devops/migration/006-resource-access.sql (the role/permission matrix) and backend/services/access/README.md. Not screenshot-verified live. Whether the 30-second refresh and the "directly shared items appear at the top level" behaviour are obvious to users in practice has not been checked live.
 ---
 
-## About this page
-
 Logic+ controls who can see and change each folder, project and schedule in your organisation. You're given a **role** on a folder or project, and that role decides what you can do there.
 
 ## The roles

@@ -4,7 +4,6 @@
 ---
 
 * [All Projects](pages/all-projects)
-  * [About this page](pages/all-projects?id=about-this-page)
   * [Key concepts](pages/all-projects?id=key-concepts)
   * [Browsing and searching](pages/all-projects?id=browsing-and-searching)
   * [Opening a project](pages/all-projects?id=opening-a-project)
@@ -17,7 +16,6 @@
 ---
 
 * [Schedule Manager](pages/schedule-manager)
-  * [About this page](pages/schedule-manager?id=about-this-page)
   * [Key concepts](pages/schedule-manager?id=key-concepts)
   * [The schedule files table](pages/schedule-manager?id=the-schedule-files-table)
   * [Uploading schedules](pages/schedule-manager?id=uploading-schedules)
@@ -32,7 +30,6 @@
 ---
 
 * [Schedule Viewer](pages/gantt-viewer)
-  * [About the Schedule Viewer](pages/gantt-viewer?id=about-the-schedule-viewer)
   * [Selecting schedules](pages/gantt-viewer?id=selecting-schedules)
   * [Fullscreen](pages/gantt-viewer?id=fullscreen)
   * [Printing](pages/gantt-viewer?id=printing)
@@ -48,7 +45,6 @@
 ---
 
 * [Analytics](pages/analytics-overview)
-  * [About Analytics](pages/analytics-overview?id=about-analytics)
   * [Schedule Quality](pages/analytics-overview?id=schedule-quality)
     * [Forecast Confidence](pages/forecast-confidence)
     * [Forecast Variance](pages/forecast-variance)
@@ -75,13 +71,11 @@
 ---
 
 * [Delay Analysis](pages/delay-analysis)
-  * [About Delay Analysis](pages/delay-analysis?id=about-delay-analysis)
   * **Traceback method**
     * [Traceback Setup](pages/traceback-setup)
     * [Traceback Results](pages/gantt-delay-analysis)
     * [Delay Attribution Scenarios](pages/delay-attribution-2)
     * [How the Traceback method works](pages/traceback-engine)
-      * [About this page](pages/traceback-engine?id=about-this-page)
       * [What traceback is actually doing](pages/traceback-engine?id=what-traceback-is-actually-doing)
       * [Driving Path](pages/traceback-engine?id=driving-path)
       * [How the candidate field gets narrowed down](pages/traceback-engine?id=how-the-candidate-field-gets-narrowed-down)
@@ -117,10 +111,8 @@
 
 * [Licensing](pages/signing-up)
   * [Signing Up](pages/signing-up)
-    * [Overview](pages/signing-up?id=overview)
     * [Steps](pages/signing-up?id=steps)
   * [Subscription & Billing](pages/subscription-billing)
-    * [About this page](pages/subscription-billing?id=about-this-page)
     * [The licensing model](pages/subscription-billing?id=the-licensing-model)
     * [Your licences](pages/subscription-billing?id=your-licences)
     * [Managing billing](pages/subscription-billing?id=managing-billing)

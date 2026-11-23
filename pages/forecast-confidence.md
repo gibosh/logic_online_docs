@@ -9,8 +9,6 @@ last-reviewed: 2026-09-17
 blocked-reason: Full rewrite following a ground-up engine and UI change (LUSB-1249, 2026-09-16). Content verified directly against the current ForecastConfidenceModule source (analyze.ts/predict.ts/series.ts) and its call path, but exact on-screen wording still needs a live-app screenshot before promoting to complete. The previous worked-examples section (specific percentages and dates run through the old formula) has been removed rather than carried forward inaccurately — new worked examples need recalculating against this engine before publishing; see workspace/GAPS.md.
 ---
 
-## Overview
-
 A reported finish date doesn't tell you at a glance whether it's achievable or optimistic. Some schedules lose about a month of completion date for every month that passes while still looking healthy on paper, because the delay sits in work that hasn't started yet. Others appear to recover, but the recovery came from cutting planned durations and adding logic links, not from progress on site.
 
 Forecast Confidence rates how far you can trust the reported finish date. It's shown as a percentage, but read it as a band (green, amber or red) rather than a precise score: the difference between 48% and 52% means nothing, only the band does. It's built from the schedule's own update history: how stable the finish date is, how consistently it has moved, and how much float the programme has used up.

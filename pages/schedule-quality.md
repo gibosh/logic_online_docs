@@ -9,8 +9,6 @@ last-reviewed: 2026-09-23
 blocked-reason: Renamed page title/H1 from "DCMA 14-Point Check" to "Schedule Quality" 2026-09-23, matching the module tile and sidebar parent link naming everywhere else on the site – the page has covered four quality profiles (DCMA plus two CIOB PP21 variants plus Best Practice) since at least 2026-09-08's review, and the old title no longer reflected that scope. Also fixed the CIOB PP21 Standard threshold wording, which contradicted the page's own later explanation of which checks it omits.
 ---
 
-## Overview
-
 A forecast or delay analysis is only as reliable as the schedule behind it. Schedule Quality runs an automated health check on every schedule uploaded to a project and tells you, as a plain pass or fail, whether each one meets an industry quality standard.
 
 A planner or client can run the same checks by hand in P6, and if they find a quality problem before you do, it undermines your analysis. Running the check automatically, every time a new schedule is uploaded, means each analysis starts from a current, documented quality position.

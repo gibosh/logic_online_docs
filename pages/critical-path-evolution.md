@@ -9,8 +9,6 @@ last-reviewed: 2026-09-25
 blocked-reason: Fixed three references to "Gantt Viewer's Delay Analysis mode" (Delay Analysis is its own module now, not a mode of the Gantt Viewer) caught in the 2026-09-25 sitewide drift audit – this page predated the 2026-09-24 module-framing correction and was missed by it since it's an Analytics page, not one of the Delay Analysis pages themselves. Content below is written and corrected from direct code analysis (frontend/src/analytics/impactWindows/, frontend/src/components/modules/CriticalPathEvolutionModule/) but has not yet been checked against the running app. Confirm chart interaction, hover behaviour, and on-screen wording before promoting to complete.
 ---
 
-## Overview
-
 At any point in a project, one activity, or a chain of activities, drives the finish date: if it slips further, the finish date moves. Which activity that is can change between reporting periods, sometimes without anyone noticing.
 
 Critical Path Evolution shows which activity drove the project finish date in each reporting period, whether a different activity took over between updates, and how much of the delay at each period was newly caused there compared with delay carried forward from earlier in the path.
