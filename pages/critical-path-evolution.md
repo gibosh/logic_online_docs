@@ -9,45 +9,43 @@ last-reviewed: 2026-09-25
 blocked-reason: Fixed three references to "Gantt Viewer's Delay Analysis mode" (Delay Analysis is its own module now, not a mode of the Gantt Viewer) caught in the 2026-09-25 sitewide drift audit – this page predated the 2026-09-24 module-framing correction and was missed by it since it's an Analytics page, not one of the Delay Analysis pages themselves. Content below is written and corrected from direct code analysis (frontend/src/analytics/impactWindows/, frontend/src/components/modules/CriticalPathEvolutionModule/) but has not yet been checked against the running app. Confirm chart interaction, hover behaviour, and on-screen wording before promoting to complete.
 ---
 
-## Critical Path Evolution
+## Overview
 
-At any point in a project, one activity (or chain of activities) is actually in the driver's seat – the thing that, if it slips further, directly moves the project finish date. But that driver's seat can change hands between reporting periods, sometimes without anyone explicitly noticing.
+At any point in a project, one activity, or a chain of activities, drives the finish date: if it slips further, the finish date moves. Which activity that is can change between reporting periods, sometimes without anyone noticing.
 
-Critical Path Evolution shows which activity was driving the project finish date in each reporting period, whether that role passed to a different activity between updates, and how much of the delay shown at each period was newly caused there versus carried forward from an earlier part of the path.
+Critical Path Evolution shows which activity drove the project finish date in each reporting period, whether a different activity took over between updates, and how much of the delay at each period was newly caused there compared with delay carried forward from earlier in the path.
 
-In plain terms: who was in the driver's seat, and when did the wheel change hands.
-
-This shares its day-by-day delay math with [Delay Analysis](pages/delay-analysis.md), but it does not call that module's predecessor-based traceback. Instead, for each pair of schedule updates it builds its own driving chain from whichever activities are flagged critical in the newer update, then runs that chain through the same delay-attribution calculation. See "How it's calculated" below for what this means in practice.
+It uses the same day-by-day delay maths as [Delay Analysis](pages/delay-analysis.md), but not that module's predecessor-based traceback. For each pair of schedule updates, it builds its own driving chain from the activities flagged critical in the newer update, then runs that chain through the same delay-attribution calculation. "How the driving chain is built" below explains what this means in practice.
 
 ## Report details
 
-Two views, selected by tab:
+There are two views, each on its own tab.
 
-**Impact Windows Analysis** – one row per pair of consecutive schedule updates (a "window"), showing the activity or chain that drove the finish-date movement in that window, split into the portion already behind the data date (actual) versus the portion still ahead of it (prospective). Click a window row to expand it into the underlying activities as baseline-versus-current movement bars (ghost = previous update, solid = this update, coloured before/after the data date); click again to collapse. Only one window can be expanded at a time.
+**Impact Windows Analysis** has one row per pair of consecutive schedule updates (a "window"). Each row shows the activity or chain that drove the finish-date movement in that window, split into the part already behind the data date (actual) and the part still ahead of it (prospective). Click a window row to expand it into its activities, shown as baseline-against-current movement bars: the faint bar is the previous update, the solid bar this update, coloured differently before and after the data date. Click again to collapse it. Only one window can be expanded at a time.
 
-**WBS timeline** – the same driving-path history laid out across the full reporting period, grouped by work area (the schedule's own highest-level WBS breakdown), so you can see which parts of the project have taken over the critical path over time rather than window by window. Click one schedule row for its activity-level path, or click up to three rows to overlay them and compare shared versus divergent activities; selecting a fourth row drops the oldest selection.
+**WBS timeline** lays the same driving-path history across the full reporting period, grouped by work area (the schedule's highest-level WBS breakdown), so you can see which parts of the project have held the critical path over time. Click one schedule row to see its activity-level path, or click up to three rows to overlay them and compare which activities they share and where they differ. Selecting a fourth row drops the oldest selection.
 
 ## Calculation and other logic
 
 **Data used:** every uploaded schedule update, plus each activity's critical-path status and float.
 
-**How a window boundary is defined:** every uploaded schedule update is sorted into date order by its data date, and a "window" is the gap between one update and the very next one in that order. N uploaded updates therefore produce N−1 windows; a project with only one update produces none.
+**How a window boundary is defined:** the uploaded schedule updates are sorted by data date, and a "window" is the gap between one update and the next. N uploaded updates give N−1 windows, so a project with one update has none.
 
-**How the driving chain is built:** for each window, Logic+ takes every non-summary activity flagged critical in the newer schedule and sorts it chronologically by start date. "Critical" here means zero float for an activity that has already finished by that schedule's data date (using the same float resolver as the rest of the app), or P6's own critical flag for an activity that hasn't finished yet – P6 commonly stops reporting float once an activity completes, so the two checks are needed to cover the whole chain. This is a simpler method than the full predecessor-by-predecessor traceback Delay Analysis's Traceback method uses: it does not walk backward through logic links from a completion milestone, and if the schedule genuinely has more than one critical path, all of it is included as one time-ordered list rather than a single walked chain.
+**How the driving chain is built:** for each window, Logic+ takes every non-summary activity flagged critical in the newer schedule and sorts them by start date. "Critical" means zero float for an activity that had already finished by that schedule's data date (using the same float calculation as the rest of the app), or P6's own critical flag for an activity that hadn't finished. Both tests are needed because P6 often stops reporting float once an activity completes. This is simpler than the predecessor-by-predecessor traceback in Delay Analysis: it doesn't walk back through logic links from a completion milestone, and if the schedule has more than one critical path, all of them go into one list in date order.
 
-The chain is then trimmed to just the portion that changed since the previous window's data date, so unaffected early activities aren't recomputed for every window. Logic+ walks the chain from its earliest activity and moves the trim point forward past every activity that had **both** already finished before the window opened **and** shown no finish-date movement (within one day) from the previous update; everything from the last such "settled" activity onward is kept for recalculation.
+The chain is then trimmed to the part that changed since the previous window's data date, so unaffected early activities aren't recalculated for every window. Logic+ walks the chain from its earliest activity and moves the trim point past every activity that **both** finished before the window opened **and** shows no finish-date movement (within one day) from the previous update. Everything from the last of these settled activities onward is recalculated.
 
-**How the delay is attributed:** that trimmed chain is run through the same activity-by-activity delay-attribution calculation as Delay Analysis: each activity's own contribution is its finish-date variance minus the previous chain activity's, so a pure pass-through activity contributes close to nothing and only the activity that actually added delay is charged for it:
+**How the delay is attributed:** the trimmed chain goes through the same activity-by-activity delay-attribution calculation as Delay Analysis. Each activity's own contribution is its finish-date variance minus the previous chain activity's, so an activity that only passes delay along contributes close to nothing, and only the activity that added delay is charged for it:
 
 > An activity's own delay charge (working days) = round(its cumulative critical-path delay this window, including its own effect) − round(the previous chain activity's cumulative critical-path delay this window)
 
-Because the driving activity in a window is often one that hasn't started yet, its charge is split by how much of its duration has already elapsed at the data date: the elapsed portion counts as actual, the remainder as prospective.
+The driving activity in a window often hasn't started yet, so its charge is split by how much of its duration has elapsed at the data date. The elapsed part counts as actual and the rest as prospective:
 
 > Elapsed fraction = (data date − activity's start date) ÷ (activity's finish date − activity's start date), held between 0 and 1
 > Actual (already-elapsed) share of the charge = round(charge × elapsed fraction); Prospective (forecast) share = charge − actual share
 
-An activity that has already finished has its whole charge counted as actual; one that hasn't started yet has its whole charge counted as prospective – the elapsed-fraction formula only comes into play for an activity that's currently in progress.
+An activity that has finished has its whole charge counted as actual, and one that hasn't started has its whole charge counted as prospective, so the elapsed-fraction formula applies only to activities in progress.
 
 ## Important
 
-Most delay shown in this view is **forecast** – it represents delay in activities that have not yet started or finished. It has not yet happened in the way that completed-work delay has. The display makes this distinction explicit so that forecast delay is not read with the same weight as delay that is already locked in. This matters when this view is used in a delay-claim or dispute context.
+Most delay in this view is **forecast**: it's delay in activities that haven't started or finished yet, and it hasn't happened in the way that delay in completed work has. The display marks the difference so that forecast delay isn't given the same weight as delay that's already locked in. Bear this in mind if you use the view for a delay claim or dispute.
