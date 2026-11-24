@@ -485,7 +485,7 @@
             var b = document.createElement('button');
             b.id = 'toc-button'; b.className = 'h-theme toc-button'; b.type = 'button';
             b.title = 'On this page'; b.setAttribute('aria-label', 'On this page');
-            b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 6H3"/><path d="M21 12H9"/><path d="M21 18H9"/><path d="m3 10 3 2-3 2"/></svg>';
+            b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 6H11"/><path d="M21 12H11"/><path d="M21 18H11"/><path d="m7 8-4 4 4 4"/></svg>';
             b.addEventListener('click', function(e) { e.stopPropagation(); setTocDrawer(!document.body.classList.contains('toc-open')); });
             document.body.appendChild(b);
             document.addEventListener('click', function(e) {   // tap a heading or outside the panel to close
