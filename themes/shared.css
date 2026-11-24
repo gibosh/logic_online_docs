@@ -157,7 +157,7 @@ html[data-theme="dark"] .h-theme .icon-moon { display: none; }
 /* ── Home canvas ── */
 body.is-home { background: var(--home-bg); }
 body.is-home .content { max-width: none; }
-body.is-home .markdown-section { max-width: 1180px; padding: 0 40px 64px !important; }
+body.is-home .markdown-section { max-width: 1180px; margin: 0; padding: 0 40px 64px 32px !important; }   /* left-aligned like reading pages */
 .home { text-align: left; }
 .home a { text-decoration: none !important; }
 
