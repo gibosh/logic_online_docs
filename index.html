@@ -444,6 +444,18 @@
         depth: 3
       },
       plugins: [
+        // Flash the heading you jumped to (?id=...) so you can see where you landed
+        function(hook) {
+          function flash() {
+            var m = location.hash.match(/[?&]id=([^&]+)/);
+            var h = m && document.getElementById(decodeURIComponent(m[1]));
+            if (!h) return;
+            h.classList.remove('just-landed'); void h.offsetWidth;  // restart if clicked again
+            h.classList.add('just-landed');
+          }
+          hook.doneEach(function() { setTimeout(flash, 50); });
+          window.addEventListener('hashchange', function() { setTimeout(flash, 50); });
+        },
         // Strip YAML frontmatter before render (keeping last-reviewed for the "Updated" label)
         function(hook) {
           hook.beforeEach(function(content) {

@@ -314,6 +314,13 @@ body { background: var(--c-page); color: var(--c-text); }
 body:not(.is-home) section.content { padding-top: 0; }
 body:not(.is-home) .markdown-section { padding-top: 32px !important; }
 
+/* Heading you just jumped to: brief amber wash that fades out */
+.markdown-section .just-landed { animation: landed 2.2s ease-out; border-radius: var(--radius-default); }
+@keyframes landed {
+  0%, 35% { background: color-mix(in srgb, var(--schedule-accent-4) 28%, transparent); box-shadow: -8px 0 0 color-mix(in srgb, var(--schedule-accent-4) 28%, transparent); }
+  100% { background: transparent; box-shadow: none; }
+}
+
 /* "On this page" */
 .page-toc { display: none; }
 @media (min-width: 1300px) {
