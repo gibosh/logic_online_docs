@@ -620,6 +620,30 @@
             });
           });
 
+          // Footer: Previous / Next page (in sidebar order) and copyright
+          hook.doneEach(function() {
+            var sec = document.querySelector('.markdown-section');
+            if (!sec || sec.querySelector('.page-footer') || sec.querySelector('.home')) return;
+            var seen = {}, pages = [];
+            document.querySelectorAll('.sidebar-nav a[href^="#/"]').forEach(function(a) {
+              var href = a.getAttribute('href');
+              if (href.indexOf('?id=') > -1) return;   // section links aren't pages
+              if (seen[href]) { seen[href].title = a.textContent.trim(); return; }   // e.g. Licensing → Signing Up: use the page's own name
+              seen[href] = { href: href, title: a.textContent.trim() }; pages.push(seen[href]);
+            });
+            var here = location.hash.split('?')[0];
+            var i = pages.findIndex(function(p) { return p.href === here; });
+            function link(p, cls, label) {
+              return p ? '<a class="pf-link ' + cls + '" href="' + p.href + '"><span>' + label + '</span>' + p.title.replace(/\s*\(.*\)$/, '') + '</a>' : '<span></span>';
+            }
+            var f = document.createElement('footer');
+            f.className = 'page-footer';
+            f.innerHTML = (i < 0 ? '' : '<nav class="pf-nav" aria-label="Previous and next page">' +
+                link(pages[i - 1], 'pf-prev', 'Previous') + link(pages[i + 1], 'pf-next', 'Next') + '</nav>') +
+              '<p class="pf-copy">Copyright © ' + new Date().getFullYear() + ' LWARE</p>';
+            sec.appendChild(f);
+          });
+
           // Append feedback widget to every page
           hook.afterEach(function(html) {
             return html + [

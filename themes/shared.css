@@ -365,6 +365,17 @@ body:not(.is-home) .markdown-section { padding-top: 32px !important; }
 .feedback-link { color: var(--c-link); }
 .feedback-link:hover { color: var(--c-link-hover); }
 
+/* Page footer: Previous / Next and copyright (as on the SMART help site) */
+.page-footer { margin-top: 40px; }
+.pf-nav { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid var(--c-border); }
+.markdown-section .pf-link { display: flex; flex-direction: column; gap: 2px; font-size: 14px; font-weight: 500; text-decoration: none; }
+.markdown-section .pf-link:hover { text-decoration: underline; }
+.pf-link span { font-size: 12px; font-weight: 400; color: var(--c-subtle); }
+.pf-prev span::before { content: "‹ "; }
+.pf-next { text-align: right; }
+.pf-next span::after { content: " ›"; }
+.markdown-section .pf-copy { margin: 16px 0 0; font-size: 12px; color: var(--c-subtle); }
+
 /* ── Narrow screens: keep the header on one line ── */
 @media (max-width: 760px) {
   .h-left { min-width: 0; }
