@@ -506,6 +506,26 @@
             document.body.appendChild(nav);
           }
 
+          // Narrower screens: the panel is hidden, so a button opens it as a drawer from the right
+          function setTocDrawer(open) {
+            document.body.classList.toggle('toc-open', open);
+            var b = document.getElementById('toc-button');
+            if (b) b.setAttribute('aria-expanded', open);
+          }
+          function addTocButton() {
+            if (document.getElementById('toc-button')) return;
+            var b = document.createElement('button');
+            b.id = 'toc-button'; b.className = 'h-theme toc-button'; b.type = 'button';
+            b.title = 'On this page'; b.setAttribute('aria-label', 'On this page');
+            b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 6H3"/><path d="M21 12H9"/><path d="M21 18H9"/><path d="m3 10 3 2-3 2"/></svg>';
+            b.addEventListener('click', function(e) { e.stopPropagation(); setTocDrawer(!document.body.classList.contains('toc-open')); });
+            document.body.appendChild(b);
+            document.addEventListener('click', function(e) {   // tap a heading or outside the panel to close
+              if (document.body.classList.contains('toc-open') && (!e.target.closest('.page-toc') || e.target.closest('.page-toc a'))) setTocDrawer(false);
+            });
+            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') setTocDrawer(false); });
+          }
+
           function highlightToc() {
             var links = document.querySelectorAll('.page-toc a');
             if (!links.length) return;
@@ -560,7 +580,9 @@
                 h1.parentNode.insertBefore(eb, h1);
               }
             }
+            setTocDrawer(false);
             buildToc();
+            addTocButton();
             highlightToc();
           });
         },
