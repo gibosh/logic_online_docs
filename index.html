@@ -579,7 +579,7 @@
           // Footer: Previous / Next page (in sidebar order) and copyright
           hook.doneEach(function() {
             var sec = document.querySelector('.markdown-section');
-            if (!sec || sec.querySelector('.page-footer') || sec.querySelector('.home')) return;
+            if (!sec || sec.querySelector('.page-footer')) return;
             var seen = {}, pages = [];
             document.querySelectorAll('.sidebar-nav a[href^="#/"]').forEach(function(a) {
               var href = a.getAttribute('href');
