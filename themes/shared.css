@@ -315,10 +315,12 @@ body { background: var(--c-page); color: var(--c-text); }
 @media (min-width: 1300px) {
   body:not(.is-home) section.content { padding-right: calc(var(--toc-width) + 40px); }
   body:not(.is-home) .content { max-width: none; }
-  body:not(.is-home) .markdown-section { max-width: 760px; }
+  /* Text column sits left (next to the sidebar), not centred; the panel follows right after it */
+  body:not(.is-home) .markdown-section { max-width: 760px; margin: 0; padding-left: 32px; }
   body:not(.is-home) .page-toc {
     display: block; position: fixed; z-index: 20;
-    top: calc(var(--header-height) + 32px); right: 32px; width: var(--toc-width);
+    top: calc(var(--header-height) + 32px); width: var(--toc-width);
+    left: min(1123px, calc(100vw - var(--toc-width) - 32px)); /* 300 sidebar + 15 docsify gutter + 760 column + 48 gap */
     max-height: calc(100vh - var(--header-height) - 64px); overflow-y: auto;
   }
 }
