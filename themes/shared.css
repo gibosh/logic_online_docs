@@ -310,6 +310,10 @@ body { background: var(--c-page); color: var(--c-text); }
 .page-eyebrow .pe-module { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--c-eyebrow); }
 .page-eyebrow .pe-date::before { content: "·"; margin-right: 8px; color: var(--palette-neutral-300); }
 
+/* Reading pages: drop docsify's 60px top padding (it clears a nav bar we don't use) */
+body:not(.is-home) section.content { padding-top: 0; }
+body:not(.is-home) .markdown-section { padding-top: 32px !important; }
+
 /* "On this page" */
 .page-toc { display: none; }
 @media (min-width: 1300px) {
