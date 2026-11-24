@@ -1,5 +1,11 @@
 * [Home](/)
 * [Getting Started](guides/getting-started)
+  * [What is Logic+ Online?](guides/getting-started?id=what-is-logic-online)
+  * [Logging in](guides/getting-started?id=logging-in)
+  * [Choosing a workspace](guides/getting-started?id=choosing-a-workspace)
+  * [Quick Start](guides/getting-started?id=quick-start)
+  * [The modules](guides/getting-started?id=the-modules)
+  * [Getting help](guides/getting-started?id=getting-help)
 
 ---
 
