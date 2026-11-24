@@ -313,38 +313,6 @@
     }
     .grid-group-label:first-of-type { margin-top: 0; }
 
-    /* ── PAGE FEEDBACK WIDGET ── */
-    .page-feedback {
-      margin-top: 64px;
-      padding-top: 24px;
-      border-top: 1px solid #e2e8ea;
-    }
-    .feedback-question { font-size: 14px; font-weight: 600; color: #00203D; margin: 0 0 12px; }
-    .feedback-btns { display: flex; gap: 8px; margin-bottom: 14px; align-items: center; }
-    .feedback-btn {
-      border: 1px solid #d1d5db;
-      border-radius: 16px;
-      padding: 5px 16px;
-      font-size: 13px;
-      cursor: pointer;
-      background: #fff;
-      color: #374151;
-      transition: border-color 0.15s, background 0.15s, color 0.15s;
-    }
-    .feedback-btn:hover {
-      border-color: #00B8AF;
-      color: #00203D;
-      background: rgba(0,184,175,0.05);
-    }
-    .feedback-thanks { font-size: 14px; color: #64748b; }
-    .feedback-link {
-      display: inline-block;
-      font-size: 13px;
-      color: #00B8AF;
-      text-decoration: none;
-    }
-    .feedback-link:hover { text-decoration: underline; color: #009990; }
-
     #app {
       text-align: center;
       padding: 80px 20px;
@@ -586,7 +554,7 @@
             highlightToc();
           });
         },
-        // Move search to header, update active tab, add feedback widget
+        // Move search to header, update active tab
         function(hook) {
           hook.mounted(function() {
             // Move the Docsify search element into the header slot
@@ -606,18 +574,6 @@
           hook.doneEach(function() {
             // Add module icons to the left sidebar's top-level links
             addSidebarIcons();
-
-            // Wire feedback buttons (added by afterEach)
-            document.querySelectorAll('.feedback-btn').forEach(function(btn) {
-              if (btn.dataset.wired) return;
-              btn.dataset.wired = '1';
-              btn.addEventListener('click', function() {
-                var container = this.closest('.feedback-btns');
-                if (container) {
-                  container.innerHTML = '<span class="feedback-thanks">Thanks for your feedback.</span>';
-                }
-              });
-            });
           });
 
           // Footer: Previous / Next page (in sidebar order) and copyright
@@ -642,20 +598,6 @@
                 link(pages[i - 1], 'pf-prev', 'Previous') + link(pages[i + 1], 'pf-next', 'Next') + '</nav>') +
               '<p class="pf-copy">Copyright © ' + new Date().getFullYear() + ' LWARE</p>';
             sec.appendChild(f);
-          });
-
-          // Append feedback widget to every page
-          hook.afterEach(function(html) {
-            return html + [
-              '<div class="page-feedback">',
-              '  <p class="feedback-question">Did this page help you?</p>',
-              '  <div class="feedback-btns">',
-              '    <button class="feedback-btn">&#128077; Yes</button>',
-              '    <button class="feedback-btn">&#128078; No</button>',
-              '  </div>',
-              '  <a href="mailto:support@lware.com?subject=Logic%2B%20Help%20Feedback" class="feedback-link">Provide feedback</a>',
-              '</div>'
-            ].join('\n');
           });
         }
       ]
